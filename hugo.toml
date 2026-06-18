@@ -1,0 +1,7 @@
+baseURL = 'https://justnpc.com/'
+languageCode = 'en-us'
+title = 'JustNPC'
+theme = 'PaperMod'
+
+[params]
+    defaultTheme = 'dark'
