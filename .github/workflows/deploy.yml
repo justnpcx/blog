@@ -29,4 +29,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          command: pages deploy public --project-name=blog # 这里的 project-name 填写你刚才在 CF 上创建成功的 Worker/Project 名字
+          # 显式使用 wrangler 原生命令，强制对齐新版静态资产分发引擎
+          command: pages deploy public --project-name=blog
