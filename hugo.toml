@@ -1,7 +1,109 @@
 baseURL = 'https://justnpc.com/'
-languageCode = 'en-us'
+locale = 'zh-CN'
 title = 'JustNPC'
 theme = 'PaperMod'
+paginate = 10
+enableEmoji = true
+
+[markup]
+  [markup.highlight]
+    style = 'dracula'
+    lineNos = false
+    noClasses = true
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
 
 [params]
-    defaultTheme = 'dark'
+  env = 'production'
+  defaultTheme = 'dark'
+  ShowReadingTime = true
+  ShowWordCount = true
+  ShowShareButtons = true
+  ShowPostNavLinks = true
+  ShowBreadCrumbs = true
+  ShowCodeCopyButtons = true
+  ShowToc = true
+  TocOpen = false
+  ShowRssButtonInSectionTermList = true
+  DateFormat = '2006-01-02'
+  description = '一个 NPC 的觉醒日志——探索认知边界、系统思维与灵性智慧的交汇之地。'
+  author = 'JustNPC'
+
+  [params.label]
+    text = '⚡ JustNPC'
+
+  [params.profileMode]
+    enabled = true
+    title = 'JustNPC'
+    subtitle = """🎮 不是主角，但正在觉醒\n\n在代码与哲学的交汇处，探索认知的边界。\n用第一性原理拆解问题，用灵性智慧重构实相。\n\n> *"地图不是疆域，但我正在重绘我的地图。"*"""
+
+    [[params.profileMode.buttons]]
+      name = '📝 阅读博客'
+      url = '/posts/'
+
+    [[params.profileMode.buttons]]
+      name = '🏷️ 标签索引'
+      url = '/tags/'
+
+  [params.homeInfoParams]
+    Title = '⚡ 欢迎来到 NPC 的世界'
+    Content = """
+🎮 不是主角，但正在觉醒。
+
+在代码与哲学的交汇处，探索认知的边界。
+用第一性原理拆解问题，用灵性智慧重构实相。
+
+> *"地图不是疆域，但我正在重绘我的地图。"*
+"""
+
+  [[params.socialIcons]]
+    name = 'github'
+    url = 'https://github.com/justnpcx'
+
+  [[params.socialIcons]]
+    name = 'email'
+    url = 'mailto:justnpcx@gmail.com'
+
+  [params.cover]
+    linkFullImages = true
+    responsiveImages = true
+
+  [params.assets]
+    disableFingerprinting = false
+
+  [params.fuseOpts]
+    isCaseSensitive = false
+    shouldSort = true
+    location = 0
+    distance = 1000
+    threshold = 0.4
+    minMatchCharLength = 0
+    keys = ['title', 'permalink', 'summary', 'content']
+
+[[menu.main]]
+  identifier = 'posts'
+  name = '📝 博客'
+  url = '/posts/'
+  weight = 10
+
+[[menu.main]]
+  identifier = 'tags'
+  name = '🏷️ 标签'
+  url = '/tags/'
+  weight = 20
+
+[[menu.main]]
+  identifier = 'search'
+  name = '🔍 搜索'
+  url = '/search/'
+  weight = 30
+
+[[menu.main]]
+  identifier = 'archives'
+  name = '📚 归档'
+  url = '/archives/'
+  weight = 40
+
+[outputs]
+  home = ['HTML', 'RSS', 'JSON']
