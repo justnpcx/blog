@@ -29,9 +29,5 @@ jobs:
         with:
           apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
           accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
-          # 1. 强行告诉插件：这是一个 Pages 纯静态资产项目，不需要找 wrangler.toml
-          isPagesProject: true
-          # 2. 告诉它要在哪个 Cloudflare 项目上覆盖资产
-          projectName: blog
-          # 3. 告诉它把本地编译出来的哪个文件夹推上去
-          directory: public
+          # 用最纯粹的原生命令：指定发布为 pages 资产、指定目录为 public、指定项目名为 blog
+          command: pages deploy public --project-name=blog
