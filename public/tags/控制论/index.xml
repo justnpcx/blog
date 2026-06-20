@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>控制论 on ⚡ JustNPC</title>
+		<link>http://localhost:1313/tags/%E6%8E%A7%E5%88%B6%E8%AE%BA/</link>
+		<description>Recent content in 控制论 on ⚡ JustNPC</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+		
+		
+		
+			<lastBuildDate>Sat, 20 Jun 2026 01:00:00 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/tags/%E6%8E%A7%E5%88%B6%E8%AE%BA/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</title>
+				<link>http://localhost:1313/posts/twelve-presuppositions-decoded/</link>
+				<pubDate>Sat, 20 Jun 2026 01:00:00 +0800</pubDate>
+				<guid>http://localhost:1313/posts/twelve-presuppositions-decoded/</guid>
+				<description>剥离一切技术外壳，从认识论、控制论、系统论与灵性智慧四个维度，潜入 NLP 十二条前提假设的最底层逻辑骨架。</description>
+			</item>
+	</channel>
+</rss>
