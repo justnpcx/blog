@@ -24,7 +24,7 @@
 
   {{ partial "post/footer-meta.html" . }}
 
-  {{- if .Site.Params.giscus -}}
+  {{- if .Site.Params.waline -}}
     {{ partial "comments.html" . }}
   {{- end -}}
 </article>
