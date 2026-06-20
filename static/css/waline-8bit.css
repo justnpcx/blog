@@ -4,44 +4,120 @@
  */
 
 /* =========================================
- * 1. 全局变量重写
+ * 1. 全局 Waline CSS 变量强制覆盖
  * ========================================= */
 :root {
-  --waline-theme-color: #ffd700;
-  --waline-active-color: #ffaa00;
-  --waline-font-size: 14px;
-  --waline-border-radius: 0px;
-  --waline-box-shadow: none;
-  --waline-box-shadow-hover: none;
-  --waline-box-shadow-active: none;
-  --waline-border: 2px solid rgba(255,255,255,0.4);
-  --waline-avatar-radius: 0px;
-  --waline-bgcolor: transparent;
-  --waline-bgcolor-hover: rgba(255,255,255,0.05);
-  --waline-bgcolor-light: rgba(0,0,0,0.3);
-  --waline-color: #ccc;
-  --waline-border-color: rgba(255,255,255,0.3);
+  --waline-theme-color: #ffd700 !important;
+  --waline-active-color: #ffaa00 !important;
+  --waline-font-size: 14px !important;
+  --waline-border-radius: 0px !important;
+  --waline-box-shadow: none !important;
+  --waline-avatar-radius: 0px !important;
+  --waline-bg-color: rgba(0,0,0,0.4) !important;
+  --waline-bg-color-light: rgba(0,0,0,0.3) !important;
+  --waline-bg-color-hover: rgba(255,255,255,0.05) !important;
+  --waline-color: #ccc !important;
+  --waline-border-color: rgba(255,255,255,0.3) !important;
+  --waline-disable-color: rgba(255,255,255,0.25) !important;
+  --waline-info-bgcolor: rgba(0,0,0,0.5) !important;
+  --waline-info-color: #ccc !important;
+}
+
+/* Dark 模式下也强制覆盖 */
+[data-dark-theme="dark"],
+[data-waline-dark],
+.wl-dark,
+html {
+  --waline-bg-color: rgba(0,0,0,0.4) !important;
+  --waline-bg-color-light: rgba(0,0,0,0.3) !important;
+  --waline-bg-color-hover: rgba(255,255,255,0.05) !important;
+  --waline-color: #ccc !important;
+  --waline-border-color: rgba(255,255,255,0.3) !important;
 }
 
 /* 强制像素字体 */
+#waline,
 #waline * {
   font-family: 'Fusion Pixel 12px', 'Courier New', monospace !important;
 }
 
 /* =========================================
- * 2. 评论输入框面板
+ * 2. 输入框 — 用最高优先级彻底干掉白色背景
  * ========================================= */
+
+/* 所有 input 元素全部强制暗色 */
+#waline input,
+#waline input:focus,
+#waline input:active,
+#waline input:hover,
+#waline .wl-header input,
+#waline .wl-header input:focus,
+#waline .wl-header input:active,
+#waline .wl-header-item input,
+#waline .wl-header-item input:focus,
+#waline .wl-header-item input:active,
+.wl-panel input,
+.wl-panel input:focus,
+.wl-panel input:active {
+  background-color: rgba(0, 0, 0, 0.5) !important;
+  background: rgba(0, 0, 0, 0.5) !important;
+  color: #ffffff !important;
+  caret-color: #ffd700 !important;
+  border-color: rgba(255,255,255,0.3) !important;
+  -webkit-text-fill-color: #ffffff !important;
+}
+
+#waline input::placeholder,
+.wl-panel input::placeholder {
+  color: rgba(255,255,255,0.35) !important;
+  -webkit-text-fill-color: rgba(255,255,255,0.35) !important;
+}
+
+/* 主编辑区（textarea / contenteditable） */
+#waline .wl-editor,
+#waline .wl-editor:focus,
+#waline .wl-editor:active,
+.wl-panel .wl-editor,
+.wl-panel .wl-editor:focus,
+.wl-panel .wl-editor:active {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+  caret-color: #ffd700 !important;
+  font-size: 14px !important;
+  padding: 15px !important;
+  min-height: 120px;
+}
+
+/* textarea 也兜底 */
+#waline textarea,
+#waline textarea:focus,
+#waline textarea:active {
+  background-color: rgba(0, 0, 0, 0.3) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
+  color: #e0e0e0 !important;
+  -webkit-text-fill-color: #e0e0e0 !important;
+}
+
+/* =========================================
+ * 3. 面板整体
+ * ========================================= */
+#waline .wl-panel,
 .wl-panel {
   border: 2px solid rgba(255,255,255,0.3) !important;
   background-color: rgba(0, 0, 0, 0.4) !important;
+  background: rgba(0, 0, 0, 0.4) !important;
   margin-bottom: 20px;
   box-shadow: 4px 4px 0px rgba(0,0,0,0.5) !important;
 }
 
 /* 顶部信息栏 */
+#waline .wl-header,
 .wl-header {
   border-bottom: 2px dashed rgba(255,255,255,0.15) !important;
   background-color: rgba(0, 0, 0, 0.3) !important;
+  background: rgba(0, 0, 0, 0.3) !important;
 }
 
 .wl-header-item {
@@ -51,50 +127,14 @@
   border-right: none !important;
 }
 
-/* 输入框 — 修复聚焦时白底白字问题 */
-.wl-header input,
-.wl-header-item input {
-  color: #e0e0e0 !important;
-  background-color: transparent !important;
-  caret-color: #ffd700 !important;
-}
-
-.wl-header input:focus,
-.wl-header-item input:focus {
-  color: #ffffff !important;
-  background-color: rgba(0, 0, 0, 0.5) !important;
-  outline: 1px solid #ffd700 !important;
-}
-
-.wl-header input::placeholder {
-  color: rgba(255,255,255,0.35) !important;
-}
-
-/* 主编辑器 */
-.wl-editor {
-  font-size: 14px !important;
-  padding: 15px !important;
-  color: #e0e0e0 !important;
-  background-color: transparent !important;
-  min-height: 120px;
-}
-
-.wl-editor:focus {
-  color: #ffffff !important;
-  background-color: rgba(0, 0, 0, 0.3) !important;
-}
-
-.wl-editor::placeholder,
-.wl-editor[placeholder]::before {
-  color: rgba(255,255,255,0.35) !important;
-}
-
 /* =========================================
- * 3. 按钮 (Game Controller 风格)
+ * 4. 按钮 (Game Controller 风格)
  * ========================================= */
+#waline .wl-btn,
 .wl-btn {
   border: 2px solid rgba(255,255,255,0.6) !important;
   background-color: #111 !important;
+  background: #111 !important;
   color: #fff !important;
   font-weight: bold;
   text-transform: uppercase;
@@ -102,18 +142,21 @@
   transition: all 0.1s !important;
 }
 
+#waline .wl-btn:hover,
 .wl-btn:hover {
   background-color: #ffd700 !important;
+  background: #ffd700 !important;
   color: #000 !important;
 }
 
+#waline .wl-btn:active,
 .wl-btn:active {
   box-shadow: 0px 0px 0px #ffd700 !important;
   transform: translate(2px, 2px);
 }
 
 /* =========================================
- * 4. 评论列表
+ * 5. 评论列表
  * ========================================= */
 .wl-card {
   border-bottom: 2px dashed rgba(255,255,255,0.15) !important;
@@ -135,7 +178,6 @@
   image-rendering: pixelated; 
 }
 
-/* 用户名与元信息 */
 .wl-nick {
   color: #ffd700 !important;
 }
@@ -144,33 +186,27 @@
   color: rgba(255,255,255,0.4) !important;
 }
 
-/* 徽章 */
 .wl-badge {
   border: 1px solid currentColor !important;
   background: transparent !important;
   border-radius: 0 !important;
   padding: 0 4px !important;
-  margin-right: 5px !important;
   font-size: 10px !important;
   text-transform: uppercase;
 }
 
 /* =========================================
- * 5. 底栏与隐藏多余功能
+ * 6. 隐藏多余功能
  * ========================================= */
-
-/* 隐藏登录按钮等 */
 .wl-login-info,
 .wl-power {
   display: none !important;
 }
 
-/* 底部工具栏 */
 .wl-footer {
   border-top: 1px dashed rgba(255,255,255,0.15) !important;
 }
 
-/* 评论数和空状态提示 */
 .wl-count,
 .wl-empty {
   color: rgba(255,255,255,0.5) !important;
