@@ -1,0 +1,19 @@
+{{- if in (default (slice "posts") .Site.Params.mainSections) .Section -}}
+<div class="comments" style="margin-top: 2rem;">
+  <script src="https://giscus.app/client.js"
+    data-repo="{{ .Site.Params.giscus.repo }}"
+    data-repo-id="{{ .Site.Params.giscus.repoId }}"
+    data-category="{{ .Site.Params.giscus.category }}"
+    data-category-id="{{ .Site.Params.giscus.categoryId }}"
+    data-mapping="{{ default "pathname" .Site.Params.giscus.mapping }}"
+    data-strict="{{ default "0" .Site.Params.giscus.strict }}"
+    data-reactions-enabled="{{ default "1" .Site.Params.giscus.reactionsEnabled }}"
+    data-emit-metadata="0"
+    data-input-position="{{ default "top" .Site.Params.giscus.inputPosition }}"
+    data-theme="{{ default "dark" .Site.Params.giscus.theme }}"
+    data-lang="{{ default "zh-CN" .Site.Params.giscus.lang }}"
+    crossorigin="anonymous"
+    async>
+  </script>
+</div>
+{{- end -}}

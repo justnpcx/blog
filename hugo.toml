@@ -63,5 +63,17 @@ defaultContentLanguageInSubdir = false
       github = 'https://github.com/justnpcx'
       email = 'mailto:justnpcx@gmail.com'
 
+  [params.giscus]
+    repo = 'justnpcx/blog'
+    repoId = 'R_kgDOS-f09g'
+    category = 'Announcements'
+    categoryId = 'DIC_kwDOS-f09s4C_hrP'
+    mapping = 'pathname'
+    strict = '0'
+    reactionsEnabled = '1'
+    inputPosition = 'bottom'
+    theme = 'preferred_color_scheme'
+    lang = 'zh-CN'
+
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
