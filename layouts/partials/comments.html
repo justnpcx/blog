@@ -1,19 +1,36 @@
 {{- if in (default (slice "posts") .Site.Params.mainSections) .Section -}}
-<div class="comments" style="margin-top: 2rem;">
-  <script src="https://giscus.app/client.js"
-    data-repo="{{ .Site.Params.giscus.repo }}"
-    data-repo-id="{{ .Site.Params.giscus.repoId }}"
-    data-category="{{ .Site.Params.giscus.category }}"
-    data-category-id="{{ .Site.Params.giscus.categoryId }}"
-    data-mapping="{{ default "pathname" .Site.Params.giscus.mapping }}"
-    data-strict="{{ default "0" .Site.Params.giscus.strict }}"
-    data-reactions-enabled="{{ default "1" .Site.Params.giscus.reactionsEnabled }}"
-    data-emit-metadata="0"
-    data-input-position="{{ default "top" .Site.Params.giscus.inputPosition }}"
-    data-theme="{{ default "dark" .Site.Params.giscus.theme }}"
-    data-lang="{{ default "zh-CN" .Site.Params.giscus.lang }}"
-    crossorigin="anonymous"
-    async>
+<div class="comments" style="margin-top: 3rem; padding-top: 1rem; border-top: 2px dashed var(--code-border);">
+  <h3 style="margin-bottom: 1rem; font-family: 'Fusion Pixel 12px', monospace; color: var(--color-text);">NPC 交流终端</h3>
+  
+  <head>
+    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+    <!-- 引入我们自定义的 8-bit CSS -->
+    <link rel="stylesheet" href="{{ "css/waline-8bit.css" | relURL }}" />
+  </head>
+  
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
+
+    // 只有当 ServerURL 被实际配置时才初始化
+    const serverURL = '{{ .Site.Params.waline.serverURL }}';
+    if (serverURL && serverURL !== 'YOUR_SERVER_URL_HERE') {
+      init({
+        el: '#waline',
+        serverURL: serverURL,
+        dark: '{{ default "html[data-dark-theme=\"dark\"]" .Site.Params.waline.dark }}',
+        emoji: [
+          'https://unpkg.com/@waline/emojis@1.1.0/weibo'
+        ],
+        search: false,
+        imageUploader: false, // 纯文本交流更复古
+        wordLimit: 500,
+        placeholder: '输入你的留言... [ 按 Enter 换行 ]',
+        reaction: true, // 保留一些互动
+      });
+    } else {
+      document.getElementById('waline').innerHTML = '<p style="font-family: \'Fusion Pixel 12px\', monospace; color: #ff5555;">[ 系统提示 ] 评论模块未初始化，等待主控端接入...</p>';
+    }
   </script>
 </div>
 {{- end -}}

@@ -1,0 +1,159 @@
+/* 
+ * 🎮 Waline 8-bit RPG Style Override
+ * NPC 专属：将现代评论区魔改成复古像素对话框 
+ */
+
+/* =========================================
+ * 1. 全局变量重写 (适配 trainsh 主题的 Retro 模式)
+ * ========================================= */
+:root {
+  /* 基础颜色调整为复古游戏风 */
+  --waline-theme-color: #ffd700; /* 金币/提示高亮色 */
+  --waline-active-color: #ffaa00;
+  
+  /* 字体全部强制使用像素字体 */
+  --waline-font-size: 14px;
+  
+  /* 去除所有的现代圆角和阴影 */
+  --waline-border-radius: 0px;
+  --waline-box-shadow: none;
+  --waline-box-shadow-hover: none;
+  --waline-box-shadow-active: none;
+  
+  /* 边框样式 */
+  --waline-border: 2px solid var(--text-color, #ffffff);
+  
+  /* 头像使用像素风格默认，隐藏社交登录 */
+  --waline-avatar-radius: 0px;
+}
+
+/* 强制使用主题自带的像素字体 */
+#waline * {
+  font-family: 'Fusion Pixel 12px', 'Courier New', monospace !important;
+}
+
+/* =========================================
+ * 2. 评论输入框面板 (RPG 文本输入界面)
+ * ========================================= */
+
+.wl-panel {
+  border: var(--waline-border) !important;
+  background-color: transparent !important;
+  margin-bottom: 20px;
+  /* 模拟 8-bit 下落阴影 */
+  box-shadow: 4px 4px 0px rgba(0,0,0,0.5) !important;
+}
+
+/* 顶部信息栏 (昵称/邮箱/网址) */
+.wl-header {
+  border-bottom: 2px dashed var(--code-border, rgba(255,255,255,0.2)) !important;
+  background-color: rgba(0, 0, 0, 0.2);
+}
+
+.wl-header-item {
+  border-right: 2px dashed var(--code-border, rgba(255,255,255,0.2)) !important;
+}
+.wl-header-item:last-child {
+  border-right: none !important;
+}
+
+/* 输入框 */
+.wl-editor {
+  font-size: 16px !important;
+  padding: 15px !important;
+  color: var(--color-text, #fff) !important;
+}
+
+/* =========================================
+ * 3. 按钮与交互 (Game Controller 风格)
+ * ========================================= */
+
+.wl-btn {
+  border: 2px solid var(--color-text, #fff) !important;
+  background-color: #000 !important;
+  color: #fff !important;
+  font-weight: bold;
+  text-transform: uppercase;
+  /* 按钮凸起感 */
+  box-shadow: 2px 2px 0px var(--waline-theme-color) !important;
+  transition: all 0.1s !important;
+}
+
+.wl-btn:hover {
+  background-color: var(--waline-theme-color) !important;
+  color: #000 !important;
+}
+
+.wl-btn:active {
+  box-shadow: 0px 0px 0px var(--waline-theme-color) !important;
+  transform: translate(2px, 2px);
+}
+
+/* 提交按钮文字替换（通过伪元素隐藏原字，加上我们自己的）*/
+.wl-btn.wl-action {
+  position: relative;
+  width: 120px;
+}
+.wl-btn.wl-action span {
+  display: none;
+}
+.wl-btn.wl-action::after {
+  content: "▶ START";
+  display: block;
+}
+
+/* =========================================
+ * 4. 评论列表 (对白气泡)
+ * ========================================= */
+
+.wl-card {
+  border-bottom: 2px dashed var(--code-border, rgba(255,255,255,0.2)) !important;
+  padding: 15px 0 !important;
+}
+
+.wl-avatar {
+  border: 2px solid var(--color-text, #fff) !important;
+  padding: 2px;
+  background: #000;
+}
+
+.wl-avatar img {
+  border-radius: 0 !important;
+  /* 开启图像的像素渲染，让头像即使不是像素图也呈现颗粒感 */
+  image-rendering: pixelated; 
+}
+
+/* 徽章 (Admin / System / OS / Browser) */
+.wl-badge {
+  border: 1px solid currentColor !important;
+  background: transparent !important;
+  border-radius: 0 !important;
+  padding: 0 4px !important;
+  margin-right: 5px !important;
+  font-size: 10px !important;
+  text-transform: uppercase;
+}
+
+/* =========================================
+ * 5. 隐藏现代组件 (保持纯粹)
+ * ========================================= */
+
+/* 隐藏表情选择器中不必要的现代 icon，隐藏多余底栏按钮 */
+.wl-action-icon:not([title="表情"]), 
+.wl-login-info {
+  display: none !important;
+}
+
+/* 调整互动表情按钮的样式 */
+.wl-reaction {
+  margin-top: 10px;
+}
+.wl-reaction-item {
+  border: 1px solid var(--code-border, rgba(255,255,255,0.2)) !important;
+  border-radius: 0 !important;
+  background: rgba(0,0,0,0.3) !important;
+}
+.wl-reaction-item.active {
+  border-color: var(--waline-theme-color) !important;
+  box-shadow: 2px 2px 0px var(--waline-theme-color) !important;
+}
