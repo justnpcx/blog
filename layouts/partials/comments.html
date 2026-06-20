@@ -2,34 +2,38 @@
 <div class="comments" style="margin-top: 3rem; padding-top: 1rem; border-top: 2px dashed var(--code-border);">
   <h3 style="margin-bottom: 1rem; font-family: 'Fusion Pixel 12px', monospace; color: var(--color-text);">NPC 交流终端</h3>
   
-  <head>
-    <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
-    <!-- 引入我们自定义的 8-bit CSS -->
-    <link rel="stylesheet" href="{{ "css/waline-8bit.css" | relURL }}" />
-  </head>
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v3/dist/waline.css" />
+  <link rel="stylesheet" href="{{ "css/waline-8bit.css" | relURL }}" />
   
   <div id="waline"></div>
   <script type="module">
     import { init } from 'https://unpkg.com/@waline/client@v3/dist/waline.js';
 
-    // 只有当 ServerURL 被实际配置时才初始化
     const serverURL = '{{ .Site.Params.waline.serverURL }}';
     if (serverURL && serverURL !== 'YOUR_SERVER_URL_HERE') {
       init({
         el: '#waline',
         serverURL: serverURL,
-        dark: '{{ default "html[data-dark-theme=\"dark\"]" .Site.Params.waline.dark }}',
+        dark: 'auto',
         emoji: [
           'https://unpkg.com/@waline/emojis@1.1.0/weibo'
         ],
         search: false,
-        imageUploader: false, // 纯文本交流更复古
+        imageUploader: false,
         wordLimit: 500,
         placeholder: '输入你的留言... [ 按 Enter 换行 ]',
-        reaction: true, // 保留一些互动
+        reaction: false,
+        login: 'disable',
+        locale: {
+          nick: '玩家昵称',
+          mail: '邮箱（选填）',
+          link: '主页（选填）',
+          placeholder: '在此输入你的留言...',
+          submit: '▶ START',
+          replyPlaceholder: '回复 @{0}...',
+          sofa: '还没有人留下足迹，成为第一个探险者吧！',
+        }
       });
-    } else {
-      document.getElementById('waline').innerHTML = '<p style="font-family: \'Fusion Pixel 12px\', monospace; color: #ff5555;">[ 系统提示 ] 评论模块未初始化，等待主控端接入...</p>';
     }
   </script>
 </div>
