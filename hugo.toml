@@ -1,4 +1,4 @@
-baseURL = 'https://justnpc.com/'
+baseURL = 'https://blog.justnpc.com/'
 locale = 'zh-CN'
 title = 'JustNPC'
 theme = 'PaperMod'
