@@ -1,0 +1,32 @@
+{{ $paginator := .Paginator }}
+{{ if gt $paginator.TotalPages 1 }}
+<div class="heo-pagination">
+  {{ if $paginator.HasPrev }}
+  <a href="{{ $paginator.Prev.URL | relURL }}" aria-label="上一页">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </a>
+  {{ else }}
+  <span style="opacity: 0.5; pointer-events: none;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"/></svg>
+  </span>
+  {{ end }}
+
+  {{ range $paginator.Pagers }}
+    {{ if eq . $paginator }}
+    <span class="current">{{ .PageNumber }}</span>
+    {{ else }}
+    <a href="{{ .URL | relURL }}">{{ .PageNumber }}</a>
+    {{ end }}
+  {{ end }}
+
+  {{ if $paginator.HasNext }}
+  <a href="{{ $paginator.Next.URL | relURL }}" aria-label="下一页">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </a>
+  {{ else }}
+  <span style="opacity: 0.5; pointer-events: none;">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"/></svg>
+  </span>
+  {{ end }}
+</div>
+{{ end }}

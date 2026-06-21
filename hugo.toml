@@ -1,6 +1,6 @@
 baseURL = 'https://blog.justnpc.com/'
 title = '⚡ JustNPC'
-theme = 'hugo-trainsh'
+theme = 'hugo-heo'
 paginate = 10
 enableEmoji = true
 
@@ -40,6 +40,7 @@ defaultContentLanguageInSubdir = false
   mainSections = ['posts']
   description = '一个 NPC 的觉醒日志——探索认知边界、系统思维与灵性智慧的交汇之地。'
   author = 'JustNPC'
+  avatar = '/images/avatar.jpg'
   DateFormat = '2006-01-02'
 
   [params.home]
@@ -66,7 +67,7 @@ defaultContentLanguageInSubdir = false
   [params.waline]
     serverURL = 'https://npc-comments-a12w.vercel.app' # 填入实际的 Vercel 域名
     emoji = ['https://unpkg.com/@waline/emojis@1.1.0/weibo']
-    dark = 'html[data-dark-theme="dark"]' # 适配 trainsh 的暗色模式
+    dark = 'html[data-theme="dark"]' # 适配 heo 的暗色模式
     search = false
 
 [outputs]

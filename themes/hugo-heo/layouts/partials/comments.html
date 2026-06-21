@@ -1,0 +1,26 @@
+{{ if site.Params.waline.serverURL }}
+<div class="heo-comments" id="comments">
+  <div class="heo-comments-title">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
+    文章评论
+  </div>
+  <div id="waline"></div>
+  <script type="module">
+    import { init } from 'https://unpkg.com/@waline/client@v2/dist/waline.mjs';
+
+    // Waline configuration
+    const walineOptions = {
+      el: '#waline',
+      serverURL: '{{ site.Params.waline.serverURL }}',
+      search: {{ site.Params.waline.search | default false }},
+      {{ with site.Params.waline.emoji }}
+      emoji: {{ . | jsonify }},
+      {{ end }}
+      dark: 'html[data-theme="dark"]'
+    };
+
+    init(walineOptions);
+  </script>
+  <link rel="stylesheet" href="https://unpkg.com/@waline/client@v2/dist/waline.css" />
+</div>
+{{ end }}
