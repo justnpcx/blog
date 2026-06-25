@@ -174,4 +174,65 @@ document.addEventListener('DOMContentLoaded', () => {
       searchOverlay.classList.remove('active');
     }
   });
+
+  /* ==========================================================================
+     7. Hero Section Slider Hover Sync & Autoplay
+     ========================================================================== */
+  const heroListItems = document.querySelectorAll('.heo-hero-list-item');
+  const heroSlides = document.querySelectorAll('.heo-hero-slide');
+  
+  if (heroListItems.length > 0 && heroSlides.length > 0) {
+    let activeIndex = 0;
+    let autoplayInterval = null;
+    
+    function switchHeroSlide(index) {
+      if (index === activeIndex) return;
+      
+      activeIndex = index;
+      
+      heroSlides.forEach((slide, idx) => {
+        if (idx === index) {
+          slide.classList.add('active');
+        } else {
+          slide.classList.remove('active');
+        }
+      });
+      
+      heroListItems.forEach((item, idx) => {
+        if (idx === index) {
+          item.classList.add('active');
+        } else {
+          item.classList.remove('active');
+        }
+      });
+    }
+    
+    function startAutoplay() {
+      if (autoplayInterval) clearInterval(autoplayInterval);
+      autoplayInterval = setInterval(() => {
+        let nextIndex = (activeIndex + 1) % heroSlides.length;
+        switchHeroSlide(nextIndex);
+      }, 5000);
+    }
+    
+    function stopAutoplay() {
+      if (autoplayInterval) {
+        clearInterval(autoplayInterval);
+        autoplayInterval = null;
+      }
+    }
+    
+    heroListItems.forEach((item, idx) => {
+      item.addEventListener('mouseenter', () => {
+        stopAutoplay();
+        switchHeroSlide(idx);
+      });
+      
+      item.addEventListener('mouseleave', () => {
+        startAutoplay();
+      });
+    });
+    
+    startAutoplay();
+  }
 });

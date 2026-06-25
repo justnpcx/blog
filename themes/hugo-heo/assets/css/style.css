@@ -433,11 +433,17 @@ img {
   border: 1px solid var(--heo-card-border);
   transition: all var(--heo-transition);
   cursor: pointer;
+  text-decoration: none;
 }
-.heo-hero-list-item:hover {
+.heo-hero-list-item:hover,
+.heo-hero-list-item.active {
   transform: translateY(-2px);
   box-shadow: var(--heo-shadow-hover);
   border-color: rgba(66, 90, 239, 0.15);
+}
+.heo-hero-list-item.active {
+  background: var(--heo-main);
+  border-color: var(--heo-main);
 }
 
 .heo-hero-list-icon {
@@ -461,6 +467,10 @@ img {
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
+  transition: color var(--heo-transition-fast);
+}
+.heo-hero-list-item.active .heo-hero-list-title {
+  color: var(--heo-text-on-main);
 }
 
 /* ============================================================

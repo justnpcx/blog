@@ -1,44 +1,38 @@
 <div class="heo-hero">
+  {{ $featured := where site.RegularPages "Params.featured" true }}
+  {{ $recent := where site.RegularPages "Section" "posts" }}
+  {{ $posts := slice }}
+  {{ range $featured }}
+    {{ $posts = $posts | append . }}
+  {{ end }}
+  {{ range $recent }}
+    {{ if not (in $posts .) }}
+      {{ $posts = $posts | append . }}
+    {{ end }}
+  {{ end }}
+  {{ $posts = first 5 $posts }}
+
   <div class="heo-hero-slider" id="heroSlider">
-    {{ $featured := where site.RegularPages "Params.featured" true }}
-    {{ if $featured }}
-      {{ range $index, $page := first 3 $featured }}
-      <a href="{{ .RelPermalink }}" class="heo-hero-slide{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
-        <div class="heo-hero-slide-bg" style="background-image: url('{{ with .Params.cover }}{{ . | relURL }}{{ else }}{{ `/images/default-cover.jpg` | relURL }}{{ end }}')"></div>
-        <div class="heo-hero-slide-overlay"></div>
-        <div class="heo-hero-slide-content">
-          <span class="heo-hero-slide-tag">推荐阅读</span>
-          <h2 class="heo-hero-slide-title">{{ .Title }}</h2>
-        </div>
-      </a>
-      {{ end }}
-      <div class="heo-hero-dots">
-        {{ range $index, $page := first 3 $featured }}
-        <button class="heo-hero-dot{{ if eq $index 0 }} active{{ end }}" aria-label="Slide {{ add $index 1 }}"></button>
-        {{ end }}
+    {{ range $index, $page := $posts }}
+    <a href="{{ .RelPermalink }}" class="heo-hero-slide{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
+      <div class="heo-hero-slide-bg" style="background-image: url('{{ with .Params.cover }}{{ . | relURL }}{{ else }}{{ `/images/default-cover.jpg` | relURL }}{{ end }}')"></div>
+      <div class="heo-hero-slide-overlay"></div>
+      <div class="heo-hero-slide-content">
+        <span class="heo-hero-slide-tag">{{ if .Params.featured }}推荐阅读{{ else }}最新文章{{ end }}</span>
+        <h2 class="heo-hero-slide-title">{{ .Title }}</h2>
       </div>
-    {{ else }}
-      <!-- Fallback if no featured posts -->
-      {{ range $index, $page := first 1 (where site.RegularPages "Section" "posts") }}
-      <a href="{{ .RelPermalink }}" class="heo-hero-slide active" data-index="0">
-        <div class="heo-hero-slide-bg" style="background-image: url('{{ with .Params.cover }}{{ . | relURL }}{{ else }}{{ `/images/default-cover.jpg` | relURL }}{{ end }}')"></div>
-        <div class="heo-hero-slide-overlay"></div>
-        <div class="heo-hero-slide-content">
-          <span class="heo-hero-slide-tag">最新文章</span>
-          <h2 class="heo-hero-slide-title">{{ .Title }}</h2>
-        </div>
-      </a>
-      {{ end }}
+    </a>
     {{ end }}
   </div>
 
-  <div class="heo-hero-list">
-    {{ $recent := where site.RegularPages "Section" "posts" | first 5 }}
-    {{ range $recent }}
-    <a href="{{ .RelPermalink }}" class="heo-hero-list-item">
+  <div class="heo-hero-list" id="heroList">
+    {{ range $index, $page := $posts }}
+    <a href="{{ .RelPermalink }}" class="heo-hero-list-item{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
       <div class="heo-hero-list-icon">
         {{ with .Params.cover }}
-        <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+        <img src="{{ . | relURL }}" alt="{{ .Title }}" loading="lazy">
+        {{ else }}
+        <img src="{{ `/images/default-cover.jpg` | relURL }}" alt="{{ .Title }}" loading="lazy">
         {{ end }}
       </div>
       <div class="heo-hero-list-title">{{ .Title }}</div>
