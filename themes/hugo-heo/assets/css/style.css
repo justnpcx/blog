@@ -419,40 +419,52 @@ img {
 .heo-hero-list {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  justify-content: space-between;
+  padding: 12px;
+  background: linear-gradient(135deg, #425aef 0%, #8c5cf5 100%);
+  border-radius: var(--heo-radius-lg);
+  box-shadow: var(--heo-shadow-md);
+  height: 100%;
+  box-sizing: border-box;
+}
+
+[data-theme="dark"] .heo-hero-list {
+  background: linear-gradient(135deg, #2f45cc 0%, #6d3ecc 100%);
 }
 
 .heo-hero-list-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 14px 16px;
-  background: var(--heo-card-bg);
-  border-radius: var(--heo-radius);
-  box-shadow: var(--heo-shadow-sm);
-  border: 1px solid var(--heo-card-border);
-  transition: all var(--heo-transition);
+  padding: 8px 12px;
+  border-radius: var(--heo-radius-sm);
+  background: transparent;
+  border: none;
+  box-shadow: none;
   cursor: pointer;
   text-decoration: none;
+  transition: background 0.3s ease, transform 0.3s ease;
 }
-.heo-hero-list-item:hover,
-.heo-hero-list-item.active {
-  transform: translateY(-2px);
-  box-shadow: var(--heo-shadow-hover);
-  border-color: rgba(66, 90, 239, 0.15);
+.heo-hero-list-item:hover {
+  background: rgba(255, 255, 255, 0.12);
+  transform: translateX(4px);
+  box-shadow: none;
+  border-color: transparent;
 }
 .heo-hero-list-item.active {
-  background: var(--heo-main);
-  border-color: var(--heo-main);
+  background: rgba(255, 255, 255, 0.22);
+  transform: translateX(4px);
+  box-shadow: none;
+  border-color: transparent;
 }
 
 .heo-hero-list-icon {
-  width: 36px;
-  height: 36px;
-  border-radius: 10px;
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
   overflow: hidden;
   flex-shrink: 0;
-  background: var(--heo-bg-secondary);
+  background: rgba(255, 255, 255, 0.15);
 }
 .heo-hero-list-icon img {
   width: 100%;
@@ -463,14 +475,16 @@ img {
 .heo-hero-list-title {
   font-size: 0.85rem;
   font-weight: 500;
-  color: var(--heo-text-primary);
+  color: rgba(255, 255, 255, 0.85);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
   transition: color var(--heo-transition-fast);
 }
+.heo-hero-list-item:hover .heo-hero-list-title,
 .heo-hero-list-item.active .heo-hero-list-title {
-  color: var(--heo-text-on-main);
+  color: #ffffff;
+  font-weight: 600;
 }
 
 /* ============================================================
@@ -1583,6 +1597,8 @@ img {
   .heo-hero-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    height: auto;
   }
 
   .heo-post-layout {
@@ -1645,6 +1661,8 @@ img {
 
   .heo-hero-list {
     grid-template-columns: 1fr;
+    gap: 8px;
+    height: auto;
   }
 
   .heo-related-grid {
