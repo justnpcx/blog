@@ -31,35 +31,57 @@ document.addEventListener('DOMContentLoaded', () => {
   });
 
   /* ==========================================================================
-     2. Navbar Scroll Effect & Back to Top
+     2. Navbar Scroll Effect, Page Title Toggle & Back to Top Percentage
      ========================================================================== */
   const nav = document.getElementById('heoNav');
   const backToTop = document.getElementById('backToTop');
+  const percentEl = document.getElementById('percent');
+  const totopBtn = document.getElementById('nav-totop');
   let lastScrollY = window.scrollY;
   let ticking = false;
 
   function updateScrollState() {
     const currentScrollY = window.scrollY;
     
-    // Navbar shadow
+    // Navbar shadow and background scrolled state
     if (currentScrollY > 10) {
       nav?.classList.add('nav-scrolled');
     } else {
       nav?.classList.remove('nav-scrolled');
     }
 
+    // nav-fixed toggling for menus and page title exchange
+    if (currentScrollY > 60) {
+      nav?.classList.add('nav-fixed');
+    } else {
+      nav?.classList.remove('nav-fixed');
+    }
+
     // Hide navbar on scroll down, show on scroll up
-    if (currentScrollY > lastScrollY && currentScrollY > 100) {
+    if (currentScrollY > lastScrollY && currentScrollY > 150) {
       nav?.classList.add('nav-hidden');
     } else {
       nav?.classList.remove('nav-hidden');
     }
 
-    // Back to top visibility
+    // Back to top visibility (traditional sidebar button)
     if (currentScrollY > 300) {
       backToTop?.classList.add('visible');
     } else {
       backToTop?.classList.remove('visible');
+    }
+
+    // Calculate scroll percentage
+    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+    let scrollPercent = 0;
+    if (docHeight > 0) {
+      scrollPercent = Math.round((currentScrollY / docHeight) * 100);
+    }
+    if (scrollPercent > 100) scrollPercent = 100;
+    if (scrollPercent < 0) scrollPercent = 0;
+
+    if (percentEl) {
+      percentEl.textContent = scrollPercent;
     }
 
     lastScrollY = currentScrollY;
@@ -73,12 +95,18 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }, { passive: true });
 
-  backToTop?.addEventListener('click', () => {
+  const pageNameText = document.getElementById('page-name-text');
+
+  const smoothScrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth'
     });
-  });
+  };
+
+  backToTop?.addEventListener('click', smoothScrollToTop);
+  totopBtn?.addEventListener('click', smoothScrollToTop);
+  pageNameText?.addEventListener('click', smoothScrollToTop);
 
   /* ==========================================================================
      3. Mobile Menu Toggle

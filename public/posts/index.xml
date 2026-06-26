@@ -1,1 +1,31 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Posts on ⚡ JustNPC</title><link>https://blog.justnpc.com/posts/</link><description>Recent content in Posts on ⚡ JustNPC</description><generator>Hugo</generator><language>zh-CN</language><lastBuildDate>Fri, 26 Jun 2026 00:02:55 +0800</lastBuildDate><atom:link href="https://blog.justnpc.com/posts/index.xml" rel="self" type="application/rss+xml"/><item><title>解码人性：影响力七大支柱与破局的“道与术”</title><link>https://blog.justnpc.com/posts/decoding-human-nature-the-7-pillars-of-influence/</link><pubDate>Fri, 26 Jun 2026 00:02:55 +0800</pubDate><guid>https://blog.justnpc.com/posts/decoding-human-nature-the-7-pillars-of-influence/</guid><description>拆解人类几万年进化留下的心理学底层算法——西奥迪尼的影响力七大支柱与查理·芒格的误判心理学，构建属于自己的防守与赋能系统。</description></item><item><title>解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</title><link>https://blog.justnpc.com/posts/twelve-presuppositions-decoded/</link><pubDate>Sat, 20 Jun 2026 01:00:00 +0800</pubDate><guid>https://blog.justnpc.com/posts/twelve-presuppositions-decoded/</guid><description>剥离一切技术外壳，从认识论、控制论、系统论与灵性智慧四个维度，潜入 NLP 十二条前提假设的最底层逻辑骨架。</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+	<channel>
+		<title>Posts on ⚡ JustNPC</title>
+		<link>http://localhost:1313/posts/</link>
+		<description>Recent content in Posts on ⚡ JustNPC</description>
+		<generator>Hugo</generator>
+		<language>zh-CN</language>
+		
+		
+		
+		
+			<lastBuildDate>Fri, 26 Jun 2026 00:02:55 +0800</lastBuildDate>
+		
+			<atom:link href="http://localhost:1313/posts/index.xml" rel="self" type="application/rss+xml" />
+			<item>
+				<title>解码人性：影响力七大支柱与破局的“道与术”</title>
+				<link>http://localhost:1313/posts/decoding-human-nature-the-7-pillars-of-influence/</link>
+				<pubDate>Fri, 26 Jun 2026 00:02:55 +0800</pubDate>
+				<guid>http://localhost:1313/posts/decoding-human-nature-the-7-pillars-of-influence/</guid>
+				<description>拆解人类几万年进化留下的心理学底层算法——西奥迪尼的影响力七大支柱与查理·芒格的误判心理学，构建属于自己的防守与赋能系统。</description>
+			</item>
+			<item>
+				<title>解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</title>
+				<link>http://localhost:1313/posts/twelve-presuppositions-decoded/</link>
+				<pubDate>Sat, 20 Jun 2026 01:00:00 +0800</pubDate>
+				<guid>http://localhost:1313/posts/twelve-presuppositions-decoded/</guid>
+				<description>剥离一切技术外壳，从认识论、控制论、系统论与灵性智慧四个维度，潜入 NLP 十二条前提假设的最底层逻辑骨架。</description>
+			</item>
+	</channel>
+</rss>
