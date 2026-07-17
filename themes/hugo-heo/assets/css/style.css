@@ -1,40 +1,50 @@
 /* ============================================================
-   Heo Theme for Hugo — Design System
-   Inspired by blog.zhheo.com
+   Heo Theme for Hugo — NPC Awakening Edition
+   Design System: System Interface × Spiritual Awakening
+   Inspired by blog.zhheo.com, Soul by JustNPC
    ============================================================ */
 
 /* --- Google Fonts --- */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Noto+Sans+SC:wght@400;500;700;900&family=JetBrains+Mono:wght@400;600&display=swap');
 
 /* ============================================================
    1. CSS Custom Properties (Design Tokens)
+   NPC Theme: Deep Space Blue × Awakening Amber × System Terminal
    ============================================================ */
 :root {
-  /* — Primary Palette — */
-  --heo-main: #425AEF;
-  --heo-main-light: #6274F4;
-  --heo-main-dark: #3348D9;
-  --heo-accent: #FF6B6B;
-  --heo-accent-alt: #F0A030;
+  /* — Primary Palette: Deep Space & Awakening — */
+  --heo-main: #3B4CCF;              /* 深空蓝 - 主色调 */
+  --heo-main-light: #5A6FE8;        /* 浅空蓝 */
+  --heo-main-dark: #2A3AA8;         /* 深空蓝暗 */
+  --heo-accent: #F59E0B;            /* 觉醒琥珀金 - 强调色 */
+  --heo-accent-alt: #8B5CF6;        /* 灵性紫 */
+  --heo-accent-glow: rgba(245, 158, 11, 0.15);  /* 觉醒光晕 */
 
-  /* — Surfaces — */
-  --heo-bg: #F7F8FC;
-  --heo-bg-secondary: #EDEEF3;
+  /* — NPC System Colors — */
+  --npc-system: #10B981;            /* 系统绿 - 正常状态 */
+  --npc-warning: #F59E0B;           /* 警告琥珀 */
+  --npc-danger: #EF4444;            /* 危险红 */
+  --npc-terminal: #1E1B4B;          /* 终端深蓝 */
+
+  /* — Surfaces: Cosmic Void — */
+  --heo-bg: #F5F6FA;
+  --heo-bg-secondary: #E8EAF2;
   --heo-card-bg: #FFFFFF;
   --heo-card-bg-hover: #FFFFFF;
-  --heo-card-border: rgba(0, 0, 0, 0.04);
+  --heo-card-border: rgba(59, 76, 207, 0.06);
 
   /* — Text — */
-  --heo-text-primary: #363636;
-  --heo-text-secondary: #6B7280;
-  --heo-text-tertiary: #9CA3AF;
+  --heo-text-primary: #2D3748;
+  --heo-text-secondary: #4A5568;
+  --heo-text-tertiary: #718096;
   --heo-text-on-main: #FFFFFF;
 
   /* — Shadows — */
-  --heo-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.04);
-  --heo-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.06);
-  --heo-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.08);
-  --heo-shadow-hover: 0 12px 40px rgba(66, 90, 239, 0.12);
+  --heo-shadow-sm: 0 2px 8px rgba(59, 76, 207, 0.06);
+  --heo-shadow-md: 0 4px 16px rgba(59, 76, 207, 0.08);
+  --heo-shadow-lg: 0 8px 32px rgba(59, 76, 207, 0.1);
+  --heo-shadow-hover: 0 12px 40px rgba(59, 76, 207, 0.15);
+  --heo-shadow-glow: 0 0 20px rgba(245, 158, 11, 0.2);
 
   /* — Layout — */
   --heo-max-width: 1200px;
@@ -52,45 +62,53 @@
   /* — Fonts — */
   --heo-font-sans: 'Inter', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
   --heo-font-mono: 'JetBrains Mono', 'Fira Code', 'Consolas', monospace;
+  --heo-font-system: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'PingFang SC', 'Hiragino Sans GB', 'Microsoft YaHei', sans-serif;
 
   /* — Misc — */
-  --heo-header-bg: rgba(255, 255, 255, 0.75);
-  --heo-scrollbar-thumb: #D1D5DB;
+  --heo-header-bg: rgba(245, 246, 250, 0.8);
+  --heo-scrollbar-thumb: #CBD5E0;
   --heo-scrollbar-track: transparent;
-  --heo-tag-bg: rgba(66, 90, 239, 0.08);
+  --heo-tag-bg: rgba(59, 76, 207, 0.08);
   --heo-tag-text: var(--heo-main);
-  --heo-blockquote-border: var(--heo-main);
-  --heo-blockquote-bg: rgba(66, 90, 239, 0.04);
-  --heo-code-bg: #F3F4F6;
-  --heo-code-text: #E11D48;
-  --heo-hr-color: #E5E7EB;
+  --heo-blockquote-border: var(--heo-accent);
+  --heo-blockquote-bg: rgba(245, 158, 11, 0.06);
+  --heo-code-bg: #EDF2F7;
+  --heo-code-text: #C53030;
+  --heo-hr-color: #E2E8F0;
   --heo-link-color: var(--heo-main);
 }
 
-/* — Dark Mode — */
+/* — Dark Mode: Terminal/System Interface — */
 [data-theme="dark"] {
-  --heo-bg: #18171D;
-  --heo-bg-secondary: #1E1D24;
-  --heo-card-bg: #232228;
-  --heo-card-bg-hover: #2A2930;
-  --heo-card-border: rgba(255, 255, 255, 0.06);
+  --heo-bg: #0D0D17;                /* 深空黑 */
+  --heo-bg-secondary: #151522;      /* 次深空 */
+  --heo-card-bg: #1A1A2E;           /* 卡片深蓝灰 */
+  --heo-card-bg-hover: #22223A;     /* 卡片悬停 */
+  --heo-card-border: rgba(139, 92, 246, 0.1);
 
-  --heo-text-primary: #E5E5E5;
-  --heo-text-secondary: #9CA3AF;
-  --heo-text-tertiary: #6B7280;
+  --heo-text-primary: #E2E8F0;
+  --heo-text-secondary: #A0AEC0;
+  --heo-text-tertiary: #718096;
 
-  --heo-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.2);
-  --heo-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.25);
-  --heo-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.3);
-  --heo-shadow-hover: 0 12px 40px rgba(66, 90, 239, 0.2);
+  --heo-shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+  --heo-shadow-md: 0 4px 16px rgba(0, 0, 0, 0.4);
+  --heo-shadow-lg: 0 8px 32px rgba(0, 0, 0, 0.5);
+  --heo-shadow-hover: 0 12px 40px rgba(59, 76, 207, 0.25);
+  --heo-shadow-glow: 0 0 30px rgba(245, 158, 11, 0.15);
 
-  --heo-header-bg: rgba(24, 23, 29, 0.8);
-  --heo-scrollbar-thumb: #4B5563;
-  --heo-tag-bg: rgba(66, 90, 239, 0.15);
-  --heo-blockquote-bg: rgba(66, 90, 239, 0.08);
-  --heo-code-bg: #2D2D30;
-  --heo-code-text: #FF6B9D;
-  --heo-hr-color: #374151;
+  --heo-header-bg: rgba(13, 13, 23, 0.85);
+  --heo-scrollbar-thumb: #4A5568;
+  --heo-tag-bg: rgba(139, 92, 246, 0.15);
+  --heo-tag-text: var(--heo-accent-alt);
+  --heo-blockquote-bg: rgba(245, 158, 11, 0.08);
+  --heo-blockquote-border: var(--heo-accent);
+  --heo-code-bg: #1E1E3F;
+  --heo-code-text: #F687B3;
+  --heo-hr-color: #2D3748;
+
+  /* 暗色模式专属：终端风格 */
+  --npc-terminal: #0D0D17;
+  --npc-system: #34D399;
 }
 
 /* ============================================================
@@ -113,7 +131,7 @@ html {
 }
 
 body {
-  font-family: var(--heo-font-sans);
+  font-family: var(--heo-font-system);
   color: var(--heo-text-primary);
   background: var(--heo-bg);
   line-height: 1.7;
@@ -151,7 +169,7 @@ img {
 
 /* Selection */
 ::selection {
-  background: var(--heo-main);
+  background: var(--heo-accent);
   color: #fff;
 }
 
@@ -593,16 +611,216 @@ img {
 }
 
 /* ============================================================
-   5. Hero Section
+   5. Hero Section — NPC Awakening Edition
    ============================================================ */
 .heo-hero {
   display: grid;
-  grid-template-columns: 1fr 300px;
+  grid-template-columns: 280px 1fr 260px;
   gap: 16px;
   margin-bottom: 24px;
   padding-top: calc(var(--heo-nav-height) + 24px);
 }
 
+/* NPC Status Panel */
+.npc-status-panel {
+  display: flex;
+  flex-direction: column;
+  background: var(--heo-card-bg);
+  border-radius: var(--heo-radius-lg);
+  border: 1px solid var(--heo-card-border);
+  box-shadow: var(--heo-shadow-md);
+  overflow: hidden;
+  padding: 16px;
+  gap: 12px;
+}
+
+.npc-panel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-bottom: 10px;
+  border-bottom: 1px dashed var(--heo-card-border);
+}
+
+.npc-panel-title {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: var(--heo-font-system);
+  font-size: 0.7rem;
+  font-weight: 600;
+  color: var(--npc-system);
+  letter-spacing: 0.03em;
+}
+
+.npc-system-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--npc-system);
+  animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+  50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+}
+
+.npc-panel-version {
+  font-family: var(--heo-font-system);
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: var(--heo-text-tertiary);
+  background: var(--heo-tag-bg);
+  padding: 2px 8px;
+  border-radius: 10px;
+}
+
+.npc-panel-body {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.npc-avatar-ring {
+  position: relative;
+  width: 64px;
+  height: 64px;
+  flex-shrink: 0;
+}
+
+.npc-avatar {
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 2px solid var(--heo-accent);
+  box-shadow: var(--heo-shadow-glow);
+}
+
+.npc-level-badge {
+  position: absolute;
+  bottom: -2px;
+  right: -4px;
+  background: linear-gradient(135deg, var(--heo-accent), #F0A030);
+  color: #fff;
+  font-size: 0.62rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 10px;
+  font-family: var(--heo-font-system);
+  box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.npc-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.npc-name {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--heo-text-primary);
+}
+
+.npc-title {
+  font-size: 0.72rem;
+  color: var(--heo-accent);
+  font-weight: 600;
+  margin-top: 2px;
+}
+
+.npc-motto {
+  font-size: 0.75rem;
+  color: var(--heo-text-secondary);
+  margin-top: 6px;
+  font-family: var(--heo-font-system);
+  min-height: 1.4em;
+  line-height: 1.4;
+}
+
+.npc-motto-cursor {
+  color: var(--heo-accent);
+  font-weight: 700;
+  margin-right: 2px;
+}
+
+.npc-attributes {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.npc-attr {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+}
+
+.npc-attr-header {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: 0.68rem;
+}
+
+.npc-attr-icon {
+  font-size: 0.75rem;
+}
+
+.npc-attr-name {
+  color: var(--heo-text-secondary);
+  flex: 1;
+}
+
+.npc-attr-value {
+  color: var(--heo-accent);
+  font-weight: 600;
+  font-family: var(--heo-font-system);
+  font-size: 0.68rem;
+}
+
+.npc-attr-bar {
+  height: 4px;
+  background: var(--heo-bg-secondary);
+  border-radius: 2px;
+  overflow: hidden;
+}
+
+.npc-attr-fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--heo-main), var(--heo-accent));
+  border-radius: 2px;
+  transition: width 1s ease;
+}
+
+.npc-panel-footer {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  border-top: 1px dashed var(--heo-card-border);
+}
+
+.npc-stat {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+}
+
+.npc-stat-value {
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: var(--heo-text-primary);
+  font-family: var(--heo-font-system);
+}
+
+.npc-stat-label {
+  font-size: 0.62rem;
+  color: var(--heo-text-tertiary);
+}
+
+/* Hero Slider */
 .heo-hero-slider {
   position: relative;
   border-radius: var(--heo-radius-lg);
@@ -698,7 +916,7 @@ img {
   flex-direction: column;
   justify-content: space-between;
   padding: 12px;
-  background: linear-gradient(135deg, #425aef 0%, #8c5cf5 100%);
+  background: linear-gradient(135deg, var(--heo-main) 0%, var(--heo-accent-alt) 100%);
   border-radius: var(--heo-radius-lg);
   box-shadow: var(--heo-shadow-md);
   height: 100%;
@@ -706,7 +924,7 @@ img {
 }
 
 [data-theme="dark"] .heo-hero-list {
-  background: linear-gradient(135deg, #2f45cc 0%, #6d3ecc 100%);
+  background: linear-gradient(135deg, var(--heo-main-dark) 0%, #6d3ecc 100%);
 }
 
 .heo-hero-list-item {
@@ -812,7 +1030,7 @@ img {
 }
 
 /* ============================================================
-   7. Post Cards
+   7. Post Cards — NPC Intelligence Style
    ============================================================ */
 .heo-post-grid {
   display: grid;
@@ -830,11 +1048,27 @@ img {
   box-shadow: var(--heo-shadow-sm);
   transition: all var(--heo-transition);
   cursor: pointer;
+  position: relative;
+}
+.heo-post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--heo-main), var(--heo-accent));
+  opacity: 0;
+  transition: opacity var(--heo-transition);
+  z-index: 1;
 }
 .heo-post-card:hover {
   transform: translateY(-4px);
   box-shadow: var(--heo-shadow-hover);
-  border-color: rgba(66, 90, 239, 0.15);
+  border-color: rgba(59, 76, 207, 0.15);
+}
+.heo-post-card:hover::before {
+  opacity: 1;
 }
 .heo-post-card:hover .heo-post-card-cover img {
   transform: scale(1.05);
@@ -844,7 +1078,7 @@ img {
   position: relative;
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--heo-main), var(--heo-main-light));
+  background: linear-gradient(135deg, var(--heo-main), var(--heo-accent-alt));
 }
 .heo-post-card-cover img {
   width: 100%;
@@ -853,15 +1087,34 @@ img {
   transition: transform var(--heo-transition-slow);
 }
 
+/* NPC 密级标签 */
+.npc-secrecy-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 3px 10px;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(8px);
+  border-radius: 20px;
+  font-size: 0.68rem;
+  font-weight: 500;
+  color: rgba(255, 255, 255, 0.9);
+  z-index: 2;
+  font-family: var(--heo-font-system);
+}
+
 .heo-post-card-cover-placeholder {
   display: flex;
   align-items: center;
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--heo-main) 0%, #7C3AED 50%, var(--heo-accent) 100%);
-  color: rgba(255, 255, 255, 0.4);
+  background: linear-gradient(135deg, var(--heo-main) 0%, var(--heo-accent-alt) 50%, var(--heo-accent) 100%);
+}
+
+.npc-placeholder-icon {
   font-size: 3rem;
+  opacity: 0.5;
 }
 
 .heo-post-card-body {
@@ -883,11 +1136,12 @@ img {
 .heo-post-card-category {
   display: inline-block;
   padding: 2px 8px;
-  background: var(--heo-tag-bg);
+  background: linear-gradient(135deg, var(--heo-tag-bg), rgba(245, 158, 11, 0.1));
   color: var(--heo-tag-text);
   border-radius: 4px;
-  font-weight: 500;
+  font-weight: 600;
   font-size: 0.72rem;
+  border: 1px solid rgba(59, 76, 207, 0.1);
 }
 
 .heo-post-card-title {
@@ -930,9 +1184,17 @@ img {
 
 .heo-post-card-tag {
   color: var(--heo-text-tertiary);
+  font-size: 0.72rem;
 }
 .heo-post-card-tag::before {
   content: '#';
+  color: var(--heo-accent);
+}
+
+.npc-wordcount {
+  font-family: var(--heo-font-system);
+  font-size: 0.72rem;
+  color: var(--heo-text-tertiary);
 }
 
 /* Featured / Full-width post card */
@@ -947,7 +1209,7 @@ img {
 }
 
 /* ============================================================
-   8. Sidebar
+   8. Sidebar — NPC System Panel
    ============================================================ */
 .heo-sidebar-card {
   background: var(--heo-card-bg);
@@ -959,6 +1221,81 @@ img {
 }
 .heo-sidebar-card:hover {
   box-shadow: var(--heo-shadow-md);
+}
+
+/* NPC System Card */
+.npc-system-card {
+  border: 1px solid rgba(16, 185, 129, 0.15);
+}
+
+.npc-sidebar-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 12px 16px;
+  background: rgba(16, 185, 129, 0.06);
+  border-bottom: 1px solid rgba(16, 185, 129, 0.1);
+}
+
+[data-theme="dark"] .npc-sidebar-header {
+  background: rgba(16, 185, 129, 0.08);
+}
+
+.npc-sidebar-title {
+  font-size: 0.78rem;
+  font-weight: 700;
+  color: var(--npc-system);
+  font-family: var(--heo-font-system);
+  letter-spacing: 0.02em;
+}
+
+.npc-sidebar-body {
+  padding: 12px 16px;
+}
+
+.npc-monitor-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 6px 0;
+  border-bottom: 1px dashed var(--heo-card-border);
+}
+
+.npc-monitor-item:last-child {
+  border-bottom: none;
+}
+
+.npc-monitor-label {
+  font-size: 0.72rem;
+  color: var(--heo-text-secondary);
+}
+
+.npc-monitor-value {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--heo-text-primary);
+}
+
+.npc-mono {
+  font-family: var(--heo-font-system);
+  font-weight: 600;
+}
+
+.npc-level {
+  color: var(--heo-accent);
+  font-size: 0.72rem;
+}
+
+.npc-sidebar-footer {
+  padding: 10px 16px;
+  background: var(--heo-bg);
+  border-top: 1px dashed var(--heo-card-border);
+}
+
+.npc-monitor-tip {
+  font-size: 0.68rem;
+  color: var(--heo-text-tertiary);
+  font-style: italic;
 }
 
 /* Author Card */
@@ -1053,11 +1390,18 @@ img {
   overflow: hidden;
   flex-shrink: 0;
   background: var(--heo-bg-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .heo-sidebar-recent-thumb img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+.heo-sidebar-recent-thumb-placeholder {
+  font-size: 1.2rem;
+  opacity: 0.5;
 }
 
 .heo-sidebar-recent-title {
@@ -1095,6 +1439,41 @@ img {
 }
 .heo-tag-cloud a:hover {
   background: var(--heo-main);
+  color: #fff;
+  opacity: 1;
+}
+
+/* NPC Wisdom Card */
+.npc-wisdom-card {
+  border: 1px solid rgba(245, 158, 11, 0.12);
+}
+
+.npc-wisdom-text {
+  font-size: 0.82rem;
+  color: var(--heo-text-secondary);
+  line-height: 1.7;
+  font-style: italic;
+  min-height: 2.5em;
+  margin-bottom: 12px;
+}
+
+.npc-wisdom-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  background: var(--heo-tag-bg);
+  color: var(--heo-tag-text);
+  border: none;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all var(--heo-transition-fast);
+  font-family: inherit;
+}
+.npc-wisdom-btn:hover {
+  background: var(--heo-accent);
   color: #fff;
   opacity: 1;
 }
@@ -1169,6 +1548,21 @@ img {
   height: 4px;
   background: var(--heo-text-tertiary);
   border-radius: 50%;
+}
+
+.npc-post-category-badge {
+  display: inline-block;
+  padding: 2px 10px;
+  background: linear-gradient(135deg, var(--heo-main), var(--heo-accent-alt));
+  color: #fff;
+  border-radius: 20px;
+  font-size: 0.72rem;
+  font-weight: 600;
+}
+
+.npc-breadcrumb-category {
+  color: var(--heo-accent);
+  font-weight: 500;
 }
 
 /* Post content layout */
@@ -1441,7 +1835,7 @@ img {
   padding: 20px 24px;
   background: var(--heo-blockquote-bg);
   border-radius: var(--heo-radius);
-  border-left: 4px solid var(--heo-main);
+  border-left: 4px solid var(--heo-accent);
   font-size: 0.85rem;
   color: var(--heo-text-secondary);
   line-height: 1.8;
@@ -1561,7 +1955,7 @@ img {
 }
 
 /* ============================================================
-   14. Footer
+   14. Footer — NPC System Status Bar
    ============================================================ */
 .heo-footer {
   margin-top: 60px;
@@ -1575,6 +1969,51 @@ img {
   margin: 0 auto;
   padding: 0 20px;
   text-align: center;
+}
+
+/* NPC Footer Status Bar */
+.npc-footer-status {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  flex-wrap: wrap;
+  margin-bottom: 24px;
+  padding: 14px 20px;
+  background: var(--heo-bg);
+  border-radius: var(--heo-radius);
+  border: 1px dashed var(--heo-card-border);
+}
+
+.npc-footer-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.npc-footer-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.npc-footer-icon {
+  font-size: 0.85rem;
+}
+
+.npc-footer-text {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--heo-text-secondary);
+  font-family: var(--heo-font-system);
+}
+
+.npc-footer-motto {
+  font-size: 0.9rem;
+  color: var(--heo-accent);
+  font-style: italic;
+  margin-bottom: 8px;
 }
 
 .heo-footer-social {
@@ -1751,7 +2190,7 @@ img {
   background: transparent;
   font-size: 1rem;
   color: var(--heo-text-primary);
-  font-family: var(--heo-font-sans);
+  font-family: var(--heo-font-system);
   outline: none;
 }
 .heo-search-input::placeholder {
@@ -1871,6 +2310,10 @@ img {
     grid-template-columns: 1fr;
   }
 
+  .npc-status-panel {
+    order: -1;
+  }
+
   .heo-hero-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
@@ -1886,6 +2329,12 @@ img {
     position: static;
     max-height: none;
     margin-bottom: 24px;
+  }
+
+  .npc-attributes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
   }
 }
 
@@ -1959,6 +2408,15 @@ img {
     right: 20px;
     width: 38px;
     height: 38px;
+  }
+
+  .npc-footer-status {
+    gap: 12px;
+    padding: 12px 14px;
+  }
+
+  .npc-attributes {
+    grid-template-columns: 1fr;
   }
 }
 

@@ -83,6 +83,27 @@ defaultContentLanguageInSubdir = false
   author = 'JustNPC'
   avatar = '/images/avatar.jpg'
   DateFormat = '2006-01-02'
+  startDate = '2026-06-26'  # 博客建立日期，用于计算运行天数
+
+  # NPC 专属参数
+  [params.npc]
+    level = 1                    # 觉醒等级
+    title = '初级觉醒者'          # 当前称号
+    systemVersion = 'v0.3.1'     # 当前系统版本
+    attributes = [               # 属性面板
+      { name = '认知', value = 65, icon = '🧠' },
+      { name = '洞察', value = 58, icon = '👁️' },
+      { name = '心性', value = 72, icon = '🧘' },
+      { name = '表达', value = 45, icon = '✍️' }
+    ]
+    mottos = [                   # 随机箴言
+      '地图不是疆域，但我正在重绘我的地图。',
+      '在代码与哲学的交汇处，探索认知的边界。',
+      '不是主角，但正在觉醒。',
+      '用第一性原理拆解问题，用灵性智慧重构实相。',
+      '每一行代码都是一次自我对话。',
+      '系统之外，还有更大的系统。'
+    ]
 
   [params.home]
     intro = """

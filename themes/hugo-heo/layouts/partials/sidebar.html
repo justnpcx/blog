@@ -1,3 +1,34 @@
+<!-- NPC System Status Card -->
+<div class="heo-sidebar-card npc-system-card">
+  <div class="npc-sidebar-header">
+    <span class="npc-system-dot"></span>
+    <span class="npc-sidebar-title">NPC 状态监控</span>
+  </div>
+  <div class="npc-sidebar-body">
+    <div class="npc-monitor-item">
+      <span class="npc-monitor-label">当前版本</span>
+      <span class="npc-monitor-value npc-mono">{{ site.Params.npc.systemVersion | default "v0.1.0" }}</span>
+    </div>
+    <div class="npc-monitor-item">
+      <span class="npc-monitor-label">觉醒等级</span>
+      <span class="npc-monitor-value npc-level">Lv.{{ site.Params.npc.level | default 1 }} · {{ site.Params.npc.title | default "初级觉醒者" }}</span>
+    </div>
+    <div class="npc-monitor-item">
+      <span class="npc-monitor-label">日志总量</span>
+      <span class="npc-monitor-value npc-mono">{{ len site.RegularPages }}</span>
+    </div>
+    <div class="npc-monitor-item">
+      <span class="npc-monitor-label">认知碎片</span>
+      <span class="npc-monitor-value npc-mono">{{ len site.Taxonomies.tags }}</span>
+    </div>
+  </div>
+  <div class="npc-sidebar-footer">
+    <div class="npc-monitor-tip" id="npcTip">
+      💡 系统提示：保持觉察，持续升级。
+    </div>
+  </div>
+</div>
+
 <!-- Author Card -->
 <div class="heo-sidebar-card">
   <div class="heo-author-card">
@@ -27,7 +58,7 @@
   <div class="heo-sidebar-section">
     <div class="heo-sidebar-title">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
-      最近文章
+      最新觉醒日志
     </div>
     {{ $recent := where site.RegularPages "Section" "posts" | first 5 }}
     {{ range $recent }}
@@ -35,6 +66,8 @@
       <div class="heo-sidebar-recent-thumb">
         {{ with .Params.cover }}
         <img src="{{ . | relURL }}" alt="{{ $.Title }}" loading="lazy">
+        {{ else }}
+        <div class="heo-sidebar-recent-thumb-placeholder">🎮</div>
         {{ end }}
       </div>
       <div>
@@ -52,7 +85,7 @@
   <div class="heo-sidebar-section">
     <div class="heo-sidebar-title">
       <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20.59 13.41l-7.17 7.17a2 2 0 0 1-2.83 0L2 12V2h10l8.59 8.59a2 2 0 0 1 0 2.82z"/><line x1="7" y1="7" x2="7.01" y2="7"/></svg>
-      标签云
+      认知碎片索引
     </div>
     <div class="heo-tag-cloud">
       {{ range site.Taxonomies.tags.ByCount }}
@@ -61,4 +94,38 @@
     </div>
   </div>
 </div>
+{{ end }}
+
+<!-- Random Wisdom -->
+{{ if site.Params.npc.mottos }}
+<div class="heo-sidebar-card npc-wisdom-card">
+  <div class="heo-sidebar-section">
+    <div class="heo-sidebar-title">
+      <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a7 7 0 0 1 7 7c0 2.38-1.19 4.47-3 5.74V17a2 2 0 0 1-2 2h-4a2 2 0 0 1-2-2v-2.26C6.19 13.47 5 11.38 5 9a7 7 0 0 1 7-7z"/><line x1="9" y1="21" x2="15" y2="21"/><line x1="10" y1="24" x2="14" y2="24"/></svg>
+      随机觉醒箴言
+    </div>
+    <div class="npc-wisdom-text" id="wisdomText">
+      {{ index site.Params.npc.mottos 0 }}
+    </div>
+    <button class="npc-wisdom-btn" id="wisdomBtn">🎲 换一条</button>
+  </div>
+</div>
+
+<script>
+(function() {
+  const mottos = {{ site.Params.npc.mottos | jsonify }};
+  const wisdomEl = document.getElementById('wisdomText');
+  const wisdomBtn = document.getElementById('wisdomBtn');
+  
+  if (wisdomBtn && wisdomEl && mottos.length > 1) {
+    wisdomBtn.addEventListener('click', () => {
+      let newIndex;
+      do {
+        newIndex = Math.floor(Math.random() * mottos.length);
+      } while (mottos[newIndex] === wisdomEl.textContent);
+      wisdomEl.textContent = mottos[newIndex];
+    });
+  }
+})();
+</script>
 {{ end }}

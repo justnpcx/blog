@@ -1,5 +1,25 @@
 <footer class="heo-footer">
   <div class="heo-footer-inner">
+    <!-- NPC Status Bar -->
+    <div class="npc-footer-status">
+      <div class="npc-footer-item">
+        <span class="npc-footer-dot" style="background: var(--npc-system);"></span>
+        <span class="npc-footer-text">系统运行正常</span>
+      </div>
+      <div class="npc-footer-item">
+        <span class="npc-footer-icon">⚡</span>
+        <span class="npc-footer-text">{{ site.Params.npc.systemVersion | default "v0.1.0" }}</span>
+      </div>
+      <div class="npc-footer-item">
+        <span class="npc-footer-icon">📡</span>
+        <span class="npc-footer-text">{{ len site.RegularPages }} 篇觉醒日志</span>
+      </div>
+      <div class="npc-footer-item">
+        <span class="npc-footer-icon">🧠</span>
+        <span class="npc-footer-text" id="footerRunDays">-- 天持续运行</span>
+      </div>
+    </div>
+
     <!-- Social Links -->
     <div class="heo-footer-social">
       {{ with site.Params.footer.social.github }}
@@ -16,8 +36,20 @@
 
     <!-- Copyright -->
     <div class="heo-footer-text">
+      <p class="npc-footer-motto">「 {{ index site.Params.npc.mottos 0 }} 」</p>
       <p>&copy; {{ now.Year }} <a href="{{ "/" | relURL }}">{{ site.Title }}</a> · Powered by <a href="https://gohugo.io" target="_blank" rel="noopener">Hugo</a></p>
-      <p>Theme inspired by <a href="https://blog.zhheo.com/" target="_blank" rel="noopener">Heo</a></p>
+      <p>Theme inspired by <a href="https://blog.zhheo.com/" target="_blank" rel="noopener">Heo</a> · Soul by <strong>JustNPC</strong></p>
     </div>
   </div>
 </footer>
+
+<script>
+  // Footer run days
+  (function() {
+    const startDate = new Date('{{ site.Params.startDate | default "2026-06-26" }}');
+    const now = new Date();
+    const diff = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    const el = document.getElementById('footerRunDays');
+    if (el) el.textContent = (diff >= 0 ? diff : 0) + ' 天持续运行';
+  })();
+</script>

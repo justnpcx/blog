@@ -12,13 +12,68 @@
   {{ end }}
   {{ $posts = first 5 $posts }}
 
+  <!-- NPC Status Panel -->
+  <div class="npc-status-panel">
+    <div class="npc-panel-header">
+      <div class="npc-panel-title">
+        <span class="npc-system-dot"></span>
+        <span class="npc-system-text">SYSTEM ONLINE</span>
+      </div>
+      <div class="npc-panel-version">{{ site.Params.npc.systemVersion | default "v0.1.0" }}</div>
+    </div>
+    <div class="npc-panel-body">
+      <div class="npc-avatar-ring">
+        <img src="{{ site.Params.avatar | relURL }}" alt="{{ site.Params.author }}" class="npc-avatar">
+        <div class="npc-level-badge">Lv.{{ site.Params.npc.level | default 1 }}</div>
+      </div>
+      <div class="npc-info">
+        <div class="npc-name">{{ site.Params.author }}</div>
+        <div class="npc-title">{{ site.Params.npc.title | default "初级觉醒者" }}</div>
+        <div class="npc-motto" id="npcMotto">
+          <span class="npc-motto-cursor">▋</span>
+          <span id="mottoText">{{ index site.Params.npc.mottos 0 }}</span>
+        </div>
+      </div>
+    </div>
+    {{ if site.Params.npc.attributes }}
+    <div class="npc-attributes">
+      {{ range site.Params.npc.attributes }}
+      <div class="npc-attr">
+        <div class="npc-attr-header">
+          <span class="npc-attr-icon">{{ .icon }}</span>
+          <span class="npc-attr-name">{{ .name }}</span>
+          <span class="npc-attr-value">{{ .value }}</span>
+        </div>
+        <div class="npc-attr-bar">
+          <div class="npc-attr-fill" style="width: {{ .value }}%"></div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+    <div class="npc-panel-footer">
+      <div class="npc-stat">
+        <span class="npc-stat-value">{{ len site.RegularPages }}</span>
+        <span class="npc-stat-label">觉醒日志</span>
+      </div>
+      <div class="npc-stat">
+        <span class="npc-stat-value">{{ len site.Taxonomies.tags }}</span>
+        <span class="npc-stat-label">认知碎片</span>
+      </div>
+      <div class="npc-stat" id="runDays">
+        <span class="npc-stat-value">--</span>
+        <span class="npc-stat-label">运行天数</span>
+      </div>
+    </div>
+  </div>
+
   <div class="heo-hero-slider" id="heroSlider">
     {{ range $index, $page := $posts }}
     <a href="{{ .RelPermalink }}" class="heo-hero-slide{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
       <div class="heo-hero-slide-bg" style="background-image: url('{{ with .Params.cover }}{{ . | relURL }}{{ else }}{{ `/images/default-cover.jpg` | relURL }}{{ end }}')"></div>
       <div class="heo-hero-slide-overlay"></div>
       <div class="heo-hero-slide-content">
-        <span class="heo-hero-slide-tag">{{ if .Params.featured }}推荐阅读{{ else }}最新文章{{ end }}</span>
+        <span class="heo-hero-slide-tag">{{ if .Params.featured }}🔥 精选情报{{ else }}📡 最新信号{{ end }}</span>
         <h2 class="heo-hero-slide-title">{{ .Title }}</h2>
       </div>
     </a>
@@ -40,3 +95,62 @@
     {{ end }}
   </div>
 </div>
+
+<script>
+  // NPC Motto Typewriter Effect
+  (function() {
+    const mottos = {{ site.Params.npc.mottos | jsonify }};
+    if (!mottos || mottos.length === 0) return;
+    
+    const mottoEl = document.getElementById('mottoText');
+    const cursorEl = document.querySelector('.npc-motto-cursor');
+    let mottoIndex = 0;
+    let charIndex = 0;
+    let isDeleting = false;
+    let typeSpeed = 80;
+    
+    function type() {
+      const current = mottos[mottoIndex];
+      
+      if (isDeleting) {
+        mottoEl.textContent = current.substring(0, charIndex - 1);
+        charIndex--;
+        typeSpeed = 40;
+      } else {
+        mottoEl.textContent = current.substring(0, charIndex + 1);
+        charIndex++;
+        typeSpeed = 80;
+      }
+      
+      if (!isDeleting && charIndex === current.length) {
+        typeSpeed = 2000; // Pause at end
+        isDeleting = true;
+      } else if (isDeleting && charIndex === 0) {
+        isDeleting = false;
+        mottoIndex = (mottoIndex + 1) % mottos.length;
+        typeSpeed = 500;
+      }
+      
+      setTimeout(type, typeSpeed);
+    }
+    
+    // Start after a short delay
+    setTimeout(type, 1000);
+    
+    // Blink cursor
+    if (cursorEl) {
+      setInterval(() => {
+        cursorEl.style.opacity = cursorEl.style.opacity === '0' ? '1' : '0';
+      }, 500);
+    }
+  })();
+
+  // Calculate run days
+  (function() {
+    const startDate = new Date('{{ site.Params.startDate | default "2026-06-26" }}');
+    const now = new Date();
+    const diff = Math.floor((now - startDate) / (1000 * 60 * 60 * 24));
+    const el = document.querySelector('#runDays .npc-stat-value');
+    if (el) el.textContent = diff >= 0 ? diff : 0;
+  })();
+</script>
