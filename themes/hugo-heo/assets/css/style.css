@@ -24,7 +24,15 @@
   --npc-system: #10B981;            /* 系统绿 - 正常状态 */
   --npc-warning: #F59E0B;           /* 警告琥珀 */
   --npc-danger: #EF4444;            /* 危险红 */
-  --npc-terminal: #1E1B4B;          /* 终端深蓝 */
+  --npc-terminal: #3B4CCF;          /* 终端主色（白天） */
+  --npc-terminal-2: #5A6FE8;        /* 终端次色（白天） */
+  --npc-terminal-3: #8B5CF6;        /* 终端点缀（白天） */
+  --npc-terminal-4: #EDEEF3;        /* 终端背景（白天） */
+  --npc-grid-color: rgba(59, 76, 207, 0.06);
+  --npc-particle-color: rgba(255, 255, 255, 0.7);
+  --npc-particle-glow: rgba(255, 255, 255, 0.5);
+  --npc-symbol-color: rgba(255, 255, 255, 0.06);
+  --npc-symbol-glow: rgba(139, 92, 246, 0.15);
 
   /* — Surfaces: Cosmic Void — */
   --heo-bg: #F5F6FA;
@@ -108,6 +116,14 @@
 
   /* 暗色模式专属：终端风格 */
   --npc-terminal: #0D0D17;
+  --npc-terminal-2: #1a1a3e;
+  --npc-terminal-3: #8B5CF6;
+  --npc-terminal-4: #151525;
+  --npc-grid-color: rgba(139, 92, 246, 0.04);
+  --npc-particle-color: rgba(255, 255, 255, 0.5);
+  --npc-particle-glow: rgba(255, 255, 255, 0.3);
+  --npc-symbol-color: rgba(255, 255, 255, 0.04);
+  --npc-symbol-glow: rgba(139, 92, 246, 0.1);
   --npc-system: #34D399;
 }
 
@@ -942,7 +958,7 @@ img {
 .npc-hero-art {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--npc-terminal) 0%, #1a1a3e 30%, #0d0d17 70%, #151525 100%);
+  background: linear-gradient(135deg, var(--npc-terminal) 0%, var(--npc-terminal-2) 30%, var(--npc-terminal) 70%, var(--npc-terminal-4) 100%);
   overflow: hidden;
 }
 
@@ -951,8 +967,8 @@ img {
   position: absolute;
   inset: 0;
   background-image:
-    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+    linear-gradient(var(--npc-grid-color) 1px, transparent 1px),
+    linear-gradient(90deg, var(--npc-grid-color) 1px, transparent 1px);
   background-size: 40px 40px;
   animation: gridMove 20s linear infinite;
 }
@@ -1009,10 +1025,10 @@ img {
   position: absolute;
   width: 3px;
   height: 3px;
-  background: rgba(255, 255, 255, 0.6);
+  background: var(--npc-particle-color);
   border-radius: 50%;
   animation: particleFloat 6s ease-in-out infinite;
-  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+  box-shadow: 0 0 6px var(--npc-particle-glow);
 }
 .npc-particle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; animation-duration: 5s; }
 .npc-particle:nth-child(2) { top: 60%; left: 25%; animation-delay: -1s; animation-duration: 7s; }
@@ -1034,12 +1050,12 @@ img {
   left: 50%;
   transform: translate(-50%, -50%);
   font-size: 6rem;
-  color: rgba(255, 255, 255, 0.04);
+  color: var(--npc-symbol-color);
   font-weight: 100;
   user-select: none;
   pointer-events: none;
   animation: symbolPulse 4s ease-in-out infinite;
-  text-shadow: 0 0 80px rgba(139, 92, 246, 0.1);
+  text-shadow: 0 0 80px var(--npc-symbol-glow);
 }
 @keyframes symbolPulse {
   0%, 100% { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
@@ -1323,7 +1339,7 @@ img {
 
 /* NPC Cover Art — CSS Generated */
 .npc-cover-art {
-  background: linear-gradient(135deg, var(--npc-terminal) 0%, #1e1b4b 50%, #0d0d17 100%);
+  background: linear-gradient(135deg, var(--npc-terminal) 0%, var(--npc-terminal-2) 50%, var(--npc-terminal) 100%);
 }
 
 .npc-cover-grid {
@@ -1730,7 +1746,7 @@ img {
 .heo-post-header-bg {
   position: absolute;
   inset: 0;
-  background: linear-gradient(135deg, var(--heo-main) 0%, #7C3AED 100%);
+  background: linear-gradient(135deg, var(--heo-main) 0%, var(--heo-accent-alt) 100%);
   opacity: 0.08;
 }
 
@@ -2148,7 +2164,7 @@ img {
 .heo-related-item-cover {
   aspect-ratio: 16 / 9;
   overflow: hidden;
-  background: linear-gradient(135deg, var(--heo-main), #7C3AED);
+  background: linear-gradient(135deg, var(--heo-main), var(--heo-accent-alt));
 }
 .heo-related-item-cover img {
   width: 100%;
