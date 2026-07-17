@@ -700,6 +700,7 @@ img {
   gap: 16px;
   margin-bottom: 24px;
   padding-top: calc(var(--heo-nav-height) + 24px);
+  align-items: stretch;
 }
 
 /* NPC Status Panel */
@@ -713,6 +714,7 @@ img {
   overflow: hidden;
   padding: 16px;
   gap: 12px;
+  min-height: 320px;
 }
 
 .npc-panel-header {
@@ -906,7 +908,7 @@ img {
   position: relative;
   border-radius: var(--heo-radius-lg);
   overflow: hidden;
-  aspect-ratio: 2.2 / 1;
+  min-height: 320px;
   background: var(--heo-card-bg);
   box-shadow: var(--heo-shadow-md);
 }
@@ -1109,7 +1111,7 @@ img {
   border: 1px solid var(--heo-card-border);
   border-radius: var(--heo-radius-lg);
   box-shadow: var(--heo-shadow-md);
-  height: 100%;
+  min-height: 320px;
   box-sizing: border-box;
   overflow-y: auto;
 }
@@ -2619,7 +2621,7 @@ img {
   }
 
   .heo-hero-slider {
-    aspect-ratio: 16 / 9;
+    min-height: 200px;
   }
 
   .heo-hero-list {
