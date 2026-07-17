@@ -4,8 +4,10 @@
     {{ with $page.Params.cover }}
     <img src="{{ . | relURL }}" alt="{{ $page.Title }}" loading="lazy">
     {{ else }}
-    <div class="heo-post-card-cover-placeholder">
-      <span class="npc-placeholder-icon">🎮</span>
+    <div class="heo-post-card-cover-placeholder npc-cover-art">
+      <div class="npc-cover-grid"></div>
+      <div class="npc-cover-glow"></div>
+      <span class="npc-cover-symbol">⌘</span>
     </div>
     {{ end }}
     <!-- 密级标签 -->

@@ -337,31 +337,112 @@ img {
   font-size: 1.1rem;
 }
 
+/* NPC Logo Mark — Custom Design */
+.npc-logo-mark {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  background: linear-gradient(135deg, var(--heo-main) 0%, var(--heo-accent-alt) 50%, var(--heo-accent) 100%);
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 2px 12px rgba(59, 76, 207, 0.25), inset 0 1px 0 rgba(255,255,255,0.15);
+  transition: all var(--heo-transition);
+}
+.npc-logo-mark::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, transparent 40%, rgba(255,255,255,0.1) 50%, transparent 60%);
+  animation: logoShine 3s ease-in-out infinite;
+}
+@keyframes logoShine {
+  0%, 100% { transform: translateX(-100%); }
+  50% { transform: translateX(100%); }
+}
+
+.npc-logo-n,
+.npc-logo-p,
+.npc-logo-c {
+  position: absolute;
+  font-family: var(--heo-font-system);
+  font-weight: 900;
+  color: #fff;
+  text-shadow: 0 1px 2px rgba(0,0,0,0.2);
+  line-height: 1;
+}
+.npc-logo-n {
+  font-size: 14px;
+  top: 6px;
+  left: 6px;
+  opacity: 0.9;
+}
+.npc-logo-p {
+  font-size: 18px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-weight: 800;
+}
+.npc-logo-c {
+  font-size: 14px;
+  bottom: 6px;
+  right: 6px;
+  opacity: 0.9;
+}
+.npc-logo-dot {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  width: 6px;
+  height: 6px;
+  background: var(--heo-accent);
+  border-radius: 50%;
+  box-shadow: 0 0 6px var(--heo-accent);
+  animation: logoPulse 2s ease-in-out infinite;
+}
+@keyframes logoPulse {
+  0%, 100% { opacity: 1; transform: scale(1); }
+  50% { opacity: 0.6; transform: scale(0.85); }
+}
+
+.npc-logo-text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 1px;
+}
+.npc-logo-title {
+  font-size: 1.15rem;
+  font-weight: 800;
+  color: var(--heo-text-primary);
+  letter-spacing: -0.02em;
+  line-height: 1.2;
+  transition: color var(--heo-transition-fast);
+}
+.npc-logo-tagline {
+  font-size: 0.62rem;
+  font-weight: 500;
+  color: var(--heo-accent);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  opacity: 0.85;
+}
+
 .heo-nav-logo {
   display: flex;
   align-items: center;
   gap: 10px;
-  font-size: 1.2rem;
-  font-weight: 800;
-  color: var(--heo-text-primary);
-  letter-spacing: -0.02em;
+  text-decoration: none;
 }
-.heo-nav-logo:hover {
-  opacity: 1;
+.heo-nav-logo:hover .npc-logo-title {
   color: var(--heo-main);
 }
-
-.heo-nav-logo-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 32px;
-  height: 32px;
-  background: linear-gradient(135deg, var(--heo-main), var(--heo-main-light));
-  color: #fff;
-  border-radius: 8px;
-  font-size: 14px;
-  font-weight: 700;
+.heo-nav-logo:hover .npc-logo-mark {
+  transform: scale(1.05);
+  box-shadow: 0 4px 20px rgba(59, 76, 207, 0.35), inset 0 1px 0 rgba(255,255,255,0.2);
 }
 
 /* --- Center Scroll Mask: Page Title --- */
@@ -855,6 +936,114 @@ img {
   transform: scale(1.05);
 }
 
+/* NPC Hero Art — CSS Dynamic Background */
+.npc-hero-art {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(135deg, var(--npc-terminal) 0%, #1a1a3e 30%, #0d0d17 70%, #151525 100%);
+  overflow: hidden;
+}
+
+/* Animated Grid */
+.npc-hero-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.03) 1px, transparent 1px);
+  background-size: 40px 40px;
+  animation: gridMove 20s linear infinite;
+}
+@keyframes gridMove {
+  0% { transform: translate(0, 0); }
+  100% { transform: translate(40px, 40px); }
+}
+
+/* Glow Orbs */
+.npc-hero-glow {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(60px);
+  opacity: 0.4;
+  animation: glowFloat 8s ease-in-out infinite;
+}
+.npc-hero-glow-1 {
+  width: 300px;
+  height: 300px;
+  background: radial-gradient(circle, rgba(59, 76, 207, 0.3) 0%, transparent 70%);
+  top: -50px;
+  left: -50px;
+  animation-delay: 0s;
+}
+.npc-hero-glow-2 {
+  width: 250px;
+  height: 250px;
+  background: radial-gradient(circle, rgba(245, 158, 11, 0.15) 0%, transparent 70%);
+  bottom: -30px;
+  right: 10%;
+  animation-delay: -2s;
+}
+.npc-hero-glow-3 {
+  width: 200px;
+  height: 200px;
+  background: radial-gradient(circle, rgba(139, 92, 246, 0.2) 0%, transparent 70%);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  animation-delay: -4s;
+}
+@keyframes glowFloat {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(20px, -15px) scale(1.05); }
+  66% { transform: translate(-15px, 10px) scale(0.95); }
+}
+
+/* Particles */
+.npc-hero-particles {
+  position: absolute;
+  inset: 0;
+}
+.npc-particle {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 50%;
+  animation: particleFloat 6s ease-in-out infinite;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.4);
+}
+.npc-particle:nth-child(1) { top: 20%; left: 15%; animation-delay: 0s; animation-duration: 5s; }
+.npc-particle:nth-child(2) { top: 60%; left: 25%; animation-delay: -1s; animation-duration: 7s; }
+.npc-particle:nth-child(3) { top: 40%; left: 70%; animation-delay: -2s; animation-duration: 6s; }
+.npc-particle:nth-child(4) { top: 80%; left: 60%; animation-delay: -3s; animation-duration: 8s; }
+.npc-particle:nth-child(5) { top: 30%; left: 85%; animation-delay: -4s; animation-duration: 5.5s; }
+.npc-particle:nth-child(6) { top: 70%; left: 45%; animation-delay: -5s; animation-duration: 7.5s; }
+.npc-particle:nth-child(7) { top: 15%; left: 55%; animation-delay: -2.5s; animation-duration: 6.5s; }
+.npc-particle:nth-child(8) { top: 55%; left: 80%; animation-delay: -4.5s; animation-duration: 7s; }
+@keyframes particleFloat {
+  0%, 100% { transform: translateY(0) scale(1); opacity: 0.6; }
+  50% { transform: translateY(-20px) scale(1.2); opacity: 1; }
+}
+
+/* Central Symbol */
+.npc-hero-symbol {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 6rem;
+  color: rgba(255, 255, 255, 0.04);
+  font-weight: 100;
+  user-select: none;
+  pointer-events: none;
+  animation: symbolPulse 4s ease-in-out infinite;
+  text-shadow: 0 0 80px rgba(139, 92, 246, 0.1);
+}
+@keyframes symbolPulse {
+  0%, 100% { opacity: 0.04; transform: translate(-50%, -50%) scale(1); }
+  50% { opacity: 0.08; transform: translate(-50%, -50%) scale(1.02); }
+}
+
 .heo-hero-slide-overlay {
   position: absolute;
   inset: 0;
@@ -960,11 +1149,20 @@ img {
   overflow: hidden;
   flex-shrink: 0;
   background: rgba(255, 255, 255, 0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .heo-hero-list-icon img {
   width: 100%;
   height: 100%;
   object-fit: cover;
+}
+
+.npc-list-icon-art {
+  font-size: 1.1rem;
+  color: rgba(255, 255, 255, 0.7);
+  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .heo-hero-list-title {
@@ -1109,12 +1307,43 @@ img {
   justify-content: center;
   width: 100%;
   height: 100%;
-  background: linear-gradient(135deg, var(--heo-main) 0%, var(--heo-accent-alt) 50%, var(--heo-accent) 100%);
+  position: relative;
+  overflow: hidden;
 }
 
-.npc-placeholder-icon {
+/* NPC Cover Art — CSS Generated */
+.npc-cover-art {
+  background: linear-gradient(135deg, var(--npc-terminal) 0%, #1e1b4b 50%, #0d0d17 100%);
+}
+
+.npc-cover-grid {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(139, 92, 246, 0.05) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(139, 92, 246, 0.05) 1px, transparent 1px);
+  background-size: 20px 20px;
+}
+
+.npc-cover-glow {
+  position: absolute;
+  width: 150px;
+  height: 150px;
+  background: radial-gradient(circle, rgba(59, 76, 207, 0.25) 0%, transparent 70%);
+  border-radius: 50%;
+  filter: blur(40px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+
+.npc-cover-symbol {
+  position: relative;
   font-size: 3rem;
-  opacity: 0.5;
+  color: rgba(255, 255, 255, 0.08);
+  font-weight: 100;
+  text-shadow: 0 0 40px rgba(139, 92, 246, 0.15);
+  z-index: 1;
 }
 
 .heo-post-card-body {

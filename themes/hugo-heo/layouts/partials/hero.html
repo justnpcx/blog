@@ -70,7 +70,26 @@
   <div class="heo-hero-slider" id="heroSlider">
     {{ range $index, $page := $posts }}
     <a href="{{ .RelPermalink }}" class="heo-hero-slide{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
-      <div class="heo-hero-slide-bg" style="background-image: url('{{ with .Params.cover }}{{ . | relURL }}{{ else }}{{ `/images/default-cover.jpg` | relURL }}{{ end }}')"></div>
+      <!-- CSS Dynamic Art Background -->
+      <div class="heo-hero-slide-bg npc-hero-art">
+        <div class="npc-hero-grid"></div>
+        <div class="npc-hero-glow npc-hero-glow-1"></div>
+        <div class="npc-hero-glow npc-hero-glow-2"></div>
+        <div class="npc-hero-glow npc-hero-glow-3"></div>
+        <div class="npc-hero-particles">
+          <span class="npc-particle" style="--i:1"></span>
+          <span class="npc-particle" style="--i:2"></span>
+          <span class="npc-particle" style="--i:3"></span>
+          <span class="npc-particle" style="--i:4"></span>
+          <span class="npc-particle" style="--i:5"></span>
+          <span class="npc-particle" style="--i:6"></span>
+          <span class="npc-particle" style="--i:7"></span>
+          <span class="npc-particle" style="--i:8"></span>
+        </div>
+        <div class="npc-hero-symbol">
+          {{ if eq $index 0 }}⌘{{ else if eq $index 1 }}◈{{ else if eq $index 2 }}⬡{{ else if eq $index 3 }}∞{{ else }}✦{{ end }}
+        </div>
+      </div>
       <div class="heo-hero-slide-overlay"></div>
       <div class="heo-hero-slide-content">
         <span class="heo-hero-slide-tag">{{ if .Params.featured }}🔥 精选情报{{ else }}📡 最新信号{{ end }}</span>
@@ -87,7 +106,9 @@
         {{ with .Params.cover }}
         <img src="{{ . | relURL }}" alt="{{ .Title }}" loading="lazy">
         {{ else }}
-        <img src="{{ `/images/default-cover.jpg` | relURL }}" alt="{{ .Title }}" loading="lazy">
+        <div class="npc-list-icon-art">
+          {{ if eq $index 0 }}⌘{{ else if eq $index 1 }}◈{{ else if eq $index 2 }}⬡{{ else if eq $index 3 }}∞{{ else }}✦{{ end }}
+        </div>
         {{ end }}
       </div>
       <div class="heo-hero-list-title">{{ .Title }}</div>
