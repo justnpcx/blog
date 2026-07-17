@@ -1103,55 +1103,63 @@ img {
 .heo-hero-list {
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  padding: 12px;
-  background: linear-gradient(135deg, var(--heo-main) 0%, var(--heo-accent-alt) 100%);
+  gap: 8px;
+  padding: 14px;
+  background: var(--heo-card-bg);
+  border: 1px solid var(--heo-card-border);
   border-radius: var(--heo-radius-lg);
   box-shadow: var(--heo-shadow-md);
   height: 100%;
   box-sizing: border-box;
+  overflow-y: auto;
 }
 
-[data-theme="dark"] .heo-hero-list {
-  background: linear-gradient(135deg, var(--heo-main-dark) 0%, #6d3ecc 100%);
+/* Custom scrollbar for hero list */
+.heo-hero-list::-webkit-scrollbar {
+  width: 4px;
+}
+.heo-hero-list::-webkit-scrollbar-thumb {
+  background: var(--heo-scrollbar-thumb);
+  border-radius: 2px;
 }
 
 .heo-hero-list-item {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 8px 12px;
+  padding: 10px 12px;
   border-radius: var(--heo-radius-sm);
-  background: transparent;
-  border: none;
+  background: var(--heo-bg);
+  border: 1px solid transparent;
   box-shadow: none;
   cursor: pointer;
   text-decoration: none;
-  transition: background 0.3s ease, transform 0.3s ease;
+  transition: all var(--heo-transition-fast);
 }
 .heo-hero-list-item:hover {
-  background: rgba(255, 255, 255, 0.12);
+  background: var(--heo-tag-bg);
+  border-color: rgba(59, 76, 207, 0.15);
   transform: translateX(4px);
-  box-shadow: none;
-  border-color: transparent;
+  box-shadow: var(--heo-shadow-sm);
 }
 .heo-hero-list-item.active {
-  background: rgba(255, 255, 255, 0.22);
+  background: linear-gradient(135deg, var(--heo-tag-bg), rgba(245, 158, 11, 0.08));
+  border-color: rgba(59, 76, 207, 0.2);
   transform: translateX(4px);
-  box-shadow: none;
-  border-color: transparent;
+  box-shadow: var(--heo-shadow-sm);
 }
 
 .heo-hero-list-icon {
-  width: 32px;
-  height: 32px;
-  border-radius: 8px;
+  width: 36px;
+  height: 36px;
+  border-radius: 10px;
   overflow: hidden;
   flex-shrink: 0;
-  background: rgba(255, 255, 255, 0.15);
+  background: linear-gradient(135deg, var(--heo-main), var(--heo-accent-alt));
   display: flex;
   align-items: center;
   justify-content: center;
+  box-shadow: 0 2px 8px rgba(59, 76, 207, 0.2);
 }
 .heo-hero-list-icon img {
   width: 100%;
@@ -1161,14 +1169,14 @@ img {
 
 .npc-list-icon-art {
   font-size: 1.1rem;
-  color: rgba(255, 255, 255, 0.7);
-  text-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
+  color: rgba(255, 255, 255, 0.9);
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 .heo-hero-list-title {
   font-size: 0.85rem;
   font-weight: 500;
-  color: rgba(255, 255, 255, 0.85);
+  color: var(--heo-text-primary);
   overflow: hidden;
   text-overflow: ellipsis;
   white-space: nowrap;
@@ -1176,7 +1184,7 @@ img {
 }
 .heo-hero-list-item:hover .heo-hero-list-title,
 .heo-hero-list-item.active .heo-hero-list-title {
-  color: #ffffff;
+  color: var(--heo-main);
   font-weight: 600;
 }
 
