@@ -202,7 +202,6 @@ img {
   display: grid;
   grid-template-columns: 1fr 300px;
   gap: 24px;
-  padding-top: calc(var(--heo-nav-height) + 24px);
 }
 
 .heo-main-content {
