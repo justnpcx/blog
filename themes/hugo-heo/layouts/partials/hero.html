@@ -12,61 +12,7 @@
   {{ end }}
   {{ $posts = first 5 $posts }}
 
-  <!-- NPC Status Panel -->
-  <div class="npc-status-panel">
-    <div class="npc-panel-header">
-      <div class="npc-panel-title">
-        <span class="npc-system-dot"></span>
-        <span class="npc-system-text">SYSTEM ONLINE</span>
-      </div>
-      <div class="npc-panel-version">{{ site.Params.npc.systemVersion | default "v0.1.0" }}</div>
-    </div>
-    <div class="npc-panel-body">
-      <div class="npc-avatar-ring">
-        <img src="{{ site.Params.avatar | relURL }}" alt="{{ site.Params.author }}" class="npc-avatar">
-        <div class="npc-level-badge">Lv.{{ site.Params.npc.level | default 1 }}</div>
-      </div>
-      <div class="npc-info">
-        <div class="npc-name">{{ site.Params.author }}</div>
-        <div class="npc-title">{{ site.Params.npc.title | default "初级觉醒者" }}</div>
-        <div class="npc-motto" id="npcMotto">
-          <span class="npc-motto-cursor">▋</span>
-          <span id="mottoText">{{ index site.Params.npc.mottos 0 }}</span>
-        </div>
-      </div>
-    </div>
-    {{ if site.Params.npc.attributes }}
-    <div class="npc-attributes">
-      {{ range site.Params.npc.attributes }}
-      <div class="npc-attr">
-        <div class="npc-attr-header">
-          <span class="npc-attr-icon">{{ .icon }}</span>
-          <span class="npc-attr-name">{{ .name }}</span>
-          <span class="npc-attr-value">{{ .value }}</span>
-        </div>
-        <div class="npc-attr-bar">
-          <div class="npc-attr-fill" style="width: {{ .value }}%"></div>
-        </div>
-      </div>
-      {{ end }}
-    </div>
-    {{ end }}
-    <div class="npc-panel-footer">
-      <div class="npc-stat">
-        <span class="npc-stat-value">{{ len site.RegularPages }}</span>
-        <span class="npc-stat-label">觉醒日志</span>
-      </div>
-      <div class="npc-stat">
-        <span class="npc-stat-value">{{ len site.Taxonomies.tags }}</span>
-        <span class="npc-stat-label">认知碎片</span>
-      </div>
-      <div class="npc-stat" id="runDays">
-        <span class="npc-stat-value">--</span>
-        <span class="npc-stat-label">运行天数</span>
-      </div>
-    </div>
-  </div>
-
+  <!-- Left: Large Slider (Heo Style) -->
   <div class="heo-hero-slider" id="heroSlider">
     {{ range $index, $page := $posts }}
     <a href="{{ .RelPermalink }}" class="heo-hero-slide{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
@@ -99,6 +45,7 @@
     {{ end }}
   </div>
 
+  <!-- Right: Article List (Heo Style) -->
   <div class="heo-hero-list" id="heroList">
     {{ range $index, $page := $posts }}
     <a href="{{ .RelPermalink }}" class="heo-hero-list-item{{ if eq $index 0 }} active{{ end }}" data-index="{{ $index }}">
@@ -114,6 +61,61 @@
       <div class="heo-hero-list-title">{{ .Title }}</div>
     </a>
     {{ end }}
+  </div>
+</div>
+
+<!-- NPC Status Panel (Below Hero, Heo-style card) -->
+<div class="npc-hero-panel">
+  <div class="npc-panel-header">
+    <div class="npc-panel-title">
+      <span class="npc-system-dot"></span>
+      <span class="npc-system-text">SYSTEM ONLINE</span>
+    </div>
+    <div class="npc-panel-version">{{ site.Params.npc.systemVersion | default "v0.1.0" }}</div>
+  </div>
+  <div class="npc-panel-body">
+    <div class="npc-avatar-ring">
+      <img src="{{ site.Params.avatar | relURL }}" alt="{{ site.Params.author }}" class="npc-avatar">
+      <div class="npc-level-badge">Lv.{{ site.Params.npc.level | default 1 }}</div>
+    </div>
+    <div class="npc-info">
+      <div class="npc-name">{{ site.Params.author }}</div>
+      <div class="npc-title">{{ site.Params.npc.title | default "初级觉醒者" }}</div>
+      <div class="npc-motto" id="npcMotto">
+        <span class="npc-motto-cursor">▋</span>
+        <span id="mottoText">{{ index site.Params.npc.mottos 0 }}</span>
+      </div>
+    </div>
+    {{ if site.Params.npc.attributes }}
+    <div class="npc-attributes">
+      {{ range site.Params.npc.attributes }}
+      <div class="npc-attr">
+        <div class="npc-attr-header">
+          <span class="npc-attr-icon">{{ .icon }}</span>
+          <span class="npc-attr-name">{{ .name }}</span>
+          <span class="npc-attr-value">{{ .value }}</span>
+        </div>
+        <div class="npc-attr-bar">
+          <div class="npc-attr-fill" style="width: {{ .value }}%"></div>
+        </div>
+      </div>
+      {{ end }}
+    </div>
+    {{ end }}
+  </div>
+  <div class="npc-panel-footer">
+    <div class="npc-stat">
+      <span class="npc-stat-value">{{ len site.RegularPages }}</span>
+      <span class="npc-stat-label">觉醒日志</span>
+    </div>
+    <div class="npc-stat">
+      <span class="npc-stat-value">{{ len site.Taxonomies.tags }}</span>
+      <span class="npc-stat-label">认知碎片</span>
+    </div>
+    <div class="npc-stat" id="runDays">
+      <span class="npc-stat-value">--</span>
+      <span class="npc-stat-label">运行天数</span>
+    </div>
   </div>
 </div>
 

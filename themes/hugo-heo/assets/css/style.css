@@ -707,19 +707,19 @@ img {
 }
 
 /* ============================================================
-   5. Hero Section — NPC Awakening Edition
+   5. Hero Section — NPC Awakening Edition (Heo Layout)
    ============================================================ */
 .heo-hero {
   display: grid;
-  grid-template-columns: 280px 1fr 260px;
+  grid-template-columns: 1fr 280px;
   gap: 16px;
-  margin-bottom: 24px;
-  padding-top: calc(var(--heo-nav-height) + 24px);
+  margin-bottom: 16px;
+  padding-top: calc(var(--heo-nav-height) + 16px);
   align-items: stretch;
 }
 
-/* NPC Status Panel */
-.npc-status-panel {
+/* NPC Status Panel — Below Hero (Heo-style card) */
+.npc-hero-panel {
   display: flex;
   flex-direction: column;
   background: var(--heo-card-bg);
@@ -727,9 +727,9 @@ img {
   border: 1px solid var(--heo-card-border);
   box-shadow: var(--heo-shadow-md);
   overflow: hidden;
-  padding: 16px;
+  padding: 16px 20px;
   gap: 12px;
-  min-height: 320px;
+  margin-bottom: 20px;
 }
 
 .npc-panel-header {
@@ -738,6 +738,28 @@ img {
   justify-content: space-between;
   padding-bottom: 10px;
   border-bottom: 1px dashed var(--heo-card-border);
+}
+
+.npc-hero-panel .npc-panel-body {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.npc-hero-panel .npc-attributes {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 12px;
+  flex: 1;
+  min-width: 280px;
+}
+
+.npc-hero-panel .npc-panel-footer {
+  display: flex;
+  justify-content: space-around;
+  padding-top: 10px;
+  border-top: 1px dashed var(--heo-card-border);
 }
 
 .npc-panel-title {
@@ -918,12 +940,13 @@ img {
   color: var(--heo-text-tertiary);
 }
 
-/* Hero Slider */
+/* Hero Slider — Heo Style (Large & Wide) */
 .heo-hero-slider {
   position: relative;
   border-radius: var(--heo-radius-lg);
   overflow: hidden;
-  min-height: 320px;
+  aspect-ratio: 16 / 9;
+  min-height: 360px;
   background: var(--heo-card-bg);
   box-shadow: var(--heo-shadow-md);
 }
@@ -933,7 +956,7 @@ img {
   inset: 0;
   display: flex;
   align-items: flex-end;
-  padding: 32px;
+  padding: 40px;
   opacity: 0;
   transition: opacity var(--heo-transition-slow);
   cursor: pointer;
@@ -1085,10 +1108,11 @@ img {
 }
 
 .heo-hero-slide-title {
-  font-size: 1.5rem;
-  font-weight: 700;
+  font-size: 1.8rem;
+  font-weight: 800;
   line-height: 1.3;
-  text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  text-shadow: 0 2px 12px rgba(0,0,0,0.4);
+  letter-spacing: -0.02em;
 }
 
 .heo-hero-dots {
@@ -1116,7 +1140,7 @@ img {
   border-radius: 4px;
 }
 
-/* Hero sidebar list */
+/* Hero sidebar list — Heo Style */
 .heo-hero-list {
   display: flex;
   flex-direction: column;
@@ -1126,7 +1150,7 @@ img {
   border: 1px solid var(--heo-card-border);
   border-radius: var(--heo-radius-lg);
   box-shadow: var(--heo-shadow-md);
-  min-height: 320px;
+  min-height: 360px;
   box-sizing: border-box;
   overflow-y: auto;
 }
@@ -1144,7 +1168,7 @@ img {
   display: flex;
   align-items: center;
   gap: 12px;
-  padding: 10px 12px;
+  padding: 12px 14px;
   border-radius: var(--heo-radius-sm);
   background: var(--heo-bg);
   border: 1px solid transparent;
@@ -2564,15 +2588,12 @@ img {
     grid-template-columns: 1fr;
   }
 
-  .npc-status-panel {
-    order: -1;
-  }
-
   .heo-hero-list {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 8px;
     height: auto;
+    min-height: auto;
   }
 
   .heo-post-layout {
@@ -2636,7 +2657,12 @@ img {
   }
 
   .heo-hero-slider {
-    min-height: 200px;
+    min-height: 220px;
+    aspect-ratio: 16 / 9;
+  }
+
+  .npc-hero-panel .npc-attributes {
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .heo-hero-list {
@@ -2650,7 +2676,18 @@ img {
   }
 
   .heo-hero-slide-title {
-    font-size: 1.15rem;
+    font-size: 1.2rem;
+  }
+
+  .npc-hero-panel .npc-panel-body {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+  }
+
+  .npc-hero-panel .npc-attributes {
+    grid-template-columns: 1fr;
+    width: 100%;
   }
 
   .heo-comments {
