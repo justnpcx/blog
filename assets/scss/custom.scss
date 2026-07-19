@@ -1,19 +1,267 @@
-/* NPC智慧站 · Stack 主题自定义样式 */
+/* ============================================================
+   NPC智慧站 · 「赛博觉醒」视觉系统 v2.0
+   设计理念：克制的科技感 —— NPC 在数字空间中觉醒
+   ============================================================ */
 
-/* ===== 订阅小组件（右侧栏） ===== */
+/* ---------- 1. 字体系统 ---------- */
+@import url('https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap');
+
+:root {
+    --font-sans: 'Space Grotesk', 'Noto Sans SC', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Sarasa Mono SC', 'Cascadia Code', monospace;
+
+    /* 觉醒紫 → 赛博青 渐变体系 */
+    --awake-purple: #7c5cff;
+    --awake-cyan: #00d9c0;
+    --awake-gradient: linear-gradient(135deg, var(--awake-purple) 0%, var(--awake-cyan) 100%);
+    --awake-gradient-soft: linear-gradient(135deg, rgba(124, 92, 255, 0.15) 0%, rgba(0, 217, 192, 0.15) 100%);
+
+    /* 覆盖主题强调色 */
+    --accent-color: var(--awake-purple);
+    --accent-color-darker: #6a4de8;
+    --accent-color-text: #fff;
+}
+
+/* 应用字体 */
+body {
+    font-family: var(--font-sans);
+}
+
+code, pre, kbd, samp,
+.article-content code,
+.article-content pre {
+    font-family: var(--font-mono);
+}
+
+/* 数字与英文用 Space Grotesk，中文自动回落 */
+.article-title, .section-title, .widget-title,
+.article-list .article-title a {
+    font-family: var(--font-sans);
+    letter-spacing: -0.01em;
+}
+
+/* ---------- 2. 背景：数字空间质感 ---------- */
+body {
+    position: relative;
+}
+
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    pointer-events: none;
+    /* 细腻网格纹理 */
+    background-image:
+        linear-gradient(rgba(124, 92, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(124, 92, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* 暗色模式：深空蓝黑 + 更明显网格 */
+[data-scheme="dark"] {
+    --body-background: #0d1117;
+    --card-background: #161b22;
+    --card-background-selected: #1c2330;
+    --card-separator-color: #21262d;
+    --card-text-color-main: #e6edf3;
+    --card-text-color-secondary: #9da7b3;
+    --card-text-color-tertiary: #6e7681;
+}
+
+[data-scheme="dark"] body::before {
+    background-image:
+        linear-gradient(rgba(124, 92, 255, 0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 217, 192, 0.04) 1px, transparent 1px);
+    background-size: 40px 40px;
+}
+
+/* 暗色模式顶部氛围光 */
+[data-scheme="dark"] body::after {
+    content: "";
+    position: fixed;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(124, 92, 255, 0.08) 0%, transparent 70%);
+    pointer-events: none;
+    z-index: -1;
+}
+
+/* ---------- 3. 左侧边栏：觉醒标识 ---------- */
+.left-sidebar {
+    header {
+        .site-avatar {
+            position: relative;
+
+            .site-logo {
+                border-radius: 50%;
+                transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            /* 渐变光环 */
+            &::before {
+                content: "";
+                position: absolute;
+                inset: -4px;
+                border-radius: 50%;
+                background: var(--awake-gradient);
+                z-index: -1;
+                opacity: 0.8;
+                animation: avatar-glow 3s ease-in-out infinite;
+            }
+
+            &:hover .site-logo {
+                transform: scale(1.05) rotate(2deg);
+            }
+        }
+
+        .site-name {
+            background: var(--awake-gradient);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 700;
+        }
+
+        .site-description {
+            font-size: 1.35rem;
+            color: var(--card-text-color-secondary);
+        }
+    }
+}
+
+@keyframes avatar-glow {
+    0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.3); }
+    50% { opacity: 1; box-shadow: 0 0 20px 4px rgba(124, 92, 255, 0.25); }
+}
+
+/* 菜单 hover 微光 */
+.menu li a {
+    border-radius: var(--card-border-radius);
+    transition: all 0.25s ease;
+
+    &:hover, &.current {
+        background: var(--awake-gradient-soft);
+        color: var(--accent-color);
+    }
+}
+
+/* 社交图标 hover 发光 */
+.social-menu a {
+    transition: all 0.3s ease;
+    border-radius: 8px;
+
+    &:hover {
+        color: var(--accent-color);
+        transform: translateY(-2px);
+        filter: drop-shadow(0 2px 8px rgba(124, 92, 255, 0.4));
+    }
+}
+
+/* ---------- 4. 文章卡片：能量条 + 悬浮 ---------- */
+.article-list article,
+.article-list--compact article,
+.article-list--tile article {
+    position: relative;
+    overflow: hidden;
+    transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
+                box-shadow 0.3s ease;
+
+    /* 顶部渐变能量条 */
+    &::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 3px;
+        background: var(--awake-gradient);
+        opacity: 0;
+        transition: opacity 0.3s ease;
+    }
+
+    &:hover {
+        transform: translateY(-4px);
+        box-shadow: var(--shadow-l2), 0 8px 30px rgba(124, 92, 255, 0.12);
+
+        &::before {
+            opacity: 1;
+        }
+    }
+}
+
+/* 分类标签：渐变底胶囊 */
+.article-category a, .article-tags a {
+    background: var(--awake-gradient-soft);
+    color: var(--accent-color);
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 1.25rem;
+    font-weight: 500;
+    transition: all 0.25s ease;
+
+    &:hover {
+        background: var(--awake-gradient);
+        color: #fff;
+        transform: translateY(-1px);
+    }
+}
+
+/* 文章标题 hover 渐变 */
+.article-title a {
+    background: linear-gradient(to right, var(--awake-purple), var(--awake-cyan));
+    background-size: 0% 2px;
+    background-repeat: no-repeat;
+    background-position: left bottom;
+    transition: background-size 0.4s ease;
+
+    &:hover {
+        background-size: 100% 2px;
+    }
+}
+
+/* ---------- 5. 右侧栏小组件 ---------- */
+.widget {
+    border-radius: var(--card-border-radius);
+    overflow: hidden;
+}
+
+/* 订阅 CTA：紫青渐变卡片，视觉焦点 */
 .newsletter-widget {
     .widget--body {
-        padding: var(--card-padding);
-        background: var(--card-background);
-        border-radius: var(--card-border-radius);
-        box-shadow: var(--shadow-l1);
+        background: var(--awake-gradient-soft);
+        border: 1px solid rgba(124, 92, 255, 0.2);
+        padding: 20px;
+        position: relative;
+        overflow: hidden;
+
+        /* 角落光效 */
+        &::before {
+            content: "";
+            position: absolute;
+            top: -40px;
+            right: -40px;
+            width: 120px;
+            height: 120px;
+            background: radial-gradient(circle, rgba(0, 217, 192, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+    }
+
+    .widget-title {
+        font-size: 1.6rem;
+        font-weight: 700;
+        margin-bottom: 8px;
     }
 
     .newsletter-desc {
-        margin: 0 0 14px;
-        font-size: 1.4rem;
+        font-size: 1.35rem;
         color: var(--card-text-color-secondary);
         line-height: 1.6;
+        margin-bottom: 16px;
     }
 
     .newsletter-form {
@@ -22,129 +270,324 @@
         gap: 10px;
 
         input[type="email"] {
-            width: 100%;
-            padding: 10px 14px;
+            padding: 12px 16px;
             font-size: 1.4rem;
-            color: var(--card-text-color-main);
-            background: var(--body-background);
+            background: var(--card-background);
             border: 1px solid var(--card-separator-color);
-            border-radius: var(--tag-border-radius);
+            border-radius: 10px;
+            color: var(--card-text-color-main);
             outline: none;
+            transition: all 0.25s ease;
             box-sizing: border-box;
-            transition: border-color 0.2s ease;
 
             &:focus {
-                border-color: var(--accent-color);
+                border-color: var(--awake-purple);
+                box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.15);
+            }
+
+            &::placeholder {
+                color: var(--card-text-color-tertiary);
             }
         }
 
         button {
-            padding: 10px 16px;
+            padding: 12px 20px;
             font-size: 1.4rem;
             font-weight: 600;
-            color: var(--card-background);
-            background: var(--accent-color);
+            color: #fff;
+            background: var(--awake-gradient);
             border: none;
-            border-radius: var(--tag-border-radius);
+            border-radius: 10px;
             cursor: pointer;
-            transition: opacity 0.2s ease, transform 0.15s ease;
+            transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            position: relative;
+            overflow: hidden;
+
+            &::after {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+                transition: left 0.5s ease;
+            }
 
             &:hover {
-                opacity: 0.9;
-                transform: translateY(-1px);
+                transform: translateY(-2px);
+                box-shadow: 0 6px 20px rgba(124, 92, 255, 0.35);
+
+                &::after {
+                    left: 100%;
+                }
+            }
+
+            &:active {
+                transform: translateY(0);
             }
         }
     }
 
     .newsletter-note {
-        margin: 10px 0 0;
-        font-size: 1.2rem;
+        margin-top: 12px;
+        font-size: 1.15rem;
         color: var(--card-text-color-tertiary);
     }
 }
 
-/* ===== 文章页作者权威卡 ===== */
-.npc-author-card {
-    display: flex;
-    gap: 16px;
-    align-items: flex-start;
-    margin-top: 20px;
-    padding: 18px;
-    background: var(--body-background);
-    border-radius: var(--card-border-radius);
-    border: 1px solid var(--card-separator-color);
+/* ---------- 6. 文章页：阅读体验 ---------- */
+.article-content {
+    font-size: 1.62rem;
+    line-height: 1.85;
 
-    .npc-author-avatar {
-        width: 64px;
-        height: 64px;
-        border-radius: 50%;
-        flex-shrink: 0;
-        object-fit: cover;
+    /* 段落首行不缩进，但增加段间距 */
+    p {
+        margin-bottom: 1.4em;
     }
 
-    .npc-author-name {
-        font-size: 1.6rem;
-        font-weight: 600;
-        color: var(--card-text-color-main);
-        margin-bottom: 4px;
+    /* 标题层级强化 */
+    h2 {
+        font-size: 2.1rem;
+        margin-top: 2em;
+        position: relative;
+        padding-left: 14px;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 4px;
+            height: 70%;
+            background: var(--awake-gradient);
+            border-radius: 2px;
+        }
     }
 
-    .npc-author-badge {
-        display: inline-block;
-        margin-left: 8px;
-        padding: 2px 10px;
-        font-size: 1.1rem;
-        font-weight: 500;
-        border-radius: 999px;
-        background: var(--accent-color-darker);
-        color: #fff;
-        vertical-align: middle;
+    h3 {
+        font-size: 1.8rem;
     }
 
-    .npc-author-bio {
-        margin: 6px 0 8px;
-        font-size: 1.35rem;
+    /* 引用块：觉醒风格 */
+    blockquote {
+        border-left: 3px solid var(--awake-purple);
+        background: var(--awake-gradient-soft);
+        padding: 16px 20px;
+        border-radius: 0 10px 10px 0;
+        margin: 1.5em 0;
+        font-style: normal;
         color: var(--card-text-color-secondary);
-        line-height: 1.65;
+
+        p:last-child {
+            margin-bottom: 0;
+        }
     }
 
-    .npc-author-more {
-        font-size: 1.3rem;
-        font-weight: 500;
-    }
-}
-
-/* ===== 文章页热门文章 ===== */
-.npc-popular {
-    margin-top: 20px;
-    padding: 18px;
-    background: var(--body-background);
-    border-radius: var(--card-border-radius);
-    border: 1px solid var(--card-separator-color);
-
-    .npc-popular-title {
-        margin: 0 0 10px;
-        font-size: 1.5rem;
-        color: var(--card-text-color-main);
+    /* 行内代码 */
+    :not(pre) > code {
+        background: var(--awake-gradient-soft);
+        color: var(--awake-purple);
+        padding: 2px 8px;
+        border-radius: 6px;
+        font-size: 0.9em;
+        border: 1px solid rgba(124, 92, 255, 0.2);
     }
 
-    .npc-popular-list {
-        margin: 0;
-        padding-left: 20px;
+    /* 代码块 */
+    pre {
+        border-radius: 12px;
+        border: 1px solid var(--card-separator-color);
+    }
 
-        li {
-            margin: 6px 0;
-            font-size: 1.4rem;
-            line-height: 1.6;
+    /* 图片圆角 + 阴影 */
+    img {
+        border-radius: 12px;
+        box-shadow: var(--shadow-l1);
+    }
+
+    /* 链接下划线渐变 */
+    a {
+        text-decoration: none;
+        background-image: var(--awake-gradient);
+        background-size: 0% 1.5px;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        transition: background-size 0.3s ease;
+
+        &:hover {
+            background-size: 100% 1.5px;
         }
     }
 }
 
-/* 移动端微调 */
+/* ---------- 7. 作者卡 & 热门文章（页脚组件） ---------- */
+.npc-author-card {
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    border-radius: 16px;
+    padding: 20px;
+    position: relative;
+    overflow: hidden;
+
+    /* 左侧渐变条 */
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 3px;
+        background: var(--awake-gradient);
+    }
+
+    .npc-author-avatar {
+        border-radius: 50%;
+        border: 2px solid transparent;
+        background: var(--awake-gradient) border-box;
+    }
+
+    .npc-author-badge {
+        background: var(--awake-gradient);
+        color: #fff;
+        font-weight: 500;
+    }
+}
+
+.npc-popular {
+    background: var(--card-background);
+    border: 1px solid var(--card-separator-color);
+    border-radius: 16px;
+
+    .npc-popular-title {
+        background: var(--awake-gradient);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+    }
+
+    .npc-popular-list li::marker {
+        color: var(--awake-purple);
+    }
+}
+
+/* ---------- 8. 全局动画与交互 ---------- */
+
+/* 页面入场交错动画 */
+@keyframes fade-up {
+    from {
+        opacity: 0;
+        transform: translateY(16px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.article-list article,
+.widget,
+.left-sidebar header {
+    animation: fade-up 0.5s cubic-bezier(0.22, 1, 0.36, 1) backwards;
+}
+
+.article-list article:nth-child(1) { animation-delay: 0.05s; }
+.article-list article:nth-child(2) { animation-delay: 0.1s; }
+.article-list article:nth-child(3) { animation-delay: 0.15s; }
+.article-list article:nth-child(4) { animation-delay: 0.2s; }
+.article-list article:nth-child(5) { animation-delay: 0.25s; }
+.article-list article:nth-child(6) { animation-delay: 0.3s; }
+
+.widget:nth-child(1) { animation-delay: 0.1s; }
+.widget:nth-child(2) { animation-delay: 0.15s; }
+.widget:nth-child(3) { animation-delay: 0.2s; }
+.widget:nth-child(4) { animation-delay: 0.25s; }
+.widget:nth-child(5) { animation-delay: 0.3s; }
+
+/* 自定义滚动条 */
+::-webkit-scrollbar {
+    width: 8px;
+    height: 8px;
+}
+
+::-webkit-scrollbar-track {
+    background: transparent;
+}
+
+::-webkit-scrollbar-thumb {
+    background: rgba(124, 92, 255, 0.3);
+    border-radius: 4px;
+
+    &:hover {
+        background: rgba(124, 92, 255, 0.5);
+    }
+}
+
+/* 文字选区：渐变紫 */
+::selection {
+    background: rgba(124, 92, 255, 0.25);
+    color: inherit;
+}
+
+/* 明暗切换按钮 */
+#dark-mode-toggle {
+    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+
+    &:hover {
+        transform: rotate(15deg) scale(1.1);
+    }
+}
+
+/* 归档时间轴节点发光 */
+.timeline-item::before {
+    transition: box-shadow 0.3s ease;
+}
+
+.timeline-item:hover::before {
+    box-shadow: 0 0 12px rgba(124, 92, 255, 0.6);
+}
+
+/* 分页按钮 */
+.pagination .page-link {
+    border-radius: 10px;
+    transition: all 0.25s ease;
+
+    &.current, &:hover {
+        background: var(--awake-gradient);
+        color: #fff;
+    }
+}
+
+/* 返回顶部按钮 */
+#back-to-top, .back-to-top {
+    background: var(--awake-gradient) !important;
+    border-radius: 12px !important;
+    box-shadow: 0 4px 16px rgba(124, 92, 255, 0.3);
+}
+
+/* ---------- 9. 移动端优化 ---------- */
 @media (max-width: 768px) {
     .npc-author-card {
         flex-direction: column;
         align-items: center;
         text-align: center;
+    }
+
+    .article-content {
+        font-size: 1.55rem;
+    }
+
+    /* 移动端减少动画幅度，避免眩晕 */
+    .article-list article:hover {
+        transform: translateY(-2px);
+    }
+}
+
+/* 尊重用户的减少动画偏好 */
+@media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        transition-duration: 0.01ms !important;
     }
 }
