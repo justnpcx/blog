@@ -1,0 +1,632 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="void">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>JustNPC — 主题选择器</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  /* ========== 主题变量 ========== */
+  :root {
+    /* 主题4: 虚空觉醒 (默认) */
+    --void-bg: #000000;
+    --void-surface: #111118;
+    --void-text: rgba(255,255,255,0.85);
+    --void-dim: rgba(255,255,255,0.45);
+    --void-accent: #FFD700;
+    --void-border: rgba(255,255,255,0.1);
+    
+    /* 主题5: 手账觉醒 */
+    --journal-bg: #FFF8E7;
+    --journal-surface: #FFFEF5;
+    --journal-text: #5D4E37;
+    --journal-dim: #A08B6D;
+    --journal-accent: #E07A5F;
+    --journal-border: #D4C5B0;
+    
+    /* 主题6: 赛博觉醒 */
+    --cyber-bg: #0A0A0F;
+    --cyber-surface: #111118;
+    --cyber-text: #00FFFF;
+    --cyber-dim: rgba(0,255,255,0.5);
+    --cyber-accent: #FF00FF;
+    --cyber-border: #00FFFF;
+  }
+  
+  /* ========== 主题应用 ========== */
+  [data-theme="void"] {
+    --bg: var(--void-bg);
+    --surface: var(--void-surface);
+    --text: var(--void-text);
+    --dim: var(--void-dim);
+    --accent: var(--void-accent);
+    --border: var(--void-border);
+    --font: 'Inter', -apple-system, sans-serif;
+  }
+  
+  [data-theme="journal"] {
+    --bg: var(--journal-bg);
+    --surface: var(--journal-surface);
+    --text: var(--journal-text);
+    --dim: var(--journal-dim);
+    --accent: var(--journal-accent);
+    --border: var(--journal-border);
+    --font: 'Segoe Print', 'Bradley Hand', cursive, 'Noto Sans SC', sans-serif;
+  }
+  
+  [data-theme="cyber"] {
+    --bg: var(--cyber-bg);
+    --surface: var(--cyber-surface);
+    --text: var(--cyber-text);
+    --dim: var(--cyber-dim);
+    --accent: var(--cyber-accent);
+    --border: var(--cyber-border);
+    --font: 'Share Tech Mono', 'Courier New', monospace;
+  }
+  
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: var(--font);
+    line-height: 1.6;
+    transition: all 0.4s ease;
+    min-height: 100vh;
+  }
+  
+  /* ========== 主题选择器 ========== */
+  .theme-selector {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+    display: flex;
+    gap: 10px;
+    background: var(--surface);
+    padding: 10px;
+    border-radius: 12px;
+    border: 1px solid var(--border);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+  }
+  
+  .theme-btn {
+    padding: 8px 16px;
+    border: 2px solid var(--border);
+    background: transparent;
+    color: var(--text);
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 0.85rem;
+    transition: all 0.3s;
+    font-family: inherit;
+  }
+  
+  .theme-btn:hover, .theme-btn.active {
+    border-color: var(--accent);
+    background: var(--accent);
+    color: var(--bg);
+  }
+  
+  /* ========== 通用布局 ========== */
+  .container {
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 80px 20px 40px;
+  }
+  
+  /* ========== 主题4: 虚空 ========== */
+  [data-theme="void"] .hero {
+    text-align: center;
+    padding: 60px 0;
+  }
+  
+  [data-theme="void"] .hero-title {
+    font-size: 2.5rem;
+    font-weight: 100;
+    letter-spacing: 16px;
+    text-transform: uppercase;
+    margin-bottom: 16px;
+  }
+  
+  [data-theme="void"] .hero-subtitle {
+    font-size: 0.9rem;
+    color: var(--dim);
+    letter-spacing: 4px;
+  }
+  
+  [data-theme="void"] .breathing-dot {
+    width: 16px;
+    height: 16px;
+    background: var(--accent);
+    border-radius: 50%;
+    margin: 30px auto;
+    animation: breathe 4s infinite;
+    box-shadow: 0 0 20px var(--accent);
+  }
+  
+  [data-theme="void"] .article {
+    padding: 24px;
+    border: 1px solid var(--border);
+    background: var(--surface);
+    margin-bottom: 20px;
+    transition: all 0.3s;
+  }
+  
+  [data-theme="void"] .article:hover {
+    border-color: var(--accent);
+    transform: translateX(8px);
+  }
+  
+  [data-theme="void"] .article-category {
+    font-size: 0.7rem;
+    color: var(--accent);
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 8px;
+  }
+  
+  [data-theme="void"] .article-title {
+    font-size: 1.2rem;
+    font-weight: 300;
+  }
+  
+  [data-theme="void"] .article-meta {
+    margin-top: 12px;
+    font-size: 0.8rem;
+    color: var(--dim);
+  }
+  
+  [data-theme="void"] .attributes {
+    margin-top: 40px;
+    padding: 30px;
+    border: 1px solid var(--border);
+  }
+  
+  [data-theme="void"] .attr-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin: 16px 0;
+  }
+  
+  [data-theme="void"] .attr-track {
+    flex: 1;
+    height: 2px;
+    background: var(--border);
+  }
+  
+  [data-theme="void"] .attr-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--accent), #fff);
+  }
+  
+  /* ========== 主题5: 手账 ========== */
+  [data-theme="journal"] .hero {
+    text-align: center;
+    padding: 40px;
+    background: var(--surface);
+    border-radius: 8px;
+    border-bottom: 2px dashed var(--border);
+    position: relative;
+  }
+  
+  [data-theme="journal"] .hero::before {
+    content: '';
+    position: absolute;
+    top: -10px;
+    left: 50%;
+    transform: translateX(-50%) rotate(-2deg);
+    width: 80px;
+    height: 20px;
+    background: var(--accent);
+    opacity: 0.6;
+  }
+  
+  [data-theme="journal"] .hero-title {
+    font-size: 1.8rem;
+    margin-bottom: 10px;
+  }
+  
+  [data-theme="journal"] .article {
+    display: flex;
+    gap: 16px;
+    padding: 20px;
+    background: var(--surface);
+    border-radius: 8px;
+    margin-bottom: 20px;
+    box-shadow: 2px 2px 8px rgba(0,0,0,0.05);
+    transition: transform 0.2s;
+  }
+  
+  [data-theme="journal"] .article:hover {
+    transform: rotate(-1deg) scale(1.01);
+  }
+  
+  [data-theme="journal"] .sticker {
+    width: 48px;
+    height: 48px;
+    background: linear-gradient(135deg, var(--accent), #F4A261);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+  
+  [data-theme="journal"] .article-content h3 {
+    font-size: 1.1rem;
+    margin-bottom: 8px;
+  }
+  
+  [data-theme="journal"] .article-content p {
+    font-size: 0.9rem;
+    color: var(--dim);
+  }
+  
+  [data-theme="journal"] .article-meta {
+    margin-top: 8px;
+    font-size: 0.8rem;
+    color: var(--dim);
+    display: flex;
+    gap: 12px;
+  }
+  
+  [data-theme="journal"] .attributes {
+    margin-top: 30px;
+    padding: 24px;
+    background: var(--surface);
+    border-radius: 8px;
+    border: 2px dashed var(--border);
+  }
+  
+  [data-theme="journal"] .attr-row {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 12px 0;
+  }
+  
+  [data-theme="journal"] .attr-stickers {
+    flex: 1;
+    display: flex;
+    gap: 4px;
+  }
+  
+  [data-theme="journal"] .sticker-dot {
+    width: 14px;
+    height: 14px;
+    border-radius: 50%;
+    background: #E8E0D0;
+  }
+  
+  [data-theme="journal"] .sticker-dot.filled {
+    background: var(--accent);
+  }
+  
+  /* ========== 主题6: 赛博 ========== */
+  [data-theme="cyber"] .hero {
+    text-align: center;
+    padding: 40px;
+    border: 2px solid var(--accent);
+    background: rgba(255,0,255,0.05);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  [data-theme="cyber"] .hero::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+    animation: scan 3s infinite;
+  }
+  
+  @keyframes scan {
+    0% { left: -100%; }
+    100% { left: 100%; }
+  }
+  
+  [data-theme="cyber"] .hero-title {
+    font-size: 2rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 6px;
+    color: var(--accent);
+    text-shadow: 0 0 10px var(--accent);
+  }
+  
+  [data-theme="cyber"] .article {
+    border: 2px solid var(--border);
+    background: rgba(0,255,255,0.03);
+    padding: 20px;
+    margin-bottom: 16px;
+    position: relative;
+    transition: all 0.3s;
+  }
+  
+  [data-theme="cyber"] .article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: linear-gradient(90deg, var(--border), var(--accent));
+  }
+  
+  [data-theme="cyber"] .article:hover {
+    border-color: var(--accent);
+    box-shadow: 0 0 20px rgba(255,0,255,0.2);
+  }
+  
+  [data-theme="cyber"] .article-tag {
+    display: inline-block;
+    background: var(--accent);
+    color: var(--bg);
+    padding: 2px 10px;
+    font-size: 0.7rem;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+  [data-theme="cyber"] .article-title {
+    color: #fff;
+    font-size: 1.1rem;
+  }
+  
+  [data-theme="cyber"] .article-meta {
+    margin-top: 10px;
+    font-size: 0.8rem;
+    color: var(--dim);
+  }
+  
+  [data-theme="cyber"] .attributes {
+    margin-top: 30px;
+    border: 2px solid var(--border);
+    padding: 24px;
+  }
+  
+  [data-theme="cyber"] .attr-bar {
+    height: 16px;
+    background: rgba(255,255,255,0.1);
+    border: 1px solid var(--border);
+    margin-top: 6px;
+  }
+  
+  [data-theme="cyber"] .attr-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--border), var(--accent));
+    position: relative;
+  }
+  
+  [data-theme="cyber"] .attr-fill::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(255,255,255,0.2) 4px, rgba(255,255,255,0.2) 8px);
+  }
+  
+  /* ========== 通用组件 ========== */
+  .motto {
+    margin-top: 40px;
+    text-align: center;
+    padding: 20px;
+    color: var(--dim);
+    font-style: italic;
+  }
+  
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.4); opacity: 1; }
+  }
+  
+  @media (max-width: 768px) {
+    .theme-selector {
+      top: auto;
+      bottom: 20px;
+      right: 50%;
+      transform: translateX(50%);
+    }
+    .container {
+      padding-top: 40px;
+      padding-bottom: 80px;
+    }
+  }
+</style>
+</head>
+<body>
+
+<div class="theme-selector">
+  <button class="theme-btn active" onclick="setTheme('void')">🌌 虚空</button>
+  <button class="theme-btn" onclick="setTheme('journal')">📓 手账</button>
+  <button class="theme-btn" onclick="setTheme('cyber')">⚡ 赛博</button>
+</div>
+
+<div class="container">
+  <!-- 虚空主题内容 -->
+  <div data-theme-content="void">
+    <div class="hero">
+      <div class="hero-title">JustNPC</div>
+      <div class="hero-subtitle">觉醒中...</div>
+      <div class="breathing-dot"></div>
+    </div>
+    
+    <div class="article">
+      <div class="article-category">深度思考</div>
+      <div class="article-title">解码人性：影响力七大支柱与破局的"道与术"</div>
+      <div class="article-meta">2026-06-26 · 42 min · 心理学</div>
+    </div>
+    
+    <div class="article">
+      <div class="article-category">深度思考</div>
+      <div class="article-title">解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</div>
+      <div class="article-meta">2026-07-17 · 112 min · NLP · 哲学</div>
+    </div>
+    
+    <div class="attributes">
+      <div style="text-align:center; margin-bottom:20px; color:var(--dim); letter-spacing:4px;">觉 醒 属 性</div>
+      <div class="attr-row">
+        <span style="width:30px;">🧠</span>
+        <span style="width:50px; font-size:0.85rem;">认知</span>
+        <div class="attr-track"><div class="attr-fill" style="width:65%"></div></div>
+        <span style="width:35px; text-align:right; color:var(--accent);">65</span>
+      </div>
+      <div class="attr-row">
+        <span style="width:30px;">👁️</span>
+        <span style="width:50px; font-size:0.85rem;">洞察</span>
+        <div class="attr-track"><div class="attr-fill" style="width:58%"></div></div>
+        <span style="width:35px; text-align:right; color:var(--accent);">58</span>
+      </div>
+      <div class="attr-row">
+        <span style="width:30px;">🧘</span>
+        <span style="width:50px; font-size:0.85rem;">心性</span>
+        <div class="attr-track"><div class="attr-fill" style="width:72%"></div></div>
+        <span style="width:35px; text-align:right; color:var(--accent);">72</span>
+      </div>
+      <div class="attr-row">
+        <span style="width:30px;">✍️</span>
+        <span style="width:50px; font-size:0.85rem;">表达</span>
+        <div class="attr-track"><div class="attr-fill" style="width:45%"></div></div>
+        <span style="width:35px; text-align:right; color:var(--accent);">45</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 手账主题内容 -->
+  <div data-theme-content="journal" style="display:none;">
+    <div class="hero">
+      <h1 class="hero-title">📓 JustNPC 的觉醒手账</h1>
+      <div style="color:var(--dim);">2026年7月19日 <span style="background:var(--accent); color:#fff; padding:2px 8px; border-radius:10px; font-size:0.8rem;">☀️ 晴</span></div>
+    </div>
+    
+    <div class="article">
+      <div class="sticker">🧠</div>
+      <div class="article-content">
+        <h3>解码人性：影响力七大支柱与破局的"道与术"</h3>
+        <p>今天研究了西奥迪尼的影响力七大支柱，发现原来我们每天都在被各种心理算法操控...</p>
+        <div class="article-meta"><span>📅 06-26</span><span>⏱️ 42分钟</span><span>🏷️ 心理学</span></div>
+      </div>
+    </div>
+    
+    <div class="article">
+      <div class="sticker">🔮</div>
+      <div class="article-content">
+        <h3>解码实相：从认识论到灵性智慧</h3>
+        <p>NLP 十二条前提假设的终极拆解，原来"地图不是疆域"这句话藏着这么深的智慧...</p>
+        <div class="article-meta"><span>📅 07-17</span><span>⏱️ 112分钟</span><span>🏷️ NLP · 哲学</span></div>
+      </div>
+    </div>
+    
+    <div class="attributes">
+      <div style="display:flex; align-items:center; gap:8px; margin-bottom:16px;"><span>🎯</span><span>觉醒属性收集</span></div>
+      <div class="attr-row">
+        <span style="width:24px;">🧠</span>
+        <span style="width:40px; font-size:0.85rem;">认知</span>
+        <div class="attr-stickers">
+          <div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div>
+        </div>
+        <span style="width:30px; text-align:right; color:var(--accent); font-weight:bold;">65</span>
+      </div>
+      <div class="attr-row">
+        <span style="width:24px;">👁️</span>
+        <span style="width:40px; font-size:0.85rem;">洞察</span>
+        <div class="attr-stickers">
+          <div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div>
+        </div>
+        <span style="width:30px; text-align:right; color:var(--accent); font-weight:bold;">58</span>
+      </div>
+      <div class="attr-row">
+        <span style="width:24px;">🧘</span>
+        <span style="width:40px; font-size:0.85rem;">心性</span>
+        <div class="attr-stickers">
+          <div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot"></div><div class="sticker-dot"></div>
+        </div>
+        <span style="width:30px; text-align:right; color:var(--accent); font-weight:bold;">72</span>
+      </div>
+      <div class="attr-row">
+        <span style="width:24px;">✍️</span>
+        <span style="width:40px; font-size:0.85rem;">表达</span>
+        <div class="attr-stickers">
+          <div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot filled"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div><div class="sticker-dot"></div>
+        </div>
+        <span style="width:30px; text-align:right; color:var(--accent); font-weight:bold;">45</span>
+      </div>
+    </div>
+  </div>
+  
+  <!-- 赛博主题内容 -->
+  <div data-theme-content="cyber" style="display:none;">
+    <div class="hero">
+      <div class="hero-title">JUSTNPC.EXE</div>
+    </div>
+    
+    <div class="article">
+      <div class="article-tag">深度思考</div>
+      <div class="article-title">解码人性：影响力七大支柱与破局的"道与术"</div>
+      <div class="article-meta">📅 2026-06-26 · ⏱️ 42 MIN · 🔥 65°C</div>
+    </div>
+    
+    <div class="article">
+      <div class="article-tag">深度思考</div>
+      <div class="article-title">解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</div>
+      <div class="article-meta">📅 2026-07-17 · ⏱️ 112 MIN · 🔥 58°C</div>
+    </div>
+    
+    <div class="attributes">
+      <div style="color:var(--accent); margin-bottom:16px; letter-spacing:3px; border-bottom:1px solid var(--accent); padding-bottom:8px;">▓▓ SYSTEM ATTRIBUTES ▓▓</div>
+      <div style="margin:12px 0;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span>🧠 COGNITION</span><span>65%</span></div>
+        <div class="attr-bar"><div class="attr-fill" style="width:65%"></div></div>
+      </div>
+      <div style="margin:12px 0;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span>👁️ INSIGHT</span><span>58%</span></div>
+        <div class="attr-bar"><div class="attr-fill" style="width:58%"></div></div>
+      </div>
+      <div style="margin:12px 0;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span>🧘 MINDSET</span><span>72%</span></div>
+        <div class="attr-bar"><div class="attr-fill" style="width:72%"></div></div>
+      </div>
+      <div style="margin:12px 0;">
+        <div style="display:flex; justify-content:space-between; font-size:0.85rem;"><span>✍️ EXPRESSION</span><span>45%</span></div>
+        <div class="attr-bar"><div class="attr-fill" style="width:45%"></div></div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="motto">
+    "地图不是疆域，但我正在重绘我的地图。"
+  </div>
+</div>
+
+<script>
+function setTheme(theme) {
+  document.documentElement.setAttribute('data-theme', theme);
+  
+  // Update buttons
+  document.querySelectorAll('.theme-btn').forEach(btn => {
+    btn.classList.remove('active');
+    if (btn.textContent.includes(theme === 'void' ? '虚空' : theme === 'journal' ? '手账' : '赛博')) {
+      btn.classList.add('active');
+    }
+  });
+  
+  // Show/hide content
+  document.querySelectorAll('[data-theme-content]').forEach(el => {
+    el.style.display = el.getAttribute('data-theme-content') === theme ? 'block' : 'none';
+  });
+  
+  // Save preference
+  localStorage.setItem('npc-theme', theme);
+}
+
+// Load saved theme
+const saved = localStorage.getItem('npc-theme') || 'void';
+setTheme(saved);
+</script>
+
+</body>
+</html>
