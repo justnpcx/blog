@@ -143,6 +143,25 @@ body::after {
     margin-top: 12px !important;
 }
 
+/* 域名显示 */
+.site-domain {
+    color: var(--cyber-yellow) !important;
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    letter-spacing: 1px !important;
+    margin-top: 8px !important;
+    padding: 4px 10px !important;
+    background: rgba(255, 255, 0, 0.08) !important;
+    border: 1px solid var(--cyber-border-yellow) !important;
+    display: inline-block !important;
+    animation: domain-pulse 3s ease-in-out infinite;
+}
+
+@keyframes domain-pulse {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+}
+
 /* ---------- 4. 状态指示条 ---------- */
 .cyber-status-bar {
     display: flex;
@@ -489,6 +508,19 @@ body::after {
             font-size: 12px !important;
             letter-spacing: 1px !important;
             font-family: var(--font-mono) !important;
+        }
+
+        .site-domain {
+            color: var(--cyber-yellow) !important;
+            font-family: var(--font-mono) !important;
+            font-size: 11px !important;
+            letter-spacing: 1px !important;
+            margin-top: 8px !important;
+            padding: 4px 10px !important;
+            background: rgba(255, 255, 0, 0.08) !important;
+            border: 1px solid var(--cyber-border-yellow) !important;
+            display: inline-block !important;
+            animation: domain-pulse 3s ease-in-out infinite;
         }
     }
 }

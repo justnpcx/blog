@@ -34,6 +34,7 @@ params:
     emoji: "⚡"
     subtitle: "AWAKENING // 智慧 · 科技 · 分享"
     avatar: img/avatar.png
+    siteUrl: "blog.justnpc.com"
 
   article:
     headingSize: 6
