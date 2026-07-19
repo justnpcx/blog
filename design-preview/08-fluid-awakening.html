@@ -1,0 +1,457 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案8：流体觉醒 — JustNPC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&family=Noto+Sans+SC:wght@300;400;500;700&display=swap');
+
+:root {
+  --bg: #0F0F1A;
+  --purple: #6C5CE7;
+  --cyan: #00CEC8;
+  --pink: #FD79A8;
+  --gold: #FDCB6E;
+  --text: rgba(255,255,255,0.9);
+  --text-dim: rgba(255,255,255,0.6);
+  --glass: rgba(255,255,255,0.05);
+  --glass-border: rgba(255,255,255,0.1);
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  font-family: 'Poppins', 'Noto Sans SC', sans-serif;
+  line-height: 1.7;
+  min-height: 100vh;
+  overflow-x: hidden;
+  color: var(--text);
+}
+
+/* Blob Background */
+.blob-bg {
+  position: fixed;
+  inset: 0;
+  overflow: hidden;
+  z-index: 0;
+}
+.blob {
+  position: absolute;
+  border-radius: 50%;
+  filter: blur(80px);
+  opacity: 0.4;
+  animation: float 20s ease-in-out infinite;
+}
+.blob-1 {
+  width: 600px; height: 600px;
+  background: var(--purple);
+  top: -200px; left: -200px;
+  animation-delay: 0s;
+}
+.blob-2 {
+  width: 500px; height: 500px;
+  background: var(--cyan);
+  top: 50%; right: -150px;
+  animation-delay: -5s;
+}
+.blob-3 {
+  width: 400px; height: 400px;
+  background: var(--pink);
+  bottom: -100px; left: 30%;
+  animation-delay: -10s;
+}
+@keyframes float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  33% { transform: translate(50px, -30px) scale(1.05); }
+  66% { transform: translate(-30px, 50px) scale(0.95); }
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 80px 24px; position: relative; z-index: 1; }
+
+/* Glass Card */
+.glass {
+  background: var(--glass);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+}
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 60px 40px;
+  margin-bottom: 32px;
+  position: relative;
+  overflow: hidden;
+}
+
+.breathe-orb {
+  width: 100px;
+  height: 100px;
+  margin: 0 auto 32px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  box-shadow: 0 0 60px rgba(108, 92, 231, 0.4);
+  animation: breathe 4s ease-in-out infinite;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 40px;
+}
+@keyframes breathe {
+  0%, 100% { transform: scale(1); box-shadow: 0 0 60px rgba(108, 92, 231, 0.4); }
+  50% { transform: scale(1.1); box-shadow: 0 0 80px rgba(108, 92, 231, 0.6); }
+}
+
+.header-title {
+  font-size: 48px;
+  font-weight: 700;
+  letter-spacing: 8px;
+  margin-bottom: 16px;
+  background: linear-gradient(90deg, var(--text), var(--cyan));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  letter-spacing: 6px;
+  color: var(--text-dim);
+  font-weight: 300;
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+.nav-item {
+  padding: 12px 28px;
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 50px;
+  font-size: 13px;
+  color: var(--text-dim);
+  cursor: pointer;
+  transition: all 0.3s;
+  backdrop-filter: blur(10px);
+}
+.nav-item:hover, .nav-item.active {
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  color: #fff;
+  border-color: transparent;
+  transform: scale(1.05);
+}
+
+/* Post Cards */
+.post-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 24px; margin-bottom: 32px; }
+@media(max-width: 768px) { .post-grid { grid-template-columns: 1fr; } }
+
+.post-card {
+  padding: 28px;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+  position: relative;
+  overflow: hidden;
+}
+.post-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 4px;
+  background: linear-gradient(90deg, var(--purple), var(--cyan));
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.4s;
+}
+.post-card:hover::before { transform: scaleX(1); }
+.post-card:hover {
+  transform: translateY(-8px) scale(1.02);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+}
+
+.post-icon {
+  width: 56px;
+  height: 56px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 24px;
+  margin-bottom: 20px;
+}
+
+.post-date {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--text-dim);
+  margin-bottom: 8px;
+}
+
+.post-title {
+  font-size: 18px;
+  font-weight: 600;
+  margin-bottom: 12px;
+  line-height: 1.5;
+}
+
+.post-excerpt {
+  font-size: 13px;
+  color: var(--text-dim);
+  line-height: 1.8;
+  margin-bottom: 16px;
+}
+
+.post-meta {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text-dim);
+}
+
+.post-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 6px 14px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-weight: 500;
+}
+.post-tag.purple { background: rgba(108,92,231,0.2); color: var(--purple); }
+.post-tag.cyan { background: rgba(0,206,200,0.2); color: var(--cyan); }
+
+/* Attributes - Bubble Chart */
+.attributes {
+  padding: 40px;
+  margin-bottom: 32px;
+  text-align: center;
+}
+
+.attributes-title {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--text-dim);
+  margin-bottom: 32px;
+}
+
+.attr-grid {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  flex-wrap: wrap;
+}
+
+.attr-item {
+  text-align: center;
+  position: relative;
+}
+.attr-bubble {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, var(--purple), var(--cyan));
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  margin: 0 auto 12px;
+  box-shadow: 0 10px 40px rgba(108,92,231,0.3);
+  animation: bubble-float 6s ease-in-out infinite;
+  position: relative;
+}
+.attr-bubble::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 2px solid rgba(255,255,255,0.2);
+  animation: ring-pulse 2s ease-in-out infinite;
+}
+@keyframes bubble-float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+@keyframes ring-pulse {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.1); opacity: 0.5; }
+}
+
+.attr-item:nth-child(2) .attr-bubble { animation-delay: -1.5s; }
+.attr-item:nth-child(3) .attr-bubble { animation-delay: -3s; }
+.attr-item:nth-child(4) .attr-bubble { animation-delay: -4.5s; }
+
+.attr-name { font-size: 11px; color: var(--text-dim); margin-bottom: 4px; letter-spacing: 1px; }
+.attr-value { font-size: 22px; font-weight: 700; }
+
+/* Motto */
+.motto {
+  padding: 40px;
+  margin-bottom: 32px;
+  text-align: center;
+  position: relative;
+}
+.motto::before, .motto::after {
+  content: '◆';
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 24px;
+  color: var(--glass-border);
+}
+.motto::before { left: 24px; }
+.motto::after { right: 24px; }
+
+.motto-text {
+  font-size: 20px;
+  font-weight: 300;
+  color: var(--text);
+  letter-spacing: 2px;
+  line-height: 1.8;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 24px 0;
+  border-top: 1px solid var(--glass-border);
+  font-size: 12px;
+  color: var(--text-dim);
+}
+
+/* Particles */
+.particle {
+  position: fixed;
+  width: 4px;
+  height: 4px;
+  background: var(--cyan);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: particle-rise 10s linear infinite;
+  opacity: 0.6;
+}
+@keyframes particle-rise {
+  0% { transform: translateY(100vh) scale(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.6; }
+  100% { transform: translateY(-100px) scale(1); opacity: 0; }
+}
+</style>
+</head>
+<body>
+
+<div class="blob-bg">
+  <div class="blob blob-1"></div>
+  <div class="blob blob-2"></div>
+  <div class="blob blob-3"></div>
+</div>
+
+<!-- Particles -->
+<script>
+for (let i = 0; i < 15; i++) {
+  const p = document.createElement('div');
+  p.className = 'particle';
+  p.style.left = Math.random() * 100 + '%';
+  p.style.animationDelay = Math.random() * 10 + 's';
+  p.style.animationDuration = (8 + Math.random() * 6) + 's';
+  if (Math.random() > 0.5) p.style.background = 'var(--purple)';
+  if (Math.random() > 0.5) p.style.background = 'var(--pink)';
+  document.body.appendChild(p);
+}
+</script>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header glass">
+    <div class="breathe-orb">✦</div>
+    <h1 class="header-title">JUSTNPC</h1>
+    <p class="header-subtitle">AWAKENING · Lv.1 · v0.3.1</p>
+  </div>
+
+  <!-- Nav -->
+  <nav class="nav">
+    <span class="nav-item active">Posts</span>
+    <span class="nav-item">About</span>
+    <span class="nav-item">Contact</span>
+  </nav>
+
+  <!-- Posts -->
+  <div class="post-grid">
+    <div class="post-card glass">
+      <div class="post-icon">🧠</div>
+      <div class="post-date">2026.06.26</div>
+      <h2 class="post-title">解码人性：影响力七大支柱与破局的"道与术"</h2>
+      <p class="post-excerpt">罗伯特·西奥迪尼的七大影响力原则，不仅是销售技巧，更是理解人类行为模式的认知框架...</p>
+      <div class="post-meta">
+        <span>⏱ 42 min read</span>
+        <span>👁 1.2K views</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="post-tag purple">🧠 深度思考</span>
+      </div>
+    </div>
+
+    <div class="post-card glass">
+      <div class="post-icon" style="background: linear-gradient(135deg, var(--cyan), var(--pink));">🔮</div>
+      <div class="post-date">2026.07.17</div>
+      <h2 class="post-title">解码实相：从认识论到灵性智慧的认知跃迁</h2>
+      <p class="post-excerpt">从柏拉图的洞穴隐喻到量子力学，从第一性原理到灵性觉醒——认知的边界在哪里？</p>
+      <div class="post-meta">
+        <span>⏱ 112 min read</span>
+        <span>👁 856 views</span>
+      </div>
+      <div style="margin-top: 16px;">
+        <span class="post-tag cyan">🔮 觉醒日志</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Attributes -->
+  <div class="attributes glass">
+    <div class="attributes-title">// AWAKENING ATTRIBUTES //</div>
+    <div class="attr-grid">
+      <div class="attr-item">
+        <div class="attr-bubble">🧠</div>
+        <div class="attr-name">COGNITION</div>
+        <div class="attr-value" style="color: var(--purple);">65</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-bubble">👁️</div>
+        <div class="attr-name">INSIGHT</div>
+        <div class="attr-value" style="color: var(--cyan);">58</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-bubble">🧘</div>
+        <div class="attr-name">MINDSET</div>
+        <div class="attr-value" style="color: var(--pink);">72</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-bubble">✍️</div>
+        <div class="attr-name">EXPRESSION</div>
+        <div class="attr-value" style="color: var(--gold);">45</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Motto -->
+  <div class="motto glass">
+    <p class="motto-text">"地图不是疆域，但我正在重绘我的地图。"</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>Crafted with ✦ by JustNPC · Fluid Awakening · v0.3.1</p>
+  </div>
+</div>
+
+</body>
+</html>

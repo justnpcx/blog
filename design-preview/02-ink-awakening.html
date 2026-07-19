@@ -1,0 +1,378 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案2：墨韵觉醒 — JustNPC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Ma+Shan+Zheng&family=Noto+Serif+SC:wght@400;600;700&family=ZCOOL+XiaoWei&display=swap');
+
+:root {
+  --bg: #F5F0E8;
+  --bg-card: #FFFDF8;
+  --ink: #1A1A1A;
+  --ink-light: #4A4A4A;
+  --ink-faint: #8A8A8A;
+  --vermilion: #C41E3A;
+  --jade: #2E5C4E;
+  --gold: #B8860B;
+  --border: #E8DFD0;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.8' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.03'/%3E%3C/svg%3E");
+  color: var(--ink);
+  font-family: 'Noto Serif SC', 'SimSun', serif;
+  line-height: 1.8;
+  min-height: 100vh;
+}
+
+.container { max-width: 900px; margin: 0 auto; padding: 40px 20px; }
+
+/* Header */
+.header {
+  text-align: center;
+  padding: 60px 20px 40px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+}
+.header::before {
+  content: '【';
+  position: absolute;
+  left: 20px;
+  top: 20px;
+  font-size: 48px;
+  color: var(--border);
+  font-family: 'ZCOOL XiaoWei', serif;
+}
+.header::after {
+  content: '】';
+  position: absolute;
+  right: 20px;
+  top: 20px;
+  font-size: 48px;
+  color: var(--border);
+  font-family: 'ZCOOL XiaoWei', serif;
+}
+
+.header-brush {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 48px;
+  letter-spacing: 12px;
+  color: var(--ink);
+  margin-bottom: 16px;
+}
+
+.header-subtitle {
+  font-size: 14px;
+  color: var(--ink-light);
+  letter-spacing: 4px;
+}
+
+.header-seal {
+  position: absolute;
+  bottom: -20px;
+  right: 40px;
+  width: 60px;
+  height: 60px;
+  background: var(--vermilion);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 700;
+  box-shadow: 2px 2px 8px rgba(0,0,0,0.15);
+  transform: rotate(-5deg);
+}
+
+/* Nav */
+.nav {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  padding: 24px 0;
+  border-bottom: 1px dashed var(--border);
+  margin-bottom: 40px;
+}
+.nav-item {
+  font-size: 14px;
+  color: var(--ink-light);
+  cursor: pointer;
+  position: relative;
+}
+.nav-item:hover { color: var(--vermilion); }
+.nav-item.active { color: var(--vermilion); font-weight: 600; }
+
+/* Post Cards */
+.post-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin-bottom: 32px;
+  position: relative;
+  transition: all 0.3s;
+  cursor: pointer;
+}
+.post-card:hover { transform: translateY(-4px); box-shadow: 0 8px 24px rgba(0,0,0,0.08); }
+
+/* Washi Tape */
+.tape {
+  position: absolute;
+  width: 80px;
+  height: 24px;
+  background: linear-gradient(135deg, var(--vermilion), #E85A6B);
+  opacity: 0.85;
+  top: -8px;
+  left: 30px;
+  transform: rotate(-2deg);
+  box-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+}
+.tape::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(90deg, transparent, transparent 4px, rgba(255,255,255,0.15) 4px, rgba(255,255,255,0.15) 8px);
+}
+
+.post-date {
+  font-size: 12px;
+  color: var(--ink-faint);
+  margin-bottom: 12px;
+  letter-spacing: 2px;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: var(--ink);
+  margin-bottom: 16px;
+  line-height: 1.4;
+  letter-spacing: 2px;
+}
+
+.post-excerpt {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 2;
+  border-left: 2px solid var(--jade);
+  padding-left: 16px;
+  margin-bottom: 16px;
+}
+
+.post-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 16px;
+  border-top: 1px dashed var(--border);
+  font-size: 12px;
+  color: var(--ink-faint);
+}
+
+.post-tag {
+  background: var(--jade);
+  color: #fff;
+  padding: 4px 12px;
+  border-radius: 2px;
+  font-size: 11px;
+}
+
+/* Mountain Attribute */
+.attributes {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  padding: 32px;
+  margin-bottom: 40px;
+  position: relative;
+}
+.attributes-title {
+  text-align: center;
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 24px;
+  color: var(--ink);
+  margin-bottom: 32px;
+}
+
+.mountain-canvas {
+  height: 120px;
+  position: relative;
+  margin-bottom: 24px;
+  overflow: hidden;
+}
+.mountain-svg { width: 100%; height: 100%; }
+
+.attr-legend {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 16px;
+}
+@media(max-width: 768px) { .attr-legend { grid-template-columns: repeat(2, 1fr); } }
+.attr-item {
+  text-align: center;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: 4px;
+}
+.attr-icon { font-size: 28px; margin-bottom: 8px; }
+.attr-name { font-size: 12px; color: var(--ink-light); margin-bottom: 4px; }
+.attr-value { font-size: 20px; font-weight: 700; color: var(--vermilion); }
+.attr-label { font-size: 10px; color: var(--ink-faint); }
+
+/* Motto */
+.motto {
+  text-align: center;
+  padding: 40px 20px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  margin: 40px 0;
+}
+.motto-text {
+  font-family: 'Ma Shan Zheng', cursive;
+  font-size: 28px;
+  color: var(--ink);
+  letter-spacing: 4px;
+  position: relative;
+  display: inline-block;
+}
+.motto-text::before { content: '"'; position: absolute; left: -30px; top: -10px; font-size: 48px; color: var(--border); }
+.motto-text::after { content: '"'; position: absolute; right: -30px; bottom: -20px; font-size: 48px; color: var(--border); }
+.motto-source { font-size: 12px; color: var(--ink-faint); margin-top: 16px; letter-spacing: 2px; }
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 32px 0;
+  font-size: 12px;
+  color: var(--ink-faint);
+  border-top: 1px solid var(--border);
+}
+.footer-seal {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 40px;
+  height: 40px;
+  border: 2px solid var(--vermilion);
+  color: var(--vermilion);
+  font-size: 12px;
+  font-weight: 700;
+  margin-bottom: 12px;
+}
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="header-brush">觉醒日志</div>
+    <div class="header-subtitle">一个 NPC 的觉醒之路 · Lv.1 初级觉醒者</div>
+    <div class="header-seal">觉醒<br>日志</div>
+  </div>
+
+  <!-- Nav -->
+  <div class="nav">
+    <span class="nav-item active">全部文章</span>
+    <span class="nav-item">深度思考</span>
+    <span class="nav-item">觉醒日志</span>
+    <span class="nav-item">关于</span>
+  </div>
+
+  <!-- Post 1 -->
+  <div class="post-card">
+    <div class="tape"></div>
+    <div class="post-date">丙午年 · 六月廿六 · 晴</div>
+    <div class="post-title">解码人性：影响力七大支柱与破局的「道与术」</div>
+    <div class="post-excerpt">
+      罗伯特·西奥迪尼的七大影响力原则，不仅是销售技巧，更是理解人类行为模式的认知框架。当我们洞悉影响力的底层逻辑，便能在复杂的人际网络中游刃有余，同时保持自我的清醒与独立。
+    </div>
+    <div class="post-footer">
+      <span class="post-tag">深度思考</span>
+      <span>阅读 42 分钟</span>
+    </div>
+  </div>
+
+  <!-- Post 2 -->
+  <div class="post-card">
+    <div class="tape" style="background: linear-gradient(135deg, var(--jade), #5C8A7D); left: 50%; transform: rotate(2deg);"></div>
+    <div class="post-date">丙午年 · 七月十七 · 雨</div>
+    <div class="post-title">解码实相：从认识论到灵性智慧的认知跃迁</div>
+    <div class="post-excerpt">
+      从柏拉图的洞穴隐喻到量子力学，从第一性原理到灵性觉醒——认知的边界在哪里？当意识开始向内探索，现实的本质逐渐浮现。不是主角，但正在觉醒。
+    </div>
+    <div class="post-footer">
+      <span class="post-tag">觉醒日志</span>
+      <span>阅读 112 分钟</span>
+    </div>
+  </div>
+
+  <!-- Attributes - Mountain Style -->
+  <div class="attributes">
+    <div class="tape" style="background: var(--gold); left: 40%; transform: rotate(1deg);"></div>
+    <div class="attributes-title">觉醒属性图</div>
+    
+    <div class="mountain-canvas">
+      <svg class="mountain-svg" viewBox="0 0 400 100" preserveAspectRatio="none">
+        <!-- Background mountains -->
+        <path d="M0,100 L80,40 L120,70 L200,20 L280,60 L340,30 L400,50 L400,100 Z" fill="#E8DFD0" opacity="0.5"/>
+        <!-- Cognition 65 -->
+        <path d="M0,100 L60,35 L90,60 L160,10 L230,55 L290,25 L340,45 L400,35 L400,100 Z" fill="var(--vermilion)" opacity="0.3"/>
+        <!-- Insight 58 -->
+        <path d="M0,100 L50,45 L100,25 L150,50 L200,15 L250,55 L300,30 L350,50 L400,40 L400,100 Z" fill="var(--jade)" opacity="0.4"/>
+        <!-- Mindset 72 -->
+        <path d="M0,100 L40,30 L90,55 L140,20 L190,50 L240,10 L290,45 L340,20 L390,40 L400,35 L400,100 Z" fill="var(--gold)" opacity="0.4"/>
+        <!-- Expression 45 -->
+        <path d="M0,100 L70,55 L130,30 L180,65 L230,35 L280,55 L330,25 L380,50 L400,40 L400,100 Z" fill="var(--ink)" opacity="0.15"/>
+        <!-- Ground -->
+        <path d="M0,100 L400,100 Z" fill="var(--border)"/>
+      </svg>
+    </div>
+
+    <div class="attr-legend">
+      <div class="attr-item">
+        <div class="attr-icon">🧠</div>
+        <div class="attr-name">认知</div>
+        <div class="attr-value">65</div>
+        <div class="attr-label">第三重山峦</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-icon">👁️</div>
+        <div class="attr-name">洞察</div>
+        <div class="attr-value">58</div>
+        <div class="attr-label">第二重山峦</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-icon">🧘</div>
+        <div class="attr-name">心性</div>
+        <div class="attr-value">72</div>
+        <div class="attr-label">第四重山峦</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-icon">✍️</div>
+        <div class="attr-name">表达</div>
+        <div class="attr-value">45</div>
+        <div class="attr-label">第二重山峦</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Motto -->
+  <div class="motto">
+    <div class="motto-text">地图不是疆域，但我正在重绘我的地图。</div>
+    <div class="motto-source">— 觉醒箴言</div>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <div class="footer-seal">NPC</div>
+    <div>墨韵觉醒 · v0.3.1</div>
+  </div>
+</div>
+
+</body>
+</html>

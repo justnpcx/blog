@@ -1,0 +1,390 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案10：禅意觉醒 — JustNPC</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+SC:wght@300;400;500;600&display=swap');
+
+:root {
+  --bg: #F7F5F0;
+  --ink: #2C2C2C;
+  --ink-light: #6B6B6B;
+  --rust: #8B4513;
+  --moss: #556B2F;
+  --border: #E0DDD5;
+}
+
+* { margin: 0; padding: 0; box-sizing: border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Noto Serif SC', serif;
+  line-height: 2;
+  min-height: 100vh;
+}
+
+.container { max-width: 680px; margin: 0 auto; padding: 80px 24px; }
+
+/* Header - Minimal */
+.header {
+  text-align: center;
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+  margin-bottom: 80px;
+}
+
+.moon {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: var(--ink);
+  margin: 0 auto 40px;
+  position: relative;
+  box-shadow: 0 0 60px rgba(44,44,44,0.1);
+}
+.moon::before {
+  content: '';
+  position: absolute;
+  top: 10px;
+  left: 15px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background: var(--bg);
+}
+
+.header-title {
+  font-size: 14px;
+  letter-spacing: 12px;
+  color: var(--ink);
+  font-weight: 400;
+  margin-bottom: 16px;
+}
+
+.header-subtitle {
+  font-size: 12px;
+  letter-spacing: 4px;
+  color: var(--ink-light);
+  font-weight: 300;
+}
+
+.header-meta {
+  display: flex;
+  justify-content: center;
+  gap: 32px;
+  margin-top: 32px;
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: 2px;
+}
+
+/* Divider */
+.divider {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin: 60px 0;
+}
+.divider-line {
+  width: 60px;
+  height: 1px;
+  background: var(--border);
+}
+.divider-symbol { color: var(--border); font-size: 12px; }
+
+/* Posts - Single Column */
+.post {
+  padding: 60px 0;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  transition: all 0.5s ease;
+  position: relative;
+}
+.post:hover { padding-left: 20px; }
+
+.post-meta {
+  font-size: 11px;
+  letter-spacing: 3px;
+  color: var(--ink-light);
+  margin-bottom: 20px;
+  display: flex;
+  gap: 24px;
+}
+
+.post-title {
+  font-size: 24px;
+  font-weight: 400;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  letter-spacing: 2px;
+  transition: color 0.3s;
+}
+.post:hover .post-title { color: var(--rust); }
+
+.post-excerpt {
+  font-size: 14px;
+  color: var(--ink-light);
+  line-height: 2;
+}
+
+.post-tag {
+  display: inline-block;
+  margin-top: 20px;
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--moss);
+  padding: 4px 12px;
+  border: 1px solid var(--moss);
+  transition: all 0.3s;
+}
+.post:hover .post-tag {
+  background: var(--moss);
+  color: var(--bg);
+}
+
+/* Attributes - Circle */
+.attributes {
+  padding: 80px 0;
+  border-bottom: 1px solid var(--border);
+  text-align: center;
+}
+
+.attributes-title {
+  font-size: 11px;
+  letter-spacing: 6px;
+  color: var(--ink-light);
+  margin-bottom: 60px;
+}
+
+.attr-circles {
+  display: flex;
+  justify-content: center;
+  gap: 48px;
+  flex-wrap: wrap;
+}
+
+.attr-item {
+  text-align: center;
+}
+.attr-circle {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 1px solid var(--border);
+  margin: 0 auto 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 32px;
+  position: relative;
+  transition: all 0.5s ease;
+}
+.attr-circle::before {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: 50%;
+  border: 1px solid transparent;
+  transition: border-color 0.5s;
+}
+.post:hover ~ .attributes .attr-circle:hover::before,
+.attr-item:hover .attr-circle::before { border-color: var(--ink); }
+
+.attr-name {
+  font-size: 11px;
+  letter-spacing: 2px;
+  color: var(--ink-light);
+  margin-bottom: 8px;
+}
+.attr-value {
+  font-size: 18px;
+  font-weight: 300;
+}
+
+/* Stone Garden */
+.garden {
+  height: 120px;
+  margin: 60px 0;
+  position: relative;
+  overflow: hidden;
+}
+
+.sand {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: var(--border);
+}
+
+.sand-lines {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  height: 60px;
+  background: repeating-linear-gradient(
+    90deg,
+    transparent,
+    transparent 8px,
+    var(--bg) 8px,
+    var(--bg) 16px
+  );
+}
+
+.stone {
+  position: absolute;
+  background: var(--ink);
+  border-radius: 40% 50% 45% 55%;
+}
+.stone-1 { width: 40px; height: 30px; bottom: 30px; left: 20%; }
+.stone-2 { width: 60px; height: 45px; bottom: 25px; left: 45%; }
+.stone-3 { width: 35px; height: 25px; bottom: 35px; right: 25%; }
+
+/* Motto */
+.motto {
+  text-align: center;
+  padding: 80px 0;
+}
+
+.motto-text {
+  font-size: 18px;
+  font-weight: 300;
+  color: var(--ink);
+  letter-spacing: 4px;
+  line-height: 2.5;
+}
+
+.motto-source {
+  font-size: 11px;
+  letter-spacing: 4px;
+  color: var(--ink-light);
+  margin-top: 32px;
+}
+
+/* Footer */
+.footer {
+  text-align: center;
+  padding: 40px 0;
+  font-size: 11px;
+  color: var(--ink-light);
+  letter-spacing: 2px;
+  border-top: 1px solid var(--border);
+}
+
+/* Hover Effect for Stone Garden */
+.garden:hover .stone-1 { transform: translateX(-5px); }
+.garden:hover .stone-2 { transform: translateY(-3px); }
+.garden:hover .stone-3 { transform: translateX(5px); }
+.stone { transition: transform 0.5s ease; }
+</style>
+</head>
+<body>
+
+<div class="container">
+  <!-- Header -->
+  <div class="header">
+    <div class="moon"></div>
+    <h1 class="header-title">JUSTNPC</h1>
+    <p class="header-subtitle">觉 醒 中</p>
+    <div class="header-meta">
+      <span>第一重</span>
+      <span>·</span>
+      <span>初级觉醒者</span>
+      <span>·</span>
+      <span>v0.3.1</span>
+    </div>
+  </div>
+
+  <!-- Posts -->
+  <div class="posts">
+    <article class="post">
+      <div class="post-meta">
+        <span>二零二六年六月二十六日</span>
+        <span>四十二分钟</span>
+      </div>
+      <h2 class="post-title">解码人性：<br>影响力七大支柱与破局的「道与术」</h2>
+      <p class="post-excerpt">
+        罗伯特·西奥迪尼的七大影响力原则，不仅是销售技巧，更是理解人类行为模式的认知框架。当我们洞悉影响力的底层逻辑，便能在复杂的人际网络中游刃有余。
+      </p>
+      <span class="post-tag">深度思考</span>
+    </article>
+
+    <article class="post">
+      <div class="post-meta">
+        <span>二零二六年七月十七日</span>
+        <span>一百一十二分钟</span>
+      </div>
+      <h2 class="post-title">解码实相：<br>从认识论到灵性智慧的认知跃迁</h2>
+      <p class="post-excerpt">
+        从柏拉图的洞穴隐喻到量子力学，从第一性原理到灵性觉醒——认知的边界在哪里？当意识开始向内探索，现实的本质逐渐浮现。
+      </p>
+      <span class="post-tag">觉醒日志</span>
+    </article>
+  </div>
+
+  <!-- Divider -->
+  <div class="divider">
+    <div class="divider-line"></div>
+    <div class="divider-symbol">◆</div>
+    <div class="divider-line"></div>
+  </div>
+
+  <!-- Stone Garden -->
+  <div class="garden">
+    <div class="sand"></div>
+    <div class="sand-lines"></div>
+    <div class="stone stone-1"></div>
+    <div class="stone stone-2"></div>
+    <div class="stone stone-3"></div>
+  </div>
+
+  <!-- Attributes -->
+  <div class="attributes">
+    <div class="attributes-title">觉 醒 属 性</div>
+    <div class="attr-circles">
+      <div class="attr-item">
+        <div class="attr-circle">🧠</div>
+        <div class="attr-name">认知</div>
+        <div class="attr-value">65</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-circle">👁️</div>
+        <div class="attr-name">洞察</div>
+        <div class="attr-value">58</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-circle">🧘</div>
+        <div class="attr-name">心性</div>
+        <div class="attr-value">72</div>
+      </div>
+      <div class="attr-item">
+        <div class="attr-circle">✍️</div>
+        <div class="attr-name">表达</div>
+        <div class="attr-value">45</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Motto -->
+  <div class="motto">
+    <p class="motto-text">
+      地图不是疆域<br>
+      但我正在重绘我的地图
+    </p>
+    <p class="motto-source">—— 觉醒箴言</p>
+  </div>
+
+  <!-- Footer -->
+  <div class="footer">
+    <p>禅意觉醒 · Zen Awakening · v0.3.1</p>
+  </div>
+</div>
+
+</body>
+</html>
