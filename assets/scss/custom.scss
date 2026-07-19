@@ -10,7 +10,7 @@
     --cyber-bg: #0A0A0F;
     --cyber-cyan: #00FFFF;
     --cyber-magenta: #FF00FF;
-    --cyber-yellow: #FFFF00;
+    --cyber-yellow: #FFC700;
     --cyber-text: #D4F4F4;
     --cyber-text-dim: rgba(0, 255, 255, 0.5);
     --cyber-text-faint: rgba(0, 255, 255, 0.25);
@@ -74,7 +74,7 @@ body::after {
     content: "";
     position: fixed;
     inset: 0;
-    z-index: 9998;
+    z-index: -1;
     background: repeating-linear-gradient(
         0deg,
         transparent,
@@ -113,6 +113,7 @@ body::after {
     margin-bottom: 32px !important;
     background: rgba(0, 255, 255, 0.03) !important;
     box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 255, 255, 0.05) !important;
+    animation: neon-voltage-flicker 8s infinite !important;
     border-radius: 0 !important;
 }
 
@@ -245,6 +246,7 @@ body::after {
     cursor: pointer;
     transition: all 0.3s;
     background: var(--card-background);
+    backdrop-filter: blur(10px);
     border-radius: 0 !important;
 
     &::before {
@@ -391,7 +393,7 @@ body::after {
         var(--cyber-magenta) 8px,
         var(--cyber-magenta) 16px
     );
-    animation: stripes 1s linear infinite;
+    animation: stripes 1s linear infinite, attr-load 1.5s cubic-bezier(0.1, 0.8, 0.2, 1) forwards;
     background-size: 16px 100%;
     transition: width 0.5s ease;
 }
@@ -496,6 +498,7 @@ body::after {
     border: 2px solid var(--cyber-border);
     border-radius: 0;
     background: rgba(10, 10, 15, 0.8);
+    backdrop-filter: blur(10px);
     padding: 20px;
     margin-bottom: 20px;
 
@@ -845,6 +848,27 @@ body::after {
     100% {
         clip-path: inset(50% 0 43% 0);
         transform: skew(0deg) translate(0px, 0px);
+    }
+}
+
+/* ---------- 20. 赛博体验动效升级 ---------- */
+
+/* 电压闪烁霓虹电流动画 */
+@keyframes neon-voltage-flicker {
+    0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
+        box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 255, 255, 0.05) !important;
+        opacity: 1;
+    }
+    20%, 24%, 55% {
+        box-shadow: 0 0 6px rgba(0, 255, 255, 0.1), inset 0 0 10px rgba(0, 255, 255, 0.02) !important;
+        opacity: 0.92;
+    }
+}
+
+/* 能量条加载自检过渡动画 */
+@keyframes attr-load {
+    from {
+        width: 0 !important;
     }
 }
 
