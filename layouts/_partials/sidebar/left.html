@@ -8,19 +8,33 @@
     <header>
         {{ with .Site.Params.sidebar.avatar }}
             {{- $avatar := partial "helper/image" (dict "Image" . "Resources" resources "Context" $) -}}
-            <figure class="site-avatar">
-                <a href="{{ $.Site.Home.RelPermalink }}">
-                    <img src="{{ $avatar.Permalink }}" 
-                        width="{{ $avatar.Width }}"
-                        height="{{ $avatar.Height }}"
-                        class="site-logo"
-                        loading="lazy"
-                        alt="Avatar">
-                </a>
-                {{ with $.Site.Params.sidebar.emoji }}
-                    <span class="emoji">{{ . }}</span>
-                {{ end }}
-            </figure>
+            <div class="cyber-avatar-container">
+                <div class="cyber-avatar-hud">
+                    <!-- 四角 HUD 边框装饰 -->
+                    <span class="hud-corner tl"></span>
+                    <span class="hud-corner tr"></span>
+                    <span class="hud-corner bl"></span>
+                    <span class="hud-corner br"></span>
+                    
+                    <a href="{{ $.Site.Home.RelPermalink }}">
+                        <img src="{{ $avatar.Permalink }}" 
+                            width="{{ $avatar.Width }}"
+                            height="{{ $avatar.Height }}"
+                            class="site-logo"
+                            loading="lazy"
+                            alt="Avatar">
+                    </a>
+                    
+                    <!-- 赛博扫描遮罩 -->
+                    <div class="cyber-avatar-scanline"></div>
+                </div>
+                
+                <!-- 头像底部状态指示 -->
+                <div class="cyber-avatar-status">
+                    <span class="status-dot"></span>
+                    <span class="status-text">SYSTEM_ACTIVE // NPC_001</span>
+                </div>
+            </div>
         {{ end }}
         
         <div class="site-meta">
