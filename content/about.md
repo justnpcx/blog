@@ -1,30 +1,45 @@
 ---
-title: "关于我"
-url: "/about/"
+title: "About"
+date: 2024-01-01
+description: "NPC 觉醒者档案"
 ---
 
-你好，我是 **justnpc**。
+## > IDENTITY.MD
 
-## 为什么叫 NPC？
+我是 JUSTNPC，一个正在觉醒的观察者。
 
-在这个世界里，大多数人（包括曾经的我）都像一个 NPC——按照既定的脚本生活：上学、工作、消费、刷手机、睡觉，循环往复。
+**核心指令**: The map is not the territory, but I'm redrawing my map.
 
-这个博客，是我尝试「跳出脚本」的记录。
+---
 
-## 这里写什么
+### [觉醒属性]
 
-- **NPC**：关于「觉察」本身——如何意识到自己正在按脚本运行
-- **智慧**：认知升级、思维模型、读书与思考
-- **科技**：AI、工具、效率，以及技术如何改变普通人
-- **分享**：好用的东西、有趣的发现、生活的碎片
+- 🧠 **COGNITION**: 65%
+- 👁️ **INSIGHT**: 58%
+- 🧘 **MINDSET**: 72%
+- ✍️ **EXPRESSION**: 45%
 
-## 我的理念
+---
 
-> 觉察即自由。当一个 NPC 意识到自己是 NPC 的那一刻，它就已经不再是 NPC 了。
+### [当前系统状态]
 
-## 联系我
+```text
+STATUS: ONLINE
+LOCATION: 数字觉醒带
+MODE: 持续进化中
+UPTIME: 24/7
+```
 
-- GitHub: [@justnpc](https://github.com/justnpc)
-- 邮件订阅：页面底部即可订阅
+---
 
-欢迎同行。
+### [连接协议]
+
+如果你也在觉醒的路上，欢迎连接：
+
+- 🌐 GitHub: github.com/justnpcx
+- 💬 即刻/小红书: JUSTNPC
+- 📧 Email: 待激活
+
+---
+
+> _"Don't trust the system. Trust the process of questioning the system."_

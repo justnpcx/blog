@@ -1,8 +1,6 @@
 ---
-title: "搜索"
+title: "Search"
 layout: "search"
-url: "/search/"
-slug: "search"
-outputs:
-    - html
 ---
+
+> Initializing search protocol...

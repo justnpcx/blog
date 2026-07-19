@@ -1,166 +1,697 @@
 /* ============================================================
-   右侧栏小组件 v6.0 FINAL（彻底重建）
-   结构原则：
-     section.widget      → 各自独立成卡（1px border，干净的边界）
-     内部内容元素         → 无边框无阴影，只有 hover 交互
+   NPC智慧站 · 赛博觉醒 Cyberpunk Design System
+   基于方案 06-cyber-awakening.html 完整迁移
    ============================================================ */
 
-/* ---- 6.1 section.widget：各自独立成卡 ---- */
-.widget {
-    background: var(--card-background);
-    border: 1px solid var(--card-separator-color);
-    border-radius: 14px;
-    padding: 20px;
-    /* 清除 Stack 原生的 icon 等无用结构 */
-    .widget-icon {
-        display: none;
+@import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Share+Tech+Mono&family=JetBrains+Mono:wght@400;500&display=swap');
+
+/* ---------- 1. 赛博朋克色彩系统 ---------- */
+:root {
+    --cyber-bg: #0A0A0F;
+    --cyber-cyan: #00FFFF;
+    --cyber-magenta: #FF00FF;
+    --cyber-yellow: #FFFF00;
+    --cyber-text: #D4F4F4;
+    --cyber-text-dim: rgba(0, 255, 255, 0.5);
+    --cyber-text-faint: rgba(0, 255, 255, 0.25);
+    --cyber-border: rgba(0, 255, 255, 0.3);
+    --cyber-border-magenta: rgba(255, 0, 255, 0.3);
+    --cyber-border-yellow: rgba(255, 255, 0, 0.4);
+    --glow-cyan: 0 0 20px rgba(0, 255, 255, 0.3);
+    --glow-magenta: 0 0 20px rgba(255, 0, 255, 0.3);
+    --glow-yellow: 0 0 20px rgba(255, 255, 0, 0.3);
+
+    /* 覆盖 Stack 主题变量 */
+    --body-background: var(--cyber-bg);
+    --card-background: rgba(10, 10, 15, 0.8);
+    --card-background-selected: rgba(0, 255, 255, 0.05);
+    --card-separator-color: var(--cyber-border);
+    --card-text-color-main: var(--cyber-text);
+    --card-text-color-secondary: var(--cyber-text-dim);
+    --card-text-color-tertiary: var(--cyber-text-faint);
+    --accent-color: var(--cyber-cyan);
+    --accent-color-darker: #00cccc;
+    --accent-color-text: #0A0A0F;
+    --tag-border-radius: 4px;
+
+    /* 字体 */
+    --font-sans: 'Share Tech Mono', 'Noto Sans SC', 'Courier New', monospace;
+    --font-display: 'Orbitron', 'Share Tech Mono', sans-serif;
+    --font-mono: 'JetBrains Mono', 'Share Tech Mono', 'Cascadia Code', monospace;
+}
+
+body {
+    font-family: var(--font-sans);
+    background: var(--cyber-bg);
+    color: var(--cyber-text);
+    line-height: 1.7;
+    min-height: 100vh;
+}
+
+code, pre, kbd, samp,
+.article-content code,
+.article-content pre {
+    font-family: var(--font-mono);
+}
+
+/* ---------- 2. 全局背景：网格 + 扫描线 ---------- */
+
+/* 网格背景 */
+body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: -2;
+    background-image:
+        linear-gradient(rgba(0, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+}
+
+/* 扫描线 */
+body::after {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 9998;
+    background: repeating-linear-gradient(
+        0deg,
+        transparent,
+        transparent 2px,
+        rgba(0, 0, 0, 0.15) 2px,
+        rgba(0, 0, 0, 0.15) 4px
+    );
+    pointer-events: none;
+}
+
+/* 扫描扫过动画 */
+@keyframes cyber-scan {
+    0% { top: -4px; }
+    100% { top: 100%; }
+}
+
+/* 扫描扫光（用伪元素插在 .main-container 上） */
+.main-container::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: linear-gradient(90deg, transparent, var(--cyber-cyan), transparent);
+    animation: cyber-scan 4s linear infinite;
+    pointer-events: none;
+    z-index: 9997;
+    opacity: 0.6;
+}
+
+/* ---------- 3. 顶部状态栏（Header） ---------- */
+.main-header {
+    border: 2px solid var(--cyber-cyan) !important;
+    padding: 24px 32px !important;
+    margin-bottom: 32px !important;
+    background: rgba(0, 255, 255, 0.03) !important;
+    box-shadow: var(--glow-cyan), inset 0 0 30px rgba(0, 255, 255, 0.05) !important;
+    border-radius: 0 !important;
+}
+
+.main-header .site-name {
+    font-family: var(--font-display) !important;
+    font-size: 36px !important;
+    font-weight: 900 !important;
+    letter-spacing: 6px !important;
+    color: var(--cyber-text) !important;
+    text-transform: uppercase !important;
+    text-shadow: none !important;
+    animation: glitch 8s infinite !important;
+}
+
+@keyframes glitch {
+    0%, 90%, 100% { text-shadow: none; }
+    91% { text-shadow: -2px 0 var(--cyber-magenta), 2px 0 var(--cyber-cyan); }
+    92% { text-shadow: 2px 0 var(--cyber-magenta), -2px 0 var(--cyber-cyan); }
+    93% { text-shadow: none; }
+    94% { text-shadow: -2px 0 var(--cyber-cyan), 2px 0 var(--cyber-magenta); }
+    95% { text-shadow: none; }
+}
+
+.main-header .site-description {
+    color: var(--cyber-text-dim) !important;
+    font-size: 13px !important;
+    letter-spacing: 2px !important;
+    margin-top: 12px !important;
+}
+
+/* ---------- 4. 状态指示条 ---------- */
+.cyber-status-bar {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    background: rgba(0, 255, 255, 0.05);
+    border: 1px solid var(--cyber-border);
+    padding: 12px 20px;
+    margin-bottom: 32px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+}
+
+.cyber-status-item {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.cyber-status-indicator {
+    width: 8px;
+    height: 8px;
+    background: var(--cyber-cyan);
+    animation: blink 0.5s infinite;
+    border-radius: 0;
+}
+
+@keyframes blink {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.3; }
+}
+
+.cyber-status-indicator.magenta { background: var(--cyber-magenta); }
+
+.cyber-status-label {
+    color: var(--cyber-text-faint);
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+.cyber-status-value {
+    color: var(--cyber-text);
+    font-weight: 600;
+    font-family: var(--font-mono);
+    font-size: 11px;
+}
+
+.cyber-status-value.cyan { color: var(--cyber-cyan); }
+.cyber-status-value.magenta { color: var(--cyber-magenta); }
+
+/* ---------- 5. 导航栏 ---------- */
+.cyber-nav {
+    display: flex;
+    gap: 4px;
+    margin-bottom: 32px;
+}
+
+.cyber-nav-item {
+    padding: 10px 24px;
+    border: 1px solid var(--cyber-border);
+    font-size: 12px;
+    color: var(--cyber-text-dim);
+    cursor: pointer;
+    transition: all 0.2s;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    font-family: var(--font-mono);
+    text-decoration: none !important;
+    background: transparent;
+
+    &:hover, &.active, &.current {
+        background: var(--cyber-cyan);
+        color: var(--cyber-bg);
+        border-color: var(--cyber-cyan);
+        box-shadow: var(--glow-cyan);
     }
 }
 
-/* ---- 6.2 归档：列表容器无边框无阴影，只有年份行 hover ---- */
-.widget.archives {
-    .widget-archive--list {
-        background: transparent !important;
-        box-shadow: none !important;
-        border: none !important;
-        border-radius: 0 !important;
-        padding: 0 !important;
-    }
+/* ---------- 6. 文章卡片网格 ---------- */
+.article-list {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
 
-    .archives-year {
-        border-bottom: none !important;
-
-        a {
-            padding: 10px 8px !important;
-            border-radius: 8px;
-            display: flex !important;
-            align-items: center;
-            justify-content: space-between;
-            transition: background 0.2s ease, color 0.2s ease;
-            /* 去掉 Stack 原生的 18px 25px 大 padding */
-            font-size: 1rem;
-
-            &:hover {
-                background: var(--awake-gradient-soft);
-                color: var(--accent-color);
-            }
-
-            .year {
-                font-weight: 600;
-                font-size: 1.5rem;
-                color: var(--card-text-color-main);
-                flex: 1;
-                transition: color 0.2s ease;
-            }
-
-            .count {
-                font-size: 1.2rem;
-                font-family: var(--font-mono);
-                color: var(--awake-purple);
-                padding: 2px 10px;
-                background: var(--awake-gradient-soft);
-                border-radius: 999px;
-                transition: all 0.2s ease;
-                flex-shrink: 0;
-            }
-
-            &:hover .count {
-                background: var(--awake-gradient);
-                color: #fff;
-            }
-
-            &:hover .year {
-                color: var(--accent-color);
-            }
-        }
+    @media (max-width: 768px) {
+        grid-template-columns: 1fr;
     }
 }
 
-/* ---- 6.3 标签云：每个标签无边框无阴影，只有 hover 变色 ---- */
-.widget.tagCloud .tag-cloud-tags,
-.tagCloud .tag-cloud-tags {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-    padding: 0 !important;
-
-    a {
-        /* 去掉 card-style 的 background + shadow */
-        background: transparent !important;
-        border: 1px solid var(--card-separator-color) !important;
-        border-radius: 999px !important;
-        box-shadow: none !important;
-        /* 去掉 card-style 的 border-radius 强制 */
-        color: var(--card-text-color-secondary) !important;
-        font-size: 1.3rem !important;
-        font-weight: 500;
-        padding: 4px 14px !important;
-        transition: all 0.2s ease !important;
-
-        &:hover {
-            background: var(--awake-gradient) !important;
-            border-color: transparent !important;
-            color: #fff !important;
-            transform: translateY(-1px);
-            box-shadow: 0 3px 10px rgba(124, 92, 255, 0.25) !important;
-        }
-    }
+.article-list--compact .article-list {
+    grid-template-columns: repeat(2, 1fr);
 }
 
-/* ---- 6.4 分类：药丸标签 ---- */
-.widget.categories .widget-categories--list {
-    display: flex !important;
-    flex-wrap: wrap !important;
-    gap: 8px !important;
-    padding: 0 !important;
-
-    li a {
-        display: inline-flex !important;
-        align-items: center;
-        padding: 5px 14px !important;
-        border-radius: 999px !important;
-        font-size: 1.3rem !important;
-        font-weight: 500;
-        color: var(--accent-color) !important;
-        background: var(--awake-gradient-soft) !important;
-        border: none !important;
-        box-shadow: none !important;
-        transition: all 0.2s ease !important;
-
-        &:hover {
-            background: var(--awake-gradient) !important;
-            color: #fff !important;
-            transform: translateY(-1px);
-        }
-    }
-}
-
-/* ---- 6.5 小组件标题：渐变指示条 ---- */
-.widget .widget-title {
-    font-weight: 700;
-    font-size: 1.4rem;
+.article-list article,
+.post-card {
+    border: 2px solid var(--cyber-border);
     position: relative;
-    padding-left: 12px;
-    margin: 0 0 14px;
+    overflow: hidden;
+    cursor: pointer;
+    transition: all 0.3s;
+    background: var(--card-background);
+    border-radius: 0 !important;
 
     &::before {
         content: "";
         position: absolute;
+        top: 0;
         left: 0;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 3px;
-        height: 70%;
-        background: var(--awake-gradient);
-        border-radius: 2px;
+        width: 100%;
+        height: 4px;
+        background: linear-gradient(90deg, var(--cyber-cyan), var(--cyber-magenta));
+    }
+
+    &:hover {
+        border-color: var(--cyber-cyan);
+        box-shadow: var(--glow-cyan);
+        transform: translateY(-2px);
+    }
+}
+
+.article-header {
+    padding: 20px 20px 12px;
+    border-bottom: 1px solid var(--cyber-border);
+}
+
+.article-category a,
+.post-tag {
+    display: inline-block;
+    background: var(--cyber-magenta);
+    color: var(--cyber-bg);
+    padding: 4px 12px;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+    border-radius: 0;
+    text-decoration: none !important;
+    transition: all 0.2s;
+
+    &:hover {
+        background: var(--cyber-cyan);
+        color: var(--cyber-bg);
+    }
+}
+
+.article-title a,
+.post-title {
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--cyber-text);
+    line-height: 1.5;
+    letter-spacing: 0.5px;
+    text-decoration: none !important;
+    font-family: var(--font-sans);
+    transition: color 0.2s;
+
+    &:hover {
+        color: var(--cyber-cyan);
+    }
+}
+
+.article-meta {
+    display: flex;
+    gap: 20px;
+    font-size: 11px;
+    color: var(--cyber-text-dim);
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+}
+
+.article-excerpt,
+.post-excerpt {
+    font-size: 12px;
+    color: var(--cyber-text-dim);
+    line-height: 1.7;
+    font-family: var(--font-sans);
+}
+
+.article-body {
+    padding: 16px 20px;
+}
+
+/* ---------- 7. NPC 属性面板 ---------- */
+.cyber-attributes {
+    border: 2px solid var(--cyber-border);
+    padding: 24px;
+    margin-bottom: 32px;
+}
+
+.cyber-attributes-title {
+    font-size: 11px;
+    letter-spacing: 4px;
+    color: var(--cyber-text-faint);
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    text-align: center;
+    font-family: var(--font-mono);
+}
+
+.cyber-attr-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 16px;
+
+    @media (max-width: 768px) {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.cyber-attr-item {
+    border: 1px solid var(--cyber-border);
+    padding: 16px;
+    text-align: center;
+}
+
+.cyber-attr-icon {
+    font-size: 24px;
+    margin-bottom: 8px;
+}
+
+.cyber-attr-name {
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: var(--cyber-text-faint);
+    text-transform: uppercase;
+    margin-bottom: 12px;
+    font-family: var(--font-mono);
+}
+
+.cyber-attr-bar {
+    height: 14px;
+    background: rgba(0, 255, 255, 0.1);
+    position: relative;
+    overflow: hidden;
+    margin-bottom: 8px;
+}
+
+.cyber-attr-fill {
+    height: 100%;
+    background: repeating-linear-gradient(
+        90deg,
+        var(--cyber-cyan) 0px,
+        var(--cyber-cyan) 8px,
+        var(--cyber-magenta) 8px,
+        var(--cyber-magenta) 16px
+    );
+    animation: stripes 1s linear infinite;
+    background-size: 16px 100%;
+    transition: width 0.5s ease;
+}
+
+@keyframes stripes {
+    0% { background-position: 0 0; }
+    100% { background-position: 16px 0; }
+}
+
+.cyber-attr-value {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--cyber-cyan);
+    font-family: var(--font-display);
+}
+
+/* ---------- 8. 座右铭警告框 ---------- */
+.cyber-motto {
+    border: 2px solid var(--cyber-yellow);
+    padding: 20px 24px;
+    margin-bottom: 32px;
+    position: relative;
+    background: rgba(255, 255, 0, 0.03);
+}
+
+.cyber-motto::before {
+    content: '⚠';
+    position: absolute;
+    top: -10px;
+    left: 20px;
+    background: var(--cyber-bg);
+    padding: 0 8px;
+    color: var(--cyber-yellow);
+    font-size: 14px;
+}
+
+.cyber-motto-text {
+    font-size: 14px;
+    color: var(--cyber-yellow);
+    text-transform: uppercase;
+    letter-spacing: 3px;
+    text-align: center;
+    line-height: 1.8;
+    font-family: var(--font-display);
+}
+
+/* ---------- 9. 赛博朋克 Footer ---------- */
+.cyber-footer {
+    border-top: 1px solid var(--cyber-border);
+    padding: 20px 0;
+    text-align: center;
+    font-size: 11px;
+    color: var(--cyber-text-faint);
+    font-family: var(--font-mono);
+    margin-top: 40px;
+}
+
+.cyber-footer-text {
+    color: var(--cyber-cyan);
+}
+
+/* ---------- 10. 左侧边栏重设计 ---------- */
+.left-sidebar {
+    header {
+        .site-avatar {
+            .site-logo {
+                border-radius: 0 !important;
+                border: 2px solid var(--cyber-border);
+            }
+
+            &::before {
+                display: none;
+            }
+
+            &:hover .site-logo {
+                border-color: var(--cyber-cyan);
+                box-shadow: var(--glow-cyan);
+            }
+        }
+
+        .site-name {
+            background: none !important;
+            -webkit-background-clip: unset !important;
+            background-clip: unset !important;
+            -webkit-text-fill-color: unset !important;
+            color: var(--cyber-cyan) !important;
+            font-family: var(--font-display) !important;
+            font-weight: 700 !important;
+            letter-spacing: 4px !important;
+            text-transform: uppercase !important;
+        }
+
+        .site-description {
+            color: var(--cyber-text-dim) !important;
+            font-size: 12px !important;
+            letter-spacing: 1px !important;
+            font-family: var(--font-mono) !important;
+        }
+    }
+}
+
+/* ---------- 11. 右侧栏重设计 ---------- */
+.right-sidebar .widget {
+    border: 2px solid var(--cyber-border);
+    border-radius: 0;
+    background: rgba(10, 10, 15, 0.8);
+    padding: 20px;
+    margin-bottom: 20px;
+
+    &:hover {
+        border-color: var(--cyber-cyan);
+        box-shadow: var(--glow-cyan);
+    }
+}
+
+.right-sidebar .widget-title {
+    font-family: var(--font-mono) !important;
+    font-size: 11px !important;
+    font-weight: 700 !important;
+    letter-spacing: 3px !important;
+    text-transform: uppercase !important;
+    color: var(--cyber-text-dim) !important;
+    position: relative;
+    padding-left: 12px;
+    margin-bottom: 16px;
+
+    &::before {
+        content: "//";
+        position: absolute;
+        left: 0;
+        color: var(--cyber-cyan);
+    }
+}
+
+/* ---------- 12. 文章页重设计 ---------- */
+.article-content {
+    font-size: 16px;
+    line-height: 1.85;
+    font-family: var(--font-sans);
+
+    h2 {
+        font-family: var(--font-display);
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--cyber-cyan);
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        margin-top: 2em;
+        padding-left: 14px;
+        border-left: 4px solid var(--cyber-magenta);
+    }
+
+    h3 {
+        font-family: var(--font-display);
+        font-size: 18px;
+        color: var(--cyber-text);
+        letter-spacing: 1px;
+    }
+
+    blockquote {
+        border-left: 3px solid var(--cyber-yellow);
+        background: rgba(255, 255, 0, 0.05);
+        padding: 16px 20px;
+        margin: 1.5em 0;
+        color: var(--cyber-text-dim);
+        font-style: normal;
+
+        p:last-child { margin-bottom: 0; }
+    }
+
+    :not(pre) > code {
+        background: rgba(0, 255, 255, 0.1);
+        color: var(--cyber-cyan);
+        padding: 2px 8px;
+        border-radius: 0;
+        border: 1px solid var(--cyber-border);
+        font-family: var(--font-mono);
+    }
+
+    pre {
+        border: 2px solid var(--cyber-border);
+        border-radius: 0;
+        background: rgba(0, 0, 0, 0.5);
     }
 
     a {
-        color: var(--card-text-color-main);
-        transition: color 0.2s ease;
+        color: var(--cyber-cyan);
+        text-decoration: none;
+        border-bottom: 1px solid var(--cyber-border);
+        transition: all 0.2s;
 
         &:hover {
-            color: var(--accent-color);
+            color: var(--cyber-magenta);
+            border-color: var(--cyber-magenta);
+        }
+    }
+}
+
+/* ---------- 13. 分类/标签：赛博朋克风格 ---------- */
+.article-tags a,
+.article-category a,
+.tag-cloud-tags a,
+.category-list a {
+    display: inline-flex;
+    align-items: center;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-family: var(--font-mono);
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    color: var(--cyber-cyan);
+    background: rgba(0, 255, 255, 0.08);
+    border: 1px solid var(--cyber-border);
+    border-radius: 0;
+    transition: all 0.2s;
+
+    &:hover {
+        background: var(--cyber-cyan);
+        color: var(--cyber-bg);
+        box-shadow: var(--glow-cyan);
+    }
+}
+
+/* ---------- 14. 归档页重设计 ---------- */
+.archives-list {
+    .archives-year {
+        border: 2px solid var(--cyber-border);
+        margin-bottom: 20px;
+        padding: 20px;
+        position: relative;
+
+        &::before {
+            content: attr(data-year);
+            position: absolute;
+            top: -12px;
+            left: 16px;
+            background: var(--cyber-bg);
+            padding: 0 8px;
+            color: var(--cyber-cyan);
+            font-family: var(--font-display);
+            font-size: 20px;
+            font-weight: 900;
+        }
+
+        &:hover {
+            border-color: var(--cyber-cyan);
+            box-shadow: var(--glow-cyan);
+        }
+    }
+}
+
+/* ---------- 15. 滚动条与选择 ---------- */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--cyber-bg); }
+::-webkit-scrollbar-thumb { background: var(--cyber-border); border-radius: 0; }
+::-webkit-scrollbar-thumb:hover { background: var(--cyber-cyan); }
+
+::selection {
+    background: rgba(0, 255, 255, 0.25);
+    color: var(--cyber-text);
+}
+
+/* ---------- 16. 移动端适配 ---------- */
+@media (max-width: 768px) {
+    .main-header .site-name {
+        font-size: 24px !important;
+        letter-spacing: 3px !important;
+    }
+
+    .cyber-attr-grid {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+/* ---------- 17. 关于页/归档页 ---------- */
+.page-content {
+    border: 2px solid var(--cyber-border);
+    padding: 32px;
+    background: rgba(10, 10, 15, 0.8);
+}
+
+/* ---------- 18. 搜索框重设计 ---------- */
+.search-form.widget {
+    border: 2px solid var(--cyber-border) !important;
+    border-radius: 0 !important;
+    background: rgba(10, 10, 15, 0.8) !important;
+
+    input {
+        background: transparent !important;
+        border: none !important;
+        border-bottom: 1px solid var(--cyber-border) !important;
+        border-radius: 0 !important;
+        color: var(--cyber-text) !important;
+        font-family: var(--font-mono) !important;
+
+        &:focus {
+            outline: none;
+            border-color: var(--cyber-cyan) !important;
+            box-shadow: none !important;
         }
     }
 }

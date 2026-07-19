@@ -1,5 +1,5 @@
 baseURL: https://blog.justnpc.com/
-title: NPC智慧站
+title: JUSTNPC.EXE
 theme: hugo-theme-stack
 defaultContentLanguage: zh-cn
 hasCJKLanguage: true
@@ -26,38 +26,32 @@ params:
   rssFullContent: true
   favicon: img/avatar.png
 
-  # 站点信息
-  description: "一个 NPC 的觉醒笔记：智慧、科技与分享"
+  description: "NPC 觉醒笔记：解码人性、认知跃迁与科技观察"
   author: justnpc
 
-  # 左侧边栏
+  # 赛博朋克风格配置
   sidebar:
-    emoji: "🎭"
-    subtitle: "觉察即自由｜智慧 · 科技 · 分享"
+    emoji: "⚡"
+    subtitle: "AWAKENING // 智慧 · 科技 · 分享"
     avatar: img/avatar.png
 
-  # 文章设置
   article:
     headingSize: 6
-    license:
-      enabled: true
-      default: "本文由 justnpc 原创，采用 [CC BY-NC-SA 4.0](https://creativecommons.org/licenses/by-nc-sa/4.0/) 许可"
     toc: true
+    license:
+      enabled: false
 
-  # 页脚
   footer:
     since: 2026
-    customText: ""
+    customText: "CRAFTED_WITH ◆ BY JUSTNPC // CYBER_AWAKENING"
 
-  # 日期格式
   dateFormat:
     published: "2006-01-02"
     lastUpdated: "2006-01-02 15:04"
 
-  # 右侧边栏小组件（含自定义订阅 CTA）
+  # 右侧栏
   widgets:
     homepage:
-      - type: search
       - type: archives
         params:
           limit: 5
@@ -67,26 +61,10 @@ params:
       - type: tag-cloud
         params:
           limit: 12
-      - type: newsletter
     page:
       - type: toc
-      - type: newsletter
 
-  # 订阅 CTA（承诺一致原则）
-  newsletter:
-    enabled: true
-    title: "加入觉醒者行列"
-    desc: "每周一封信：NPC 视角的智慧与科技观察。"
-    formAction: "https://buttondown.com/api/emails/embed-subscribe/justnpc"
-    buttonText: "免费订阅"
-    note: "已有 1000+ 位同行者 · 可随时退订"
-
-  # 热门文章（社会认同）
-  popularPosts:
-    - /p/npc-awakening/
-    - /p/ai-tools-thinking/
-
-  # 评论（Giscus，到 https://giscus.app/zh-CN 生成后替换）
+  # 评论
   comments:
     enabled: true
     provider: giscus
@@ -105,49 +83,47 @@ params:
       lang: zh-CN
       loading: lazy
 
-  # 开源统计（可选，社会认同）
-  # opensource:
-  #   enabled: true
-  #   repo: justnpc/blog-site
+  # NPC 属性（属性能量条）
+  attributes:
+    - name: COGNITION
+      icon: 🧠
+      value: 65
+    - name: INSIGHT
+      icon: 👁️
+      value: 58
+    - name: MINDSET
+      icon: 🧘
+      value: 72
+    - name: EXPRESSION
+      icon: ✍️
+      value: 45
+
+  # 座右铭
+  motto: "THE MAP IS NOT THE TERRITORY, BUT I'M REDRAWING MY MAP."
+
+  # 系统状态
+  systemStatus:
+    awaken: 23
+    uptime: "21 DAYS"
 
 menu:
   main:
     - identifier: home
-      name: 首页
+      name: POSTS
       url: /
       weight: -100
-      params:
-        icon: home
-    - identifier: archives
-      name: 归档
-      url: /archives/
-      weight: -90
-      params:
-        icon: archives
     - identifier: categories
-      name: 分类
+      name: CATEGORIES
       url: /categories/
       weight: -80
-      params:
-        icon: categories
     - identifier: tags
-      name: 标签
+      name: TAGS
       url: /tags/
       weight: -70
-      params:
-        icon: tag
     - identifier: about
-      name: 关于
+      name: ABOUT
       url: /about/
       weight: -60
-      params:
-        icon: user
-    - identifier: search
-      name: 搜索
-      url: /search/
-      weight: -50
-      params:
-        icon: search
 
   social:
     - identifier: github
@@ -155,11 +131,6 @@ menu:
       url: https://github.com/justnpc
       params:
         icon: brand-github
-    - identifier: rss
-      name: RSS
-      url: /index.xml
-      params:
-        icon: rss
 
 taxonomies:
   category: categories
@@ -178,7 +149,6 @@ markup:
 related:
   includeNewer: true
   threshold: 60
-  toLower: false
   indices:
     - name: tags
       weight: 100

@@ -1,6 +1,6 @@
 ---
-title: "归档"
+title: "Archives"
 layout: "archives"
-url: "/archives/"
-slug: "archives"
 ---
+
+> The system is loading historical data...
