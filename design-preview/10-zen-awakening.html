@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案 10：禅意觉醒</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #F7F5F0;
+    color: #2C2C2C;
+    font-family: 'Noto Sans SC', sans-serif;
+    line-height: 1.8;
+    min-height: 100vh;
+  }
+  .zen-container {
+    max-width: 600px;
+    margin: 0 auto;
+    padding: 80px 20px;
+  }
+  .zen-header {
+    text-align: center;
+    margin-bottom: 80px;
+  }
+  .zen-title {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: 16px;
+    margin-bottom: 20px;
+    color: #2C2C2C;
+  }
+  .zen-circle {
+    width: 80px;
+    height: 80px;
+    border: 1px solid #2C2C2C;
+    border-radius: 50%;
+    margin: 40px auto;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+  }
+  .zen-subtitle {
+    font-size: 0.85rem;
+    color: #8B8680;
+    letter-spacing: 4px;
+  }
+  .stone-garden {
+    margin: 60px 0;
+    padding: 60px 40px;
+    background: #EFEBE4;
+    border-radius: 4px;
+    position: relative;
+  }
+  .stone {
+    position: absolute;
+    background: #2C2C2C;
+    border-radius: 50%;
+  }
+  .stone-1 { width: 40px; height: 40px; top: 30px; left: 20%; }
+  .stone-2 { width: 25px; height: 25px; top: 60px; left: 45%; }
+  .stone-3 { width: 35px; height: 35px; top: 25px; right: 25%; }
+  .sand {
+    position: absolute;
+    bottom: 20px;
+    left: 10%;
+    right: 10%;
+    height: 2px;
+    background: repeating-linear-gradient(
+      90deg,
+      #D4CFC7,
+      #D4CFC7 20px,
+      transparent 20px,
+      transparent 40px
+    );
+  }
+  .articles {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+  .article {
+    padding: 40px 0;
+    border-bottom: 1px solid #E0DCD4;
+    text-align: center;
+    transition: all 0.4s;
+  }
+  .article:hover {
+    background: #EFEBE4;
+    padding: 40px 20px;
+  }
+  .article:last-child {
+    border-bottom: none;
+  }
+  .article-category {
+    font-size: 0.75rem;
+    color: #8B4513;
+    letter-spacing: 3px;
+    margin-bottom: 15px;
+    display: inline-block;
+    padding: 4px 16px;
+    border: 1px solid #8B4513;
+  }
+  .article-title {
+    font-size: 1.2rem;
+    font-weight: 400;
+    line-height: 1.8;
+    color: #2C2C2C;
+  }
+  .article-meta {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: #8B8680;
+    letter-spacing: 2px;
+  }
+  .attributes {
+    margin-top: 80px;
+    text-align: center;
+  }
+  .attributes-title {
+    font-size: 0.9rem;
+    letter-spacing: 6px;
+    color: #8B8680;
+    margin-bottom: 40px;
+  }
+  .moon-container {
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+  }
+  .moon {
+    width: 100px;
+    height: 100px;
+    border: 1px solid #2C2C2C;
+    border-radius: 50%;
+    position: relative;
+    overflow: hidden;
+  }
+  .moon-water {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: linear-gradient(180deg, transparent, rgba(44,44,44,0.3));
+    transition: height 2s ease;
+  }
+  .moon-label {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 1.2rem;
+  }
+  .moon-name {
+    margin-top: 15px;
+    font-size: 0.85rem;
+    color: #8B8680;
+    letter-spacing: 2px;
+  }
+  .moon-value {
+    margin-top: 5px;
+    font-size: 1rem;
+    color: #2C2C2C;
+    font-weight: 500;
+  }
+  .motto {
+    margin-top: 80px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: #8B8680;
+    letter-spacing: 2px;
+    line-height: 2.5;
+  }
+  .motto::before,
+  .motto::after {
+    content: '—';
+    display: block;
+    color: #D4CFC7;
+    margin: 10px 0;
+  }
+</style>
+</head>
+<body>
+<div class="zen-container">
+  <div class="zen-header">
+    <div class="zen-title">觉醒</div>
+    <div class="zen-circle">○</div>
+    <div class="zen-subtitle">JUSTNPC · 修行中</div>
+  </div>
+  
+  <div class="stone-garden">
+    <div class="stone stone-1"></div>
+    <div class="stone stone-2"></div>
+    <div class="stone stone-3"></div>
+    <div class="sand"></div>
+  </div>
+  
+  <div class="articles">
+    <div class="article">
+      <div class="article-category">深度思考</div>
+      <div class="article-title">解码人性：影响力七大支柱与破局的"道与术"</div>
+      <div class="article-meta">2026-06-26 · 四十二分钟 · 心理学</div>
+    </div>
+    
+    <div class="article">
+      <div class="article-category">深度思考</div>
+      <div class="article-title">解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</div>
+      <div class="article-meta">2026-07-17 · 一百一十二分钟 · NLP · 哲学</div>
+    </div>
+  </div>
+  
+  <div class="attributes">
+    <div class="attributes-title">四 相 觉 醒</div>
+    <div class="moon-container">
+      <div>
+        <div class="moon">
+          <div class="moon-water" style="height: 65%"></div>
+          <div class="moon-label">🧠</div>
+        </div>
+        <div class="moon-name">认知</div>
+        <div class="moon-value">六十五</div>
+      </div>
+      <div>
+        <div class="moon">
+          <div class="moon-water" style="height: 58%"></div>
+          <div class="moon-label">👁️</div>
+        </div>
+        <div class="moon-name">洞察</div>
+        <div class="moon-value">五十八</div>
+      </div>
+      <div>
+        <div class="moon">
+          <div class="moon-water" style="height: 72%"></div>
+          <div class="moon-label">🧘</div>
+        </div>
+        <div class="moon-name">心性</div>
+        <div class="moon-value">七十二</div>
+      </div>
+      <div>
+        <div class="moon">
+          <div class="moon-water" style="height: 45%"></div>
+          <div class="moon-label">✍️</div>
+        </div>
+        <div class="moon-name">表达</div>
+        <div class="moon-value">四十五</div>
+      </div>
+    </div>
+  </div>
+  
+  <div class="motto">
+    地图不是疆域<br>
+    但我正在重绘我的地图
+  </div>
+</div>
+</body>
+</html>

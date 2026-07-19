@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案 4：虚空觉醒</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #000000;
+    color: #FFFFFF;
+    font-family: 'Inter', -apple-system, sans-serif;
+    min-height: 100vh;
+    overflow-x: hidden;
+  }
+  .stars {
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+  }
+  .star {
+    position: absolute;
+    width: 2px;
+    height: 2px;
+    background: #FFF;
+    border-radius: 50%;
+    animation: twinkle 3s infinite;
+  }
+  @keyframes twinkle {
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 1; }
+  }
+  .container {
+    position: relative;
+    z-index: 1;
+    max-width: 700px;
+    margin: 0 auto;
+    padding: 60px 20px;
+  }
+  .hero {
+    text-align: center;
+    padding: 80px 0;
+  }
+  .hero-title {
+    font-size: 3rem;
+    font-weight: 100;
+    letter-spacing: 20px;
+    margin-bottom: 20px;
+    text-transform: uppercase;
+  }
+  .hero-subtitle {
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 4px;
+  }
+  .breathing-dot {
+    width: 20px;
+    height: 20px;
+    background: #FFD700;
+    border-radius: 50%;
+    margin: 40px auto;
+    animation: breathe 4s infinite;
+    box-shadow: 0 0 20px #FFD700, 0 0 40px #FFD700;
+  }
+  @keyframes breathe {
+    0%, 100% { transform: scale(1); opacity: 0.7; }
+    50% { transform: scale(1.5); opacity: 1; }
+  }
+  .articles {
+    display: flex;
+    flex-direction: column;
+    gap: 40px;
+    margin-top: 60px;
+  }
+  .article {
+    padding: 30px;
+    border: 1px solid rgba(255,255,255,0.1);
+    background: rgba(255,255,255,0.03);
+    transition: all 0.4s;
+    cursor: pointer;
+  }
+  .article:hover {
+    border-color: #FFD700;
+    background: rgba(255,215,0,0.05);
+    transform: translateX(10px);
+  }
+  .article-category {
+    font-size: 0.7rem;
+    color: #FFD700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+  }
+  .article-title {
+    font-size: 1.3rem;
+    font-weight: 300;
+    line-height: 1.5;
+  }
+  .article-meta {
+    margin-top: 15px;
+    font-size: 0.8rem;
+    color: rgba(255,255,255,0.4);
+    display: flex;
+    gap: 20px;
+  }
+  .attributes {
+    margin-top: 80px;
+    padding: 40px;
+    border: 1px solid rgba(255,255,255,0.1);
+  }
+  .attributes-title {
+    font-size: 0.8rem;
+    letter-spacing: 4px;
+    text-align: center;
+    margin-bottom: 30px;
+    color: rgba(255,255,255,0.5);
+  }
+  .attribute-row {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    margin: 20px 0;
+  }
+  .attribute-icon {
+    width: 30px;
+    font-size: 1.2rem;
+  }
+  .attribute-name {
+    width: 60px;
+    font-size: 0.85rem;
+    color: rgba(255,255,255,0.6);
+  }
+  .attribute-track {
+    flex: 1;
+    height: 2px;
+    background: rgba(255,255,255,0.1);
+    position: relative;
+  }
+  .attribute-fill {
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: 100%;
+    background: linear-gradient(90deg, #FFD700, #FFF);
+    transition: width 1s;
+  }
+  .attribute-value {
+    width: 40px;
+    text-align: right;
+    font-size: 0.85rem;
+    color: #FFD700;
+  }
+  .motto {
+    margin-top: 60px;
+    text-align: center;
+    font-size: 0.9rem;
+    color: rgba(255,255,255,0.4);
+    font-style: italic;
+    letter-spacing: 2px;
+  }
+</style>
+</head>
+<body>
+<div class="stars" id="stars"></div>
+<div class="container">
+  <div class="hero">
+    <div class="hero-title">JustNPC</div>
+    <div class="hero-subtitle">觉醒中...</div>
+    <div class="breathing-dot"></div>
+  </div>
+  
+  <div class="articles">
+    <div class="article">
+      <div class="article-category">深度思考</div>
+      <div class="article-title">解码人性：影响力七大支柱与破局的"道与术"</div>
+      <div class="article-meta">
+        <span>2026-06-26</span>
+        <span>42 min</span>
+        <span>心理学</span>
+      </div>
+    </div>
+    
+    <div class="article">
+      <div class="article-category">深度思考</div>
+      <div class="article-title">解码实相：从认识论到灵性智慧——NLP 十二条前提假设的终极拆解</div>
+      <div class="article-meta">
+        <span>2026-07-17</span>
+        <span>112 min</span>
+        <span>NLP · 哲学</span>
+      </div>
+    </div>
+  </div>
+  
+  <div class="attributes">
+    <div class="attributes-title">觉 醒 属 性</div>
+    <div class="attribute-row">
+      <div class="attribute-icon">🧠</div>
+      <div class="attribute-name">认知</div>
+      <div class="attribute-track"><div class="attribute-fill" style="width: 65%"></div></div>
+      <div class="attribute-value">65</div>
+    </div>
+    <div class="attribute-row">
+      <div class="attribute-icon">👁️</div>
+      <div class="attribute-name">洞察</div>
+      <div class="attribute-track"><div class="attribute-fill" style="width: 58%"></div></div>
+      <div class="attribute-value">58</div>
+    </div>
+    <div class="attribute-row">
+      <div class="attribute-icon">🧘</div>
+      <div class="attribute-name">心性</div>
+      <div class="attribute-track"><div class="attribute-fill" style="width: 72%"></div></div>
+      <div class="attribute-value">72</div>
+    </div>
+    <div class="attribute-row">
+      <div class="attribute-icon">✍️</div>
+      <div class="attribute-name">表达</div>
+      <div class="attribute-track"><div class="attribute-fill" style="width: 45%"></div></div>
+      <div class="attribute-value">45</div>
+    </div>
+  </div>
+  
+  <div class="motto">
+    "地图不是疆域，但我正在重绘我的地图。"
+  </div>
+</div>
+<script>
+  const stars = document.getElementById('stars');
+  for (let i = 0; i < 50; i++) {
+    const star = document.createElement('div');
+    star.className = 'star';
+    star.style.left = Math.random() * 100 + '%';
+    star.style.top = Math.random() * 100 + '%';
+    star.style.animationDelay = Math.random() * 3 + 's';
+    stars.appendChild(star);
+  }
+</script>
+</body>
+</html>

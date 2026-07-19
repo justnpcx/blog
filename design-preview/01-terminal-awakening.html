@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>方案 1：终端觉醒</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    background: #0D1117;
+    color: #00FF41;
+    font-family: 'Courier New', 'Fira Code', monospace;
+    line-height: 1.6;
+    padding: 20px;
+    min-height: 100vh;
+  }
+  .terminal {
+    max-width: 900px;
+    margin: 0 auto;
+    border: 1px solid #30363D;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 0 40px rgba(0, 255, 65, 0.1);
+  }
+  .terminal-header {
+    background: #161B22;
+    padding: 10px 15px;
+    display: flex;
+    gap: 8px;
+    border-bottom: 1px solid #30363D;
+  }
+  .terminal-btn {
+    width: 12px; height: 12px; border-radius: 50%;
+  }
+  .btn-close { background: #FF5F56; }
+  .btn-min { background: #FFBD2E; }
+  .btn-max { background: #27C93F; }
+  .terminal-body {
+    padding: 20px;
+    background: #0D1117;
+  }
+  .prompt { color: #58A6FF; }
+  .output { color: #00FF41; margin-left: 10px; }
+  .error { color: #FF6B6B; }
+  .section {
+    margin: 20px 0;
+    padding: 15px;
+    border: 1px solid #21262D;
+    border-radius: 6px;
+    background: #161B22;
+  }
+  .section-title {
+    color: #58A6FF;
+    font-size: 0.9em;
+    margin-bottom: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .process {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #21262D;
+  }
+  .process:last-child { border-bottom: none; }
+  .pid { color: #FF6B6B; }
+  .stat-bar {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin: 8px 0;
+  }
+  .stat-label { width: 60px; color: #8B949E; }
+  .stat-track {
+    flex: 1;
+    height: 8px;
+    background: #21262D;
+    border-radius: 4px;
+    overflow: hidden;
+  }
+  .stat-fill {
+    height: 100%;
+    background: linear-gradient(90deg, #00FF41, #58A6FF);
+    border-radius: 4px;
+  }
+  .stat-value { width: 40px; text-align: right; color: #00FF41; }
+  .motto {
+    color: #8B949E;
+    font-style: italic;
+    padding: 10px;
+    border-left: 3px solid #00FF41;
+    margin: 15px 0;
+  }
+  .blink {
+    animation: blink 1s infinite;
+  }
+  @keyframes blink {
+    0%, 50% { opacity: 1; }
+    51%, 100% { opacity: 0; }
+  }
+</style>
+</head>
+<body>
+<div class="terminal">
+  <div class="terminal-header">
+    <div class="terminal-btn btn-close"></div>
+    <div class="terminal-btn btn-min"></div>
+    <div class="terminal-btn btn-max"></div>
+  </div>
+  <div class="terminal-body">
+    <div><span class="prompt">guest@justnpc:~$</span> <span class="output">whoami</span></div>
+    <div class="output">> 初级觉醒者 Lv.1</div>
+    
+    <div style="margin-top: 15px;">
+      <span class="prompt">guest@justnpc:~$</span> <span class="output">cat /etc/motto</span>
+    </div>
+    <div class="motto">"地图不是疆域，但我正在重绘我的地图。"</div>
+    
+    <div class="section">
+      <div class="section-title">[PROCESS] 觉醒日志</div>
+      <div class="process">
+        <span><span class="pid">[PID:001]</span> 解码人性：影响力七大支柱与破局的"道与术"</span>
+        <span>RUNNING</span>
+      </div>
+      <div class="process">
+        <span><span class="pid">[PID:002]</span> 解码实相：从认识论到灵性智慧</span>
+        <span>RUNNING</span>
+      </div>
+    </div>
+    
+    <div class="section">
+      <div class="section-title">[SYSTEM] 属性监控</div>
+      <div class="stat-bar">
+        <span class="stat-label">🧠 认知</span>
+        <div class="stat-track"><div class="stat-fill" style="width: 65%"></div></div>
+        <span class="stat-value">65</span>
+      </div>
+      <div class="stat-bar">
+        <span class="stat-label">👁️ 洞察</span>
+        <div class="stat-track"><div class="stat-fill" style="width: 58%"></div></div>
+        <span class="stat-value">58</span>
+      </div>
+      <div class="stat-bar">
+        <span class="stat-label">🧘 心性</span>
+        <div class="stat-track"><div class="stat-fill" style="width: 72%"></div></div>
+        <span class="stat-value">72</span>
+      </div>
+      <div class="stat-bar">
+        <span class="stat-label">✍️ 表达</span>
+        <div class="stat-track"><div class="stat-fill" style="width: 45%"></div></div>
+        <span class="stat-value">45</span>
+      </div>
+    </div>
+    
+    <div style="margin-top: 20px;">
+      <span class="prompt">guest@justnpc:~$</span> 
+      <span class="output">sudo awaken --level=2</span>
+      <span class="blink">▊</span>
+    </div>
+  </div>
+</div>
+</body>
+</html>
