@@ -369,13 +369,11 @@ body::before {
     padding: 6px 16px;
 }
 
-/* ---------- 6. 右侧栏小组件：独立卡片 + 清晰间距 ---------- */
+/* ---------- 6. 右侧栏小组件：独立卡片（无嵌套框） ---------- */
 
-/* 小组件：独立卡片感 */
+/* 小组件容器：独立卡片感 */
 .widget {
     border-radius: 16px;
-    overflow: hidden;
-    padding: 18px 20px;
     background: var(--card-background);
     border: 1px solid var(--card-separator-color);
     transition: box-shadow 0.25s ease;
@@ -389,10 +387,16 @@ body::before {
     }
 }
 
-/* 搜索框圆角统一 */
+/* 搜索框：已有自己的边框结构，禁止再包一层卡 */
 .search-form.widget {
-    padding: 16px;
-    border-radius: 16px;
+    background: transparent;
+    border: none;
+    border-radius: 0;
+    padding: 0;
+
+    &:hover {
+        box-shadow: none;
+    }
 }
 
 /* 小组件标题：左侧渐变指示条，字重大 */
@@ -431,6 +435,10 @@ body::before {
         display: flex;
         flex-direction: column;
         gap: 6px;
+    }
+
+    .archives-year {
+        display: block;
     }
 
     .archives-year a {
