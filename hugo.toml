@@ -69,7 +69,7 @@ defaultContentLanguageInSubdir = false
     level = 1
     title = '初级觉醒者'
     systemVersion = 'v0.3.1'
-    defaultStyle = 'void'  # 默认主题: void(虚空) / journal(手账) / cyber(赛博)
+    defaultStyle = 'cyber'  # 默认主题: void(虚空) / journal(手账) / cyber(赛博)
     attributes = [
       { name = '认知', value = 65, icon = '🧠', color = '#E07A5F' },
       { name = '洞察', value = 58, icon = '👁️', color = '#81B29A' },
