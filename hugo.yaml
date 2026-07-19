@@ -69,15 +69,15 @@ params:
     enabled: true
     provider: giscus
     giscus:
-      repo: justnpc/blog-site
-      repoID: REPLACE_ME
-      category: General
-      categoryID: REPLACE_ME
+      repo: justnpcx/blog
+      repoID: R_kgDOS-f09g
+      category: Announcements
+      categoryID: DIC_kwDOS-f09s4C_hrP
       mapping: pathname
       strict: 0
       reactionsEnabled: 1
       emitMetadata: 0
-      inputPosition: top
+      inputPosition: bottom
       lightTheme: light
       darkTheme: dark
       lang: zh-CN

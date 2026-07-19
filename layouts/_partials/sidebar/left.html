@@ -92,4 +92,28 @@
             </ol>
         </li>
     </ol>
+
+    <!-- 渲染系统状态与座右铭 -->
+    <div class="cyber-sidebar-extra" style="margin-top: 30px;">
+        {{ with .Site.Params.systemStatus }}
+        <div class="cyber-status-bar">
+            <div class="cyber-status-item">
+                <span class="cyber-status-indicator"></span>
+                <span class="cyber-status-label">AWAKEN:</span>
+                <span class="cyber-status-value cyan">{{ .awaken }}%</span>
+            </div>
+            <div class="cyber-status-item">
+                <span class="cyber-status-indicator magenta"></span>
+                <span class="cyber-status-label">UPTIME:</span>
+                <span class="cyber-status-value magenta">{{ .uptime }}</span>
+            </div>
+        </div>
+        {{ end }}
+
+        {{ with .Site.Params.motto }}
+        <div class="cyber-motto">
+            <div class="cyber-motto-text">{{ . }}</div>
+        </div>
+        {{ end }}
+    </div>
 </aside>
