@@ -1,6 +1,6 @@
 /* ============================================================
-   NPC智慧站 · 「赛博觉醒」视觉系统 v2.0
-   设计理念：克制的科技感 —— NPC 在数字空间中觉醒
+   NPC智慧站 · 「赛博觉醒」视觉系统 v2.1（深度交互迭代）
+   设计理念：克制的科技感 —— 每一个可交互元素都有清晰的反馈
    ============================================================ */
 
 /* ---------- 1. 字体系统 ---------- */
@@ -14,7 +14,9 @@
     --awake-purple: #7c5cff;
     --awake-cyan: #00d9c0;
     --awake-gradient: linear-gradient(135deg, var(--awake-purple) 0%, var(--awake-cyan) 100%);
-    --awake-gradient-soft: linear-gradient(135deg, rgba(124, 92, 255, 0.15) 0%, rgba(0, 217, 192, 0.15) 100%);
+    --awake-gradient-soft: linear-gradient(135deg, rgba(124, 92, 255, 0.12) 0%, rgba(0, 217, 192, 0.12) 100%);
+    --awake-glow-purple: rgba(124, 92, 255, 0.35);
+    --awake-glow-cyan: rgba(0, 217, 192, 0.3);
 
     /* 覆盖主题强调色 */
     --accent-color: var(--awake-purple);
@@ -22,7 +24,6 @@
     --accent-color-text: #fff;
 }
 
-/* 应用字体 */
 body {
     font-family: var(--font-sans);
 }
@@ -33,7 +34,6 @@ code, pre, kbd, samp,
     font-family: var(--font-mono);
 }
 
-/* 数字与英文用 Space Grotesk，中文自动回落 */
 .article-title, .section-title, .widget-title,
 .article-list .article-title a {
     font-family: var(--font-sans);
@@ -41,24 +41,18 @@ code, pre, kbd, samp,
 }
 
 /* ---------- 2. 背景：数字空间质感 ---------- */
-body {
-    position: relative;
-}
-
 body::before {
     content: "";
     position: fixed;
     inset: 0;
     z-index: -1;
     pointer-events: none;
-    /* 细腻网格纹理 */
     background-image:
         linear-gradient(rgba(124, 92, 255, 0.03) 1px, transparent 1px),
         linear-gradient(90deg, rgba(124, 92, 255, 0.03) 1px, transparent 1px);
     background-size: 40px 40px;
 }
 
-/* 暗色模式：深空蓝黑 + 更明显网格 */
 [data-scheme="dark"] {
     --body-background: #0d1117;
     --card-background: #161b22;
@@ -76,7 +70,6 @@ body::before {
     background-size: 40px 40px;
 }
 
-/* 暗色模式顶部氛围光 */
 [data-scheme="dark"] body::after {
     content: "";
     position: fixed;
@@ -90,7 +83,7 @@ body::before {
     z-index: -1;
 }
 
-/* ---------- 3. 左侧边栏：觉醒标识 ---------- */
+/* ---------- 3. 左侧边栏 ---------- */
 .left-sidebar {
     header {
         .site-avatar {
@@ -101,7 +94,6 @@ body::before {
                 transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
             }
 
-            /* 渐变光环 */
             &::before {
                 content: "";
                 position: absolute;
@@ -116,6 +108,15 @@ body::before {
             &:hover .site-logo {
                 transform: scale(1.05) rotate(2deg);
             }
+
+            /* emoji 徽章同步微动 */
+            .emoji {
+                transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
+            }
+
+            &:hover .emoji {
+                transform: scale(1.1) rotate(-6deg);
+            }
         }
 
         .site-name {
@@ -125,43 +126,171 @@ body::before {
             -webkit-text-fill-color: transparent;
             font-weight: 700;
         }
-
-        .site-description {
-            font-size: 1.35rem;
-            color: var(--card-text-color-secondary);
-        }
     }
 }
 
 @keyframes avatar-glow {
-    0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 rgba(124, 92, 255, 0.3); }
+    0%, 100% { opacity: 0.6; box-shadow: 0 0 0 0 var(--awake-glow-purple); }
     50% { opacity: 1; box-shadow: 0 0 20px 4px rgba(124, 92, 255, 0.25); }
 }
 
-/* 菜单 hover 微光 */
-.menu li a {
-    border-radius: var(--card-border-radius);
-    transition: all 0.25s ease;
+/* ===== 3.1 主菜单：药丸式 hover，背景包裹感增强 ===== */
+.menu {
+    li a {
+        border-radius: 12px;
+        padding: 10px 14px;
+        transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+        position: relative;
 
-    &:hover, &.current {
+        &:hover {
+            background: var(--awake-gradient-soft);
+            color: var(--accent-color);
+            transform: translateX(4px);
+        }
+
+        svg {
+            transition: color 0.25s ease;
+        }
+    }
+
+    /* 当前页：左侧渐变指示条 + 药丸底 */
+    li.current a {
         background: var(--awake-gradient-soft);
         color: var(--accent-color);
+        font-weight: 600;
+
+        &::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 3px;
+            height: 60%;
+            background: var(--awake-gradient);
+            border-radius: 2px;
+        }
     }
 }
 
-/* 社交图标 hover 发光 */
-.social-menu a {
-    transition: all 0.3s ease;
-    border-radius: 8px;
+/* ===== 3.2 明暗切换按钮：修复抖动，与其他菜单项统一 ===== */
+#dark-mode-toggle {
+    /* 关键修复：与 .menu li a 完全一致的盒模型 */
+    border-radius: 12px;
+    padding: 10px 14px;
+    margin-top: auto;
+    color: var(--body-text-color);
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    gap: var(--menu-icon-separation);
+    font-weight: 400; /* 防止暗色模式 font-weight 突变导致抖动 */
+    transition: background 0.25s ease, color 0.25s ease, transform 0.25s ease;
+    /* 固定高度，防止图标 display 切换导致布局抖动 */
+    min-height: 42px;
+    box-sizing: border-box;
 
     &:hover {
+        background: var(--awake-gradient-soft);
         color: var(--accent-color);
-        transform: translateY(-2px);
-        filter: drop-shadow(0 2px 8px rgba(124, 92, 255, 0.4));
+        transform: translateX(4px);
+    }
+
+    svg {
+        transition: color 0.25s ease, transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+        flex-shrink: 0;
+    }
+
+    &:hover svg {
+        transform: rotate(15deg) scale(1.1);
+    }
+
+    .icon-tabler-toggle-right {
+        display: none;
     }
 }
 
-/* ---------- 4. 文章卡片：能量条 + 悬浮 ---------- */
+[data-scheme="dark"] {
+    #dark-mode-toggle {
+        color: var(--accent-color);
+        font-weight: 400; /* 关键修复：不再用 700，消除抖动 */
+        background: var(--awake-gradient-soft);
+
+        .icon-tabler-toggle-left {
+            display: none;
+        }
+
+        .icon-tabler-toggle-right {
+            display: unset;
+        }
+    }
+}
+
+/* ===== 3.3 社交图标：统一尺寸 + 发光 hover ===== */
+.menu-social {
+    li a {
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        transition: all 0.3s ease;
+
+        &:hover {
+            color: var(--accent-color);
+            background: var(--awake-gradient-soft);
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(124, 92, 255, 0.2);
+        }
+    }
+}
+
+/* ---------- 4. 搜索框：明确的激活反馈 ---------- */
+.search-form {
+    &.widget {
+        input {
+            /* 基础态：清晰的边框，而非无边框 */
+            border: 1.5px solid var(--card-separator-color) !important;
+            border-radius: 12px !important;
+            transition: border-color 0.25s ease, box-shadow 0.25s ease !important;
+
+            /* 激活态：紫色边框 + 外发光 + 轻微放大 */
+            &:focus {
+                outline: 0;
+                border-color: var(--awake-purple) !important;
+                box-shadow: 0 0 0 3px rgba(124, 92, 255, 0.15),
+                            var(--shadow-l2) !important;
+            }
+        }
+
+        /* label 在聚焦时变色 */
+        &:focus-within label {
+            color: var(--awake-purple);
+        }
+
+        /* 搜索按钮 hover */
+        button {
+            border-radius: 0 12px 12px 0;
+            transition: background 0.25s ease;
+
+            &:hover {
+                background: var(--awake-gradient-soft);
+
+                svg {
+                    color: var(--accent-color);
+                    transform: scale(1.15);
+                }
+            }
+
+            svg {
+                transition: all 0.25s ease;
+            }
+        }
+    }
+}
+
+/* ---------- 5. 文章卡片 ---------- */
 .article-list article,
 .article-list--compact article,
 .article-list--tile article {
@@ -170,7 +299,6 @@ body::before {
     transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1),
                 box-shadow 0.3s ease;
 
-    /* 顶部渐变能量条 */
     &::before {
         content: "";
         position: absolute;
@@ -193,43 +321,74 @@ body::before {
     }
 }
 
-/* 分类标签：渐变底胶囊 */
-.article-category a, .article-tags a {
+/* ===== 5.1 文章标题：修复颜色问题 ===== */
+.article-title {
+    color: var(--card-text-color-main);
+
+    a {
+        color: var(--card-text-color-main);
+        background-image: linear-gradient(to right, var(--awake-purple), var(--awake-cyan));
+        background-size: 0% 2px;
+        background-repeat: no-repeat;
+        background-position: left bottom;
+        transition: background-size 0.4s ease, color 0.3s ease;
+
+        &:hover {
+            color: var(--accent-color);
+            background-size: 100% 2px;
+        }
+    }
+}
+
+/* ===== 5.2 分类 & 标签 chips：加大 padding，药丸感 ===== */
+.article-category a,
+.article-tags a,
+.tag-cloud-tags a,
+.category-list a {
+    display: inline-flex;
+    align-items: center;
     background: var(--awake-gradient-soft);
     color: var(--accent-color);
     border-radius: 999px;
-    padding: 4px 12px;
-    font-size: 1.25rem;
+    padding: 5px 14px;
+    font-size: 1.3rem;
     font-weight: 500;
+    line-height: 1.4;
     transition: all 0.25s ease;
 
     &:hover {
         background: var(--awake-gradient);
         color: #fff;
         transform: translateY(-1px);
+        box-shadow: 0 3px 10px rgba(124, 92, 255, 0.3);
     }
 }
 
-/* 文章标题 hover 渐变 */
-.article-title a {
-    background: linear-gradient(to right, var(--awake-purple), var(--awake-cyan));
-    background-size: 0% 2px;
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    transition: background-size 0.4s ease;
-
-    &:hover {
-        background-size: 100% 2px;
-    }
+/* 标签云大小差异保留，但统一最小 padding */
+.tag-cloud-tags a {
+    padding: 6px 16px;
 }
 
-/* ---------- 5. 右侧栏小组件 ---------- */
+/* ---------- 6. 右侧栏小组件 ---------- */
 .widget {
     border-radius: var(--card-border-radius);
     overflow: hidden;
 }
 
-/* 订阅 CTA：紫青渐变卡片，视觉焦点 */
+/* 归档 / 分类小组件内的列表项 hover */
+.widget.archives .widget-archive--list li a,
+.widget.categories .widget-categories--list li a {
+    border-radius: 8px;
+    padding: 6px 10px;
+    transition: background 0.25s ease, color 0.25s ease;
+
+    &:hover {
+        background: var(--awake-gradient-soft);
+        color: var(--accent-color);
+    }
+}
+
+/* 订阅 CTA */
 .newsletter-widget {
     .widget--body {
         background: var(--awake-gradient-soft);
@@ -238,7 +397,6 @@ body::before {
         position: relative;
         overflow: hidden;
 
-        /* 角落光效 */
         &::before {
             content: "";
             position: absolute;
@@ -273,7 +431,7 @@ body::before {
             padding: 12px 16px;
             font-size: 1.4rem;
             background: var(--card-background);
-            border: 1px solid var(--card-separator-color);
+            border: 1.5px solid var(--card-separator-color);
             border-radius: 10px;
             color: var(--card-text-color-main);
             outline: none;
@@ -336,22 +494,21 @@ body::before {
     }
 }
 
-/* ---------- 6. 文章页：阅读体验 ---------- */
+/* ---------- 7. 文章页阅读体验 ---------- */
 .article-content {
     font-size: 1.62rem;
     line-height: 1.85;
 
-    /* 段落首行不缩进，但增加段间距 */
     p {
         margin-bottom: 1.4em;
     }
 
-    /* 标题层级强化 */
     h2 {
         font-size: 2.1rem;
         margin-top: 2em;
         position: relative;
         padding-left: 14px;
+        color: var(--card-text-color-main);
 
         &::before {
             content: "";
@@ -368,9 +525,9 @@ body::before {
 
     h3 {
         font-size: 1.8rem;
+        color: var(--card-text-color-main);
     }
 
-    /* 引用块：觉醒风格 */
     blockquote {
         border-left: 3px solid var(--awake-purple);
         background: var(--awake-gradient-soft);
@@ -385,7 +542,6 @@ body::before {
         }
     }
 
-    /* 行内代码 */
     :not(pre) > code {
         background: var(--awake-gradient-soft);
         color: var(--awake-purple);
@@ -395,19 +551,16 @@ body::before {
         border: 1px solid rgba(124, 92, 255, 0.2);
     }
 
-    /* 代码块 */
     pre {
         border-radius: 12px;
         border: 1px solid var(--card-separator-color);
     }
 
-    /* 图片圆角 + 阴影 */
     img {
         border-radius: 12px;
         box-shadow: var(--shadow-l1);
     }
 
-    /* 链接下划线渐变 */
     a {
         text-decoration: none;
         background-image: var(--awake-gradient);
@@ -422,7 +575,7 @@ body::before {
     }
 }
 
-/* ---------- 7. 作者卡 & 热门文章（页脚组件） ---------- */
+/* ---------- 8. 作者卡 & 热门文章 ---------- */
 .npc-author-card {
     background: var(--card-background);
     border: 1px solid var(--card-separator-color);
@@ -430,8 +583,12 @@ body::before {
     padding: 20px;
     position: relative;
     overflow: hidden;
+    transition: box-shadow 0.3s ease;
 
-    /* 左侧渐变条 */
+    &:hover {
+        box-shadow: var(--shadow-l1), 0 4px 20px rgba(124, 92, 255, 0.1);
+    }
+
     &::before {
         content: "";
         position: absolute;
@@ -472,9 +629,7 @@ body::before {
     }
 }
 
-/* ---------- 8. 全局动画与交互 ---------- */
-
-/* 页面入场交错动画 */
+/* ---------- 9. 全局动画与交互细节 ---------- */
 @keyframes fade-up {
     from {
         opacity: 0;
@@ -524,19 +679,9 @@ body::before {
     }
 }
 
-/* 文字选区：渐变紫 */
 ::selection {
     background: rgba(124, 92, 255, 0.25);
     color: inherit;
-}
-
-/* 明暗切换按钮 */
-#dark-mode-toggle {
-    transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-    &:hover {
-        transform: rotate(15deg) scale(1.1);
-    }
 }
 
 /* 归档时间轴节点发光 */
@@ -564,9 +709,28 @@ body::before {
     background: var(--awake-gradient) !important;
     border-radius: 12px !important;
     box-shadow: 0 4px 16px rgba(124, 92, 255, 0.3);
+    transition: transform 0.3s ease, box-shadow 0.3s ease !important;
+
+    &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 24px rgba(124, 92, 255, 0.45);
+    }
 }
 
-/* ---------- 9. 移动端优化 ---------- */
+/* 文章页内目录 TOC 高亮 */
+.widget.toc {
+    #TableOfContents {
+        a {
+            transition: color 0.2s ease, padding-left 0.2s ease;
+
+            &:hover, &.active-class {
+                color: var(--accent-color);
+            }
+        }
+    }
+}
+
+/* ---------- 10. 移动端优化 ---------- */
 @media (max-width: 768px) {
     .npc-author-card {
         flex-direction: column;
@@ -578,13 +742,17 @@ body::before {
         font-size: 1.55rem;
     }
 
-    /* 移动端减少动画幅度，避免眩晕 */
     .article-list article:hover {
         transform: translateY(-2px);
     }
+
+    /* 移动端菜单 hover 位移减弱，避免误触 */
+    .menu li a:hover {
+        transform: translateX(2px);
+    }
 }
 
-/* 尊重用户的减少动画偏好 */
+/* 尊重减少动画偏好 */
 @media (prefers-reduced-motion: reduce) {
     *, *::before, *::after {
         animation-duration: 0.01ms !important;
