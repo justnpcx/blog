@@ -453,23 +453,17 @@ body::after {
     color: var(--cyber-cyan);
 }
 
-/* ---------- 10. 左侧边栏重设计 ---------- */
 .left-sidebar {
     header {
-        .site-avatar {
-            .site-logo {
-                border-radius: 0 !important;
-                border: 2px solid var(--cyber-border);
-            }
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
 
-            &::before {
-                display: none;
-            }
-
-            &:hover .site-logo {
-                border-color: var(--cyber-cyan);
-                box-shadow: var(--glow-cyan);
-            }
+        .site-meta {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
         }
 
         .site-name {
@@ -490,6 +484,10 @@ body::after {
             letter-spacing: 1px !important;
             font-family: var(--font-mono) !important;
         }
+    }
+
+    .menu-social {
+        justify-content: center !important;
     }
 }
 
@@ -707,8 +705,8 @@ body::after {
 
 .cyber-avatar-hud {
     position: relative;
-    width: 120px;
-    height: 120px;
+    width: var(--sidebar-avatar-size, 120px);
+    height: var(--sidebar-avatar-size, 120px);
     border: 1px solid var(--cyber-border-magenta);
     padding: 6px;
     background: rgba(0, 0, 0, 0.4);
@@ -780,14 +778,14 @@ body::after {
         rgba(0, 255, 255, 0) 14%,
         rgba(0, 255, 255, 0) 100%
     );
-    background-size: 100% 120px;
+    background-size: 100% var(--sidebar-avatar-size, 120px);
     pointer-events: none;
     opacity: 0.3;
 }
 
 @keyframes scanline-move {
     0% { background-position: 0 0; }
-    100% { background-position: 0 120px; }
+    100% { background-position: 0 var(--sidebar-avatar-size, 120px); }
 }
 
 /* 头像下方状态指示器 */
