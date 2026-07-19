@@ -1,0 +1,271 @@
+/* NPC Awakening Theme — Custom Styles for Stack */
+
+:root {
+    /* NPC Color Palette */
+    --npc-main: #3B4CCF;
+    --npc-main-light: #5A6FE8;
+    --npc-accent: #F59E0B;
+    --npc-accent-alt: #8B5CF6;
+    --npc-system: #10B981;
+    --npc-terminal: #0D0D17;
+    --npc-terminal-2: #1a1a3e;
+    
+    /* Override Stack variables */
+    --accent-color: var(--npc-main);
+    --accent-color-darker: var(--npc-main-light);
+    --accent-color-text: #fff;
+}
+
+[data-scheme="dark"] {
+    --accent-color: var(--npc-main-light);
+    --accent-color-darker: var(--npc-main);
+}
+
+/* NPC Widget in Sidebar */
+.npc-widget {
+    margin-top: var(--spacing-lg);
+    padding: var(--spacing-md);
+    background: var(--card-background);
+    border-radius: var(--card-border-radius);
+    box-shadow: var(--shadow-l1);
+    border: 1px solid var(--card-separator-color);
+}
+
+.npc-widget-header {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding-bottom: 10px;
+    border-bottom: 1px dashed var(--card-separator-color);
+    font-size: 0.7rem;
+}
+
+.npc-system-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: var(--npc-system);
+    animation: npcPulse 2s infinite;
+}
+
+@keyframes npcPulse {
+    0%, 100% { opacity: 1; box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.4); }
+    50% { opacity: 0.7; box-shadow: 0 0 0 4px rgba(16, 185, 129, 0); }
+}
+
+.npc-widget-title {
+    color: var(--npc-system);
+    font-weight: 600;
+    letter-spacing: 0.03em;
+    flex: 1;
+}
+
+.npc-widget-version {
+    color: var(--card-text-color-tertiary);
+    font-size: 0.65rem;
+    background: var(--card-background-selected);
+    padding: 2px 8px;
+    border-radius: 10px;
+}
+
+.npc-widget-body {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-top: 10px;
+}
+
+.npc-widget-avatar-ring {
+    position: relative;
+    width: 56px;
+    height: 56px;
+    flex-shrink: 0;
+}
+
+.npc-widget-avatar {
+    width: 100%;
+    height: 100%;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 2px solid var(--npc-accent);
+    box-shadow: 0 0 12px rgba(245, 158, 11, 0.2);
+}
+
+.npc-widget-level {
+    position: absolute;
+    bottom: -2px;
+    right: -4px;
+    background: linear-gradient(135deg, var(--npc-accent), #F0A030);
+    color: #fff;
+    font-size: 0.6rem;
+    font-weight: 700;
+    padding: 2px 6px;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(245, 158, 11, 0.3);
+}
+
+.npc-widget-info {
+    flex: 1;
+    min-width: 0;
+}
+
+.npc-widget-name {
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: var(--card-text-color-main);
+}
+
+.npc-widget-title-text {
+    font-size: 0.72rem;
+    color: var(--npc-accent);
+    font-weight: 600;
+    margin-top: 2px;
+}
+
+.npc-widget-motto {
+    font-size: 0.72rem;
+    color: var(--card-text-color-secondary);
+    margin-top: 6px;
+    min-height: 1.4em;
+    line-height: 1.4;
+}
+
+.npc-motto-cursor {
+    color: var(--npc-accent);
+    font-weight: 700;
+    margin-right: 2px;
+}
+
+.npc-widget-attributes {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.npc-widget-attr {
+    display: flex;
+    flex-direction: column;
+    gap: 3px;
+}
+
+.npc-widget-attr-header {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 0.68rem;
+}
+
+.npc-widget-attr-icon {
+    font-size: 0.75rem;
+}
+
+.npc-widget-attr-name {
+    color: var(--card-text-color-secondary);
+    flex: 1;
+}
+
+.npc-widget-attr-value {
+    color: var(--npc-accent);
+    font-weight: 600;
+    font-size: 0.65rem;
+}
+
+.npc-widget-attr-bar {
+    height: 4px;
+    background: var(--card-background-selected);
+    border-radius: 2px;
+    overflow: hidden;
+}
+
+.npc-widget-attr-fill {
+    height: 100%;
+    background: linear-gradient(90deg, var(--npc-main), var(--npc-accent));
+    border-radius: 2px;
+    transition: width 1s ease;
+}
+
+.npc-widget-footer {
+    display: flex;
+    justify-content: space-around;
+    padding-top: 10px;
+    margin-top: 10px;
+    border-top: 1px dashed var(--card-separator-color);
+}
+
+.npc-widget-stat {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2px;
+}
+
+.npc-widget-stat-value {
+    font-size: 1.1rem;
+    font-weight: 800;
+    color: var(--card-text-color-main);
+}
+
+.npc-widget-stat-label {
+    font-size: 0.62rem;
+    color: var(--card-text-color-tertiary);
+}
+
+/* NPC Article Card Enhancements */
+.article-list article {
+    position: relative;
+    overflow: hidden;
+}
+
+.article-list article::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--npc-main), var(--npc-accent));
+    opacity: 0;
+    transition: opacity 0.3s ease;
+    z-index: 1;
+}
+
+.article-list article:hover::before {
+    opacity: 1;
+}
+
+/* NPC Category Badge */
+.article-category a {
+    background: linear-gradient(135deg, var(--npc-main), var(--npc-accent-alt)) !important;
+    color: #fff !important;
+    border-radius: 20px !important;
+    padding: 4px 12px !important;
+    font-weight: 600 !important;
+}
+
+/* NPC Footer */
+.footer {
+    border-top: 1px solid var(--card-separator-color);
+}
+
+/* Dark mode adjustments */
+[data-scheme="dark"] .npc-widget {
+    background: var(--card-background);
+    border-color: var(--card-separator-color);
+}
+
+[data-scheme="dark"] .npc-widget-avatar {
+    box-shadow: 0 0 16px rgba(245, 158, 11, 0.3);
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .npc-widget-attributes {
+        grid-template-columns: 1fr;
+    }
+    
+    .npc-widget-footer {
+        flex-wrap: wrap;
+        gap: 8px;
+    }
+}
