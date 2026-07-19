@@ -1,6 +1,6 @@
 baseURL = 'https://blog.justnpc.com/'
-title = '⚡ JustNPC'
-theme = 'hugo-heo'
+title = 'JustNPC'
+theme = 'stack'
 paginate = 10
 enableEmoji = true
 
@@ -19,63 +19,32 @@ defaultContentLanguageInSubdir = false
     languageCode = 'zh-CN'
     languageName = '简体中文'
     weight = 1
-    title = '⚡ JustNPC'
+    title = 'JustNPC'
 
     [[languages.zh-cn.menu.main]]
-      name = '🏠 首页'
+      name = '首页'
       url = '/'
       weight = 1
 
     [[languages.zh-cn.menu.main]]
-      name = '文库'
-      identifier = 'library'
-      weight = 2
-
-    [[languages.zh-cn.menu.main]]
-      name = '全部文章'
-      parent = 'library'
+      name = '文章'
       url = '/posts/'
-      weight = 1
+      weight = 2
 
     [[languages.zh-cn.menu.main]]
-      name = '分类列表'
-      parent = 'library'
+      name = '分类'
       url = '/categories/'
-      weight = 2
+      weight = 3
 
     [[languages.zh-cn.menu.main]]
-      name = '标签列表'
-      parent = 'library'
+      name = '标签'
       url = '/tags/'
-      weight = 3
-
-    [[languages.zh-cn.menu.main]]
-      name = '专栏'
-      identifier = 'columns'
-      weight = 3
-
-    [[languages.zh-cn.menu.main]]
-      name = '技术分享'
-      parent = 'columns'
-      url = '/categories/tech/'
-      weight = 1
-
-    [[languages.zh-cn.menu.main]]
-      name = '生活日志'
-      parent = 'columns'
-      url = '/categories/life/'
-      weight = 2
-
-    [[languages.zh-cn.menu.main]]
-      name = '关于'
-      identifier = 'about'
       weight = 4
 
     [[languages.zh-cn.menu.main]]
-      name = '关于本站'
-      parent = 'about'
+      name = '关于'
       url = '/about/'
-      weight = 1
+      weight = 5
 
 [params]
   mainSections = ['posts']
@@ -83,20 +52,20 @@ defaultContentLanguageInSubdir = false
   author = 'JustNPC'
   avatar = '/images/avatar.jpg'
   DateFormat = '2006-01-02'
-  startDate = '2026-06-26'  # 博客建立日期，用于计算运行天数
+  startDate = '2026-06-26'
 
   # NPC 专属参数
   [params.npc]
-    level = 1                    # 觉醒等级
-    title = '初级觉醒者'          # 当前称号
-    systemVersion = 'v0.3.1'     # 当前系统版本
-    attributes = [               # 属性面板
+    level = 1
+    title = '初级觉醒者'
+    systemVersion = 'v0.3.1'
+    attributes = [
       { name = '认知', value = 65, icon = '🧠' },
       { name = '洞察', value = 58, icon = '👁️' },
       { name = '心性', value = 72, icon = '🧘' },
       { name = '表达', value = 45, icon = '✍️' }
     ]
-    mottos = [                   # 随机箴言
+    mottos = [
       '地图不是疆域，但我正在重绘我的地图。',
       '在代码与哲学的交汇处，探索认知的边界。',
       '不是主角，但正在觉醒。',
@@ -105,32 +74,41 @@ defaultContentLanguageInSubdir = false
       '系统之外，还有更大的系统。'
     ]
 
-  [params.home]
-    intro = """
-🎮 **不是主角，但正在觉醒。**
+  [params.sidebar]
+    compact = false
+    avatar = '/images/avatar.jpg'
+    subtitle = '初级觉醒者 · 探索认知边界'
+    emoji = '⚡'
 
-在代码与哲学的交汇处，探索认知的边界。
-用第一性原理拆解问题，用灵性智慧重构实相。
+  [params.article]
+    headingAnchor = true
+    math = false
+    toc = true
+    readingTime = true
 
-> *"地图不是疆域，但我正在重绘我的地图。"*
-"""
-
-    [params.home.recent]
-      limit = 5
-
-    [params.home.feed]
-      enabled = true
+    [params.article.list]
+      showTags = true
 
   [params.footer]
-    [params.footer.social]
-      github = 'https://github.com/justnpcx'
-      email = 'mailto:justnpcx@gmail.com'
+    since = 2026
+    customText = 'Crafted with ◆ by JustNPC'
 
-  [params.waline]
-    serverURL = 'https://npc-comments-a12w.vercel.app' # 填入实际的 Vercel 域名
-    emoji = ['https://unpkg.com/@waline/emojis@1.1.0/weibo']
-    dark = 'html[data-theme="dark"]' # 适配 heo 的暗色模式
-    search = false
+  [params.colorScheme]
+    toggle = true
+    default = 'auto'
+
+  [params.dateFormat]
+    published = ':date_full'
+    lastUpdated = ':date_full'
+
+  [params.comments]
+    enabled = true
+    provider = 'waline'
+
+    [params.comments.waline]
+      serverURL = 'https://npc-comments-a12w.vercel.app'
+      lang = 'zh-CN'
+      emoji = ['https://unpkg.com/@waline/emojis@1.1.0/weibo']
 
 [outputs]
   home = ['HTML', 'RSS', 'JSON']
