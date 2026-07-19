@@ -375,48 +375,35 @@ body::before {
     overflow: hidden;
 }
 
-/* ===== 6.0 小组件图标：统一渐变药丸底（修复"只有订阅有背景"的不协调） ===== */
+/* ===== 6.0 小组件图标：隐藏，节省空间（用户反馈浪费纵向空间） ===== */
 .widget {
     .widget-icon {
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        width: 40px;
-        height: 40px;
-        border-radius: 12px;
-        background: var(--awake-gradient-soft);
-        margin-bottom: 10px;
-        transition: all 0.3s cubic-bezier(0.34, 1.56, 0.64, 1);
-
-        svg {
-            width: 20px;
-            height: 20px;
-            stroke-width: 1.8;
-            color: var(--awake-purple);
-            transition: all 0.3s ease;
-        }
-    }
-
-    /* hover 时图标药丸微微发光放大 */
-    &:hover .widget-icon {
-        background: var(--awake-gradient);
-        box-shadow: 0 4px 14px rgba(124, 92, 255, 0.3);
-        transform: scale(1.05) rotate(-3deg);
-
-        svg {
-            color: #fff;
-        }
+        display: none;
     }
 }
 
-/* 搜索框是 form 不是 .widget 结构里的 icon，但它的卡片边界也要统一圆角 */
+/* 搜索框圆角统一 */
 .search-form.widget input {
     border-radius: 12px !important;
 }
 
-/* 小组件标题：统一字重与间距 */
+/* 小组件标题：统一字重与间距，左侧加渐变指示条呼应整体 */
 .widget-title {
     font-weight: 600;
+    position: relative;
+    padding-left: 12px;
+
+    &::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 50%;
+        transform: translateY(-50%);
+        width: 3px;
+        height: 70%;
+        background: var(--awake-gradient);
+        border-radius: 2px;
+    }
 
     a {
         color: var(--card-text-color-main);
@@ -441,22 +428,8 @@ body::before {
     }
 }
 
-/* 订阅 CTA：与其他组件结构统一（图标药丸 + 标题），但 body 保留渐变卡片作为视觉焦点 */
+/* 订阅 CTA：与其他组件结构统一（无图标，标题带渐变指示条），body 保留渐变卡片作为视觉焦点 */
 .newsletter-widget {
-    /* 图标药丸与其他组件完全一致，只是颜色呼应 CTA 主题 */
-    .newsletter-icon {
-        background: var(--awake-gradient);
-
-        svg {
-            color: #fff;
-        }
-    }
-
-    &:hover .newsletter-icon {
-        box-shadow: 0 4px 16px rgba(124, 92, 255, 0.4);
-        transform: scale(1.05) rotate(-3deg);
-    }
-
     .widget-title {
         font-size: 1.6rem;
         font-weight: 600;
